@@ -2,7 +2,7 @@
 //16 - Vetor com valores iguais 2
 
     int main(){
-        int vet[8], i, j, k, ig[8], aux=1, cont=0, rep[8];
+        int vet[8], i, j, k, ig[8], aux=1, cont=0, rep[8], t=0;
        
         
 
@@ -43,10 +43,17 @@
             }
         }
             
-    }
-      
+        }
         printf("\nValores repetidos:\n");
         for(i=0; i<cont; i++){
-            printf("%d aparece %d vezes\n", ig[i], rep[i]+1);
+            printf("%d aparece ", ig[i]);
+            for(j=t;j<8;j++){
+                if(rep[j]!=0){
+                    printf("%d vezes\n", rep[j]+1);
+                    t=j+1;
+                    break;
+                }
+          
+            }   
         }
-    }
+    }      
