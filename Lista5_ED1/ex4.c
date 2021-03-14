@@ -4,7 +4,7 @@
     int main(){
         int vet[6], i=0;
 
-        printf("<<Listando um vetor de numeros pares>>\n");
+        printf("<< Listando um vetor de numeros pares >>\n");
 
         while(i<6){
             printf("Entre com o numero %d: ", i+1);

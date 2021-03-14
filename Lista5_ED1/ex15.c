@@ -4,7 +4,7 @@
     int main(){
         int vet[8], i, j, k, ig[8], aux=1, cont=0;
 
-        printf("<<Valores Iguais>>\n");
+        printf("<< Valores Iguais >>\n");
 
         for(i=0; i<8; i++){
             printf("Entre com o numero %d: ", i+1);

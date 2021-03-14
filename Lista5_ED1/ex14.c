@@ -26,7 +26,7 @@
             printf("\n");
         }
 
-            printf("===Alunos Cadastrados===\n");
+            printf("=== Alunos Cadastrados ===\n");
             for(i=0; i<fim; i++){
                 printf("Numero: %d Classe social: %c CRA: %.2f\n", num[i], cla[i], cra[i]);
             }

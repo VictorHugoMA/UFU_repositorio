@@ -5,10 +5,10 @@
         int vet[5], maior, menor, ima=0, ime=0, soma=0, i;
         float media;
 
-        printf("<<5 valores>>\n");
+        printf("<< Five Values with index >>\n");
 
         for(i=0; i<5; i++){
-            printf("Entre com o numero %d: ", i+1);
+            printf("Imput #%d: ", i+1);
             scanf("%d", &vet[i]);
         }
 
@@ -30,11 +30,11 @@
         }
             media=soma/5.0;
 
-            printf("Os numeros digitados sao: ");
+            printf("\nThe numbers entered are: ");
             for(i=0; i<5; i++){
                 printf("%d ", vet[i]);
             }
-            printf("\nO maior valor e: %d, localizado na posicao %d do vetor\n", maior, ima);
-            printf("O menor valor e: %d, localizado na posicao %d do vetor\n", menor, ime);
-            printf("A media e: %.1f\n", media);
+            printf("\nMax. Value: %d, index %d of the array\n", maior, ima);
+            printf("Min. Value: %d, index %d of the array\n", menor, ime);
+            printf("Mean: %.1f\n", media);
     }

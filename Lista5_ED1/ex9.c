@@ -5,31 +5,33 @@
         int i, alunos;
         float notas[100],soma, media;
 
-        printf("<<Media de n alunos. Maxima 100>>\n");
+        printf("<< Media de n alunos. Maximo 100 alunos >>\n");
         
         while(1){
             printf("Entre com o numero de alunos: ");
             scanf("%d", &alunos);
 
-            if(alunos>100)
-                printf("Erro! O numero maximo de alunos permitido e 100.\n");
-            
             if(alunos<=100)
                 break;
+
+            if(alunos>100)
+                printf("Erro! O numero maximo de alunos permitido eh 100.\n");
+                return 0;
+            
         }
 
         for(i=0; i<alunos; i++){
-            printf("Digite a nota do aluno %d:", i+1);
+            printf("Digite a nota do aluno %d: ", i+1);
             scanf("%f", &notas[i]);
             soma+=notas[i];
         }
 
             media=soma/alunos;
-            printf("Relatorio de Notas\n");
+            printf("\nRelatorio de Notas\n");
 
             for(i=0; i<alunos; i++){
-                printf("A nota do aluno %d e: %.1f\n", i, notas[i]);
+                printf("A nota do aluno %d e: %.0f\n", i, notas[i]);
             }
-            printf("A media da turma e: %.1f\n", media);
+            printf("Media da turma: %.1f\n", media);
         
     }

@@ -4,7 +4,7 @@
     int main(){
         float qvd, qaz, qam, qvm, soma, pvd, paz, pam, pvm;
 
-        printf("<<Probabilidades>>\n");
+        printf("<< Probabilidades >>\n\n");
         printf("Digite a quantidade de bolinhas\n");
         printf("Verde: ");
         scanf("%f", &qvd);
@@ -12,7 +12,7 @@
         scanf("%f", &qaz);
         printf("Amarela: ");
         scanf("%f", &qam);
-        printf("Vermelho: ");
+        printf("Vermelha: ");
         scanf("%f", &qvm);
 
         soma=qvd+qaz+qam+qvm;

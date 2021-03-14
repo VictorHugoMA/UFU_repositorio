@@ -4,7 +4,7 @@
     int main(){
         int vet[5], i;
 
-        printf("<<Zerando negativos>>\n");
+        printf("<< Zerando negativos >>\n");
         for(i=0; i<5; i++){
             printf("Entre com o numero %d: ", i+1);
             scanf("%d", &vet[i]);
@@ -13,7 +13,7 @@
                 vet[i]=0;
         }
 
-        printf("Zerando os negativos, obtem-se: ");
+        printf("Negativos zerados: ");
         for(i=0; i<5; i++){
             printf("%d ", vet[i]);
         }

@@ -4,7 +4,7 @@
     int main(){
         int v[5], v1[5], v2[5], i, tp=0, ti=0;
 
-        printf("<<Pares e Impares>>\n");
+        printf("<< Pares e Impares >>\n");
 
         for(i=0; i<5; i++){
             printf("Digite o valor %d: ", i+1);
