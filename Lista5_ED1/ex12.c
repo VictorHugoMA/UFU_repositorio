@@ -2,55 +2,56 @@
 //12 - Probabilidade 
 
     int main(){
-        float qvd, qaz, qam, qvm, soma, pvd, paz, pam, pvm;
+        int i;
+        float cor[4], prob[4], soma=0;
 
         printf("<< Probabilidades >>\n\n");
         printf("Digite a quantidade de bolinhas\n");
         printf("Verde: ");
-        scanf("%f", &qvd);
+        scanf("%f", &cor[0]);
         printf("Azul: ");
-        scanf("%f", &qaz);
+        scanf("%f", &cor[1]);
         printf("Amarela: ");
-        scanf("%f", &qam);
+        scanf("%f", &cor[2]);
         printf("Vermelha: ");
-        scanf("%f", &qvm);
+        scanf("%f", &cor[3]);
 
-        soma=qvd+qaz+qam+qvm;
-        pvd=(qvd/soma)*100;
-        paz=(qaz/soma)*100;
-        pam=(qam/soma)*100;
-        pvm=(qvm/soma)*100;
-
-        if(pvd>paz&&pvd>pam&&pvd>pvm){
-            printf("\nProbabilidades\n");
-            printf("Verde: %.2f%% << Maior probabilidade\n", pvd);
-            printf("Azul: %.2f%%\n", paz);
-            printf("Amarelo: %.2f%%\n", pam);
-            printf("Vermelha: %.2f%%\n", pvm);
+        for(i=0; i<4; i++){
+            soma+=cor[i];
+        }
+        for(i=0; i<4; i++){
+            prob[i]=(cor[i]/soma)*100.0;
         }
 
-            else if(paz>pam&&paz>pvm){
+        if(prob[0]>prob[1]&&prob[0]>prob[2]&&prob[0]>prob[3]){
+            printf("\nProbabilidades\n");
+            printf("Verde: %.2f%% << Maior probabilidade\n", prob[0]);
+            printf("Azul: %.2f%%\n", prob[1]);
+            printf("Amarelo: %.2f%%\n", prob[2]);
+            printf("Vermelha: %.2f%%\n", prob[3]);
+        }
+
+            else if(prob[1]>prob[2]&&prob[1]>prob[3]){
                 printf("\nProbabilidades\n");
-                printf("Verde: %.2f%%\n", pvd);
-                printf("Azul: %.2f%% << Maior probabilidade\n", paz);
-                printf("Amarelo: %.2f%%\n", pam);
-                printf("Vermelha: %.2f%%\n", pvm);
+                printf("Verde: %.2f%%\n", prob[0]);
+                printf("Azul: %.2f%% << Maior probabilidade\n", prob[1]);
+                printf("Amarelo: %.2f%%\n", prob[2]);
+                printf("Vermelha: %.2f%%\n", prob[3]);
             }
 
-            else if(pam>pvm){
+            else if(prob[2]>prob[3]){
                 printf("\nProbabilidades\n");
-                printf("Verde: %.2f%%\n", pvd);
-                printf("Azul: %.2f%%\n", paz);
-                printf("Amarelo: %.2f%% << Maior probabilidade\n", pam);
-                printf("Vermelha: %.2f%%\n", pvm);
+                printf("Verde: %.2f%%\n", prob[0]);
+                printf("Azul: %.2f%%\n", prob[1]);
+                printf("Amarelo: %.2f%% << Maior probabilidade\n", prob[2]);
+                printf("Vermelha: %.2f%%\n", prob[3]);
             }
 
                 else{
                     printf("\nProbabilidades\n");
-                    printf("Verde: %.2f%%\n", pvd);
-                    printf("Azul: %.2f%%\n", paz);
-                    printf("Amarelo: %.2f%%\n", pam);
-                    printf("Vermelha: %.2f%% << Maior probabilidade\n", pvm);
+                    printf("Verde: %.2f%%\n", prob[0]);
+                    printf("Azul: %.2f%%\n", prob[1]);
+                    printf("Amarelo: %.2f%%\n", prob[2]);
+                    printf("Vermelha: %.2f%% << Maior probabilidade\n", prob[3]);
                 }
-
     }
