@@ -5,6 +5,8 @@
     int main(){
         int mat[3][3], somai[3]={0,0,0}, somaj[3]={0,0,0}, i, j;
 
+        srand(time(NULL));
+
         for(i=0; i<3; i++){
             for(j=0; j<3; j++){
                 mat[i][j] = (rand()/(double)RAND_MAX)*100;

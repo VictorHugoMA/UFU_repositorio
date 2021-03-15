@@ -6,6 +6,8 @@
         int mat[6][6], soma[8]={0,0,0,0,0,0,0,0}, i, j, inicio=1, fim=5;
 
         /*
+        srand(time(NULL));
+        
         for(i=0; i<6; i++){
             for(j=0; j<6; j++){
                 mat[i][j] = (rand()/(double)RAND_MAX)*100;
@@ -40,7 +42,7 @@
             }
             printf("\n");
         }
-        
+
         for(i=0; i<8; i++){
             printf("Soma %d = %d\n", i+1, soma[i]);
         }
