@@ -3,7 +3,7 @@
 //8 - Matriz 6x6 e soma partes
 
     int main(){
-        int mat[6][6], soma[8]={0,0,0,0,0,0,0,0}, i, j, inicio=1, fim=5, somaInf=0;
+        int mat[6][6], soma[8]={0,0,0,0,0,0,0,0}, i, j, inicioS=1, fimS=5, inicioI=2, fimI=3, somaInf=0;
 
         /*
         srand(time(NULL));
@@ -30,15 +30,22 @@
         }
 
         for(i=0; i<2; i++){
-            for(j=inicio; j<=fim; j++){
+            for(j=inicioS; j<=fimS; j++){
                 soma[2]+=mat[i][j];
             }
-            inicio++;
-            fim--;
+            inicioS++;
+            fimS--;
         }
-
-
-
+        for(i=4; i<=5; i++){
+            for(j=inicioI; j<=fimI; j++){
+                somaInf+=mat[i][j];
+            }
+            inicioI--;
+            fimI++;
+        }
+        soma[5]=soma[2]+somaInf;
+        soma[6]=soma[3]+soma[2];
+        soma[7]=soma[3]+somaInf;
 
         for(i=0; i<6; i++){
             for(j=0; j<6; j++){
@@ -56,9 +63,9 @@
     soma[0] = acima da diagonal principal -
     soma[1] = acima da diaginal secundaria -
     soma[2] = area superior -
-    soma[3] = area direita -
+    soma[3] = area esquerda -
     soma[4] = area esquerda e direita - 
-    soma[5] = area superior e inferior 
-    soma[6] = area esquerda e superior
+    soma[5] = area superior e inferior -
+    soma[6] = area esquerda e superior - 
     soma[7] = area esquerda e inferior
     */
