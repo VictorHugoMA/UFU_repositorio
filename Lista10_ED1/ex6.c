@@ -1,5 +1,5 @@
 #include<stdio.h>
-//5 - Ponteiro e endereco
+//5 - Ponteiro e endereco explicacao
 
     int main(){
         int v1 = 1;
@@ -21,3 +21,9 @@
         printf("\nEndereco-1 de v2 %u", p_v2-1);   
         printf("\nEndereco-1 de c %u", p_c-1);  
     } 
+/*
+Ao somar e subtrair um valor do ponteiro ha um comportamento diferente para cada
+variavel pois cada tipo de variavel possui um tamanho em bytes diferente, e cada 
+vez que se soma ou subtrai um ponteiro ele vai fazer essa operacao referente ao 
+tipo de memoria ao qual ele aponta.
+*/
