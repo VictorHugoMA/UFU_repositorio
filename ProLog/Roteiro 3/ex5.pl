@@ -4,3 +4,5 @@ subconjunto([X|T1], [Y|T2]):-
     subconjunto([T1], [T2]).
 
 subconjunto([])
+
+%n

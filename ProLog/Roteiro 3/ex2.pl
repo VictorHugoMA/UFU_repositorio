@@ -12,3 +12,5 @@ intercala1([X|X1], [Y|Y1], [X, Y|Z1]):-
 intercala1([X|X1], [Y|Y1], [Y|Z1]):-
     intercala1([X|X1], Y1, Z1).
 
+%n
+
