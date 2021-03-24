@@ -1,8 +1,8 @@
 subconjunto([], []).
-subconjunto([X|T1], [Y|T2]):-
-    X=Y,
-    subconjunto([T1], [T2]).
 
-subconjunto([])
+subconjunto([X|XS], [Y|YS]):-
+    X=:=Y;
+    subconjunto(XS, YS).
+
 
 %n
