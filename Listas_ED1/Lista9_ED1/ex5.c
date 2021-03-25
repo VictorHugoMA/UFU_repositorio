@@ -10,7 +10,7 @@
 
     int main(){
         int i, alMN1, alMA, alME;
-        float maiorN1=0, maiorM=0, menorM=0;
+        float maiorN1=0, maiorM=-1, menorM=101;
         struct aluno p[3];
 
         for(i=0; i<3; i++){
@@ -53,8 +53,13 @@
 
         for(i=0; i<3; i++){
             if(p[i].media>=60.0 && p[i].falta<=18){
-                printf("Aluno %s aprovado", p[i].nome);
+                printf("Aluno %s: Aprovado\n", p[i].nome);
             }
-            
+                else if(p[i].falta>18){
+                    printf("Alino %s: Reprovado por falta\n", p[i].nome);
+                }
+                    else{
+                        printf("Aluno %s: Reprovado por nota\n", p[i].nome);
+                    }
         }
     }

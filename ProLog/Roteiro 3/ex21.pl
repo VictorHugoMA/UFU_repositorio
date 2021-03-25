@@ -5,8 +5,6 @@ fatorial(M,N):-
    fatorial(M1,N1),
    N is M*N1.
 
-ncombinacoes(0,_,0).
-
 ncombinacoes(M, P, N):-
     fatorial(M, X),
     fatorial(P, Y),

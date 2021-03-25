@@ -5,7 +5,6 @@ fatorial(M,N):-
    fatorial(M1,N1),
    N is M*N1.
 
-narranjos(0,_,0).
 narranjos(M, P, N):-
     fatorial(M, X),
     Y is M-P,
