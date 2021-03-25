@@ -11,7 +11,7 @@ palindromo([H|L]):-
 /*
 1)
 ?- palindromo([s,o,c,o,r,r,a,m,m,e,s,u,b,i,n,o,o,n,i,b,u,s,e,m,m,a,r,r,o,c,o,s]).
-true.
+false.
 
 2)
 ?- palindromo([a,n,o,t,a,r,a,m,a,d,a,t,a,d,a,m,a,r,a,t,o,n,a]).
