@@ -27,8 +27,36 @@ C = [a1, a2, a3, a5, a10] ;
 .
 .
 false.
+*/
+% b)
 
-b)
+combinacaoP(X):-
+    combinacao(3, [m1,m2,m3,m4,m5,m6,m7,m8,m9], M),
+    combinacao(4, [c1,c2,c3,c4,c5,c6,c7,c8,c9, c10, c11], C),
+    append(M, C, X).
 
-
+/*
+algumas das combinacoes de professores sao:
+?- combinacaoP(X).
+X = [m1, m2, m3, c1, c2, c3, c4] ;
+X = [m1, m2, m3, c1, c2, c3, c5] ;
+X = [m1, m2, m3, c1, c2, c3, c6] ;
+X = [m1, m2, m3, c1, c2, c3, c7] ;
+X = [m1, m2, m3, c1, c2, c3, c8] ;
+X = [m1, m2, m3, c1, c2, c3, c9] ;
+X = [m1, m2, m3, c1, c2, c3, c10] ;
+X = [m1, m2, m3, c1, c2, c3, c11] ;
+X = [m1, m2, m3, c1, c2, c4, c5] ;
+X = [m1, m2, m3, c1, c2, c4, c6] ;
+X = [m1, m2, m3, c1, c2, c4, c7] ;
+X = [m1, m2, m3, c1, c2, c4, c8] ;
+X = [m1, m2, m3, c1, c2, c4, c9] ;
+X = [m1, m2, m3, c1, c2, c4, c10] ;
+X = [m1, m2, m3, c1, c2, c4, c11] ;
+X = [m1, m2, m3, c1, c2, c5, c6] ;
+X = [m1, m2, m3, c1, c2, c5, c7] ;
+.
+.
+.
+false.
 */

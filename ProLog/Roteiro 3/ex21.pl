@@ -1,12 +1,15 @@
-ncombinacoes(0,_,[]).
+fatorial(0,1). 
+fatorial(M,N):-
+   M>0,
+   M1 is M-1,
+   fatorial(M1,N1),
+   N is M*N1.
 
-ncombinacoes(N,[X|T],[X|ncombinacoes]):-
-    N>0,
-    N1 is N-1,
-    ncombinacoes(N1,T,ncombinacoes).
+ncombinacoes(0,_,0).
 
-ncombinacoes(N,[_|T],ncombinacoes):-
-    N>0,
-    ncombinacoes(N,T,ncombinacoes).
-
-%n
+ncombinacoes(M, P, N):-
+    fatorial(M, X),
+    fatorial(P, Y),
+    Z is M-P,
+    fatorial(Z, W),
+    N is X/(Y*W).
