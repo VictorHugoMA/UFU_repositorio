@@ -1,7 +1,5 @@
-prodEsc([], [], _).
+prodEsc([], [], 0).
 
 prodEsc([X|XS], [Y|YS], Resul):-
-    Resul is X*Y,
-    prodEsc(XS, YS, Resul).
-
-%n
+    prodEsc(XS, YS, Z),
+    Resul is X*Y+Z.
