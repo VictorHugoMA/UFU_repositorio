@@ -1,5 +1,5 @@
 #include<stdio.h>
-//5 - Pontos 2 struct e Aloc dinamica
+//5 - Pontos maior e menor struct e Aloc dinamica
 
     typedef struct ponto{
         int x, y;
