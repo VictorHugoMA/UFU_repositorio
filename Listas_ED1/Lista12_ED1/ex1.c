@@ -1,12 +1,16 @@
 #include<stdio.h>
 //1 - Linha Funcao
 
-    void Desenhalinha(){
-        for(int i=0; i<8; i++){
-            printf("=");
+    void Desenhalinha(int n){
+        for(int i=0; i<n; i++){
+            printf("========");
+            printf("\n");
         }
     }
 
     int main(){
-        Desenhalinha();
+        int n;
+
+        scanf("%d", &n);
+        Desenhalinha(n);
     }
