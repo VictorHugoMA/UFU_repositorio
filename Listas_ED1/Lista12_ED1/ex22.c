@@ -36,4 +36,6 @@
             printf(" %d,", p[i]);
         }
         printf(" %d", p[i]);
+
+        free(p);
     }
