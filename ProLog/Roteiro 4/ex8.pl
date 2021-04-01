@@ -9,10 +9,13 @@ disjunto([H|T], [H1|TS]):-
 
 
 %b
-uniao([], [], []).
+uniao([],[],[]).
 
-uniao(L, K, M):-
-    append(L, K, M).
+uniao([H,H1|T],[Y,Y1|T1],[H,H1,Y,Y1|V]):-
+    uniao(T,T1,V).
+
+uniao([H|T],[Y|T1],[H,Y|V]):-
+    uniao(T,T1,V).
 
 
 
