@@ -1,7 +1,8 @@
-soma_acum([],[]).
-soma_acum([H|T], [K, K2|KS]):-
-    K is H,
-    K2 is K+H,
-    soma_acum(T, KS).
+soma_acum([], []).
+soma_acum([X|T], [X|ST]) :-
+    soma_acum(T, X, ST).
 
-%n
+soma_acum([], _, []).            
+soma_acum([X|T], S, [S1|ST]) :- 
+    S1 is X + S,           
+    soma_acum(T, S1, ST).
