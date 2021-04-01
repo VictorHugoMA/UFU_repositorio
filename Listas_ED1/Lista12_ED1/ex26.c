@@ -42,5 +42,4 @@
 
         free(vet);
         free(vet_double);
-
     }
