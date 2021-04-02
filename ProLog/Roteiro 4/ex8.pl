@@ -5,7 +5,7 @@ disjunto([X|H],K):-
     disjunto(H,K).
 
 
-%b n
+%b
 uniao([],[],[]).
 
 uniao([H,H1|T],[K,Y1|T1],[H,H1,K,Y1|M]):-
