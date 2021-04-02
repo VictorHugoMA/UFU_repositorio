@@ -5,7 +5,6 @@ disjunto([X|H],K):-
     disjunto(H,K).
 
 
-
 %b n
 uniao([],[],[]).
 
@@ -28,7 +27,6 @@ intersecao([_|XS],Y,M):-
     intersecao(XS,Y,M).
 
 
-
 %d
 diferenca([],_,[]).
 
@@ -40,6 +38,3 @@ diferenca([X|XS],Y,[M|MS]):-
 diferenca([X|XS],Y,M):-
     member(X,Y),
     diferenca(XS,Y,M).
-
-
-
