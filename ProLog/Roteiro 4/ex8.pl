@@ -1,32 +1,45 @@
 %a
-disjunto(X, []).
-disjunto([], X).
-
-disjunto([H|T], [H1|TS]):-
-    disjunto([H|T], TS),
-    disjunto(T, [H1|TS]).
+disjunto([],_).
+disjunto([X|H],K):-
+    \+member(X,K),
+    disjunto(H,K).
 
 
 
-%b
+%b n
 uniao([],[],[]).
 
-uniao([H,H1|T],[Y,Y1|T1],[H,H1,Y,Y1|V]):-
-    uniao(T,T1,V).
+uniao([H,H1|T],[K,Y1|T1],[H,H1,K,Y1|M]):-
+    uniao(T,T1,M).
 
-uniao([H|T],[Y|T1],[H,Y|V]):-
-    uniao(T,T1,V).
+uniao([H|T],[K|T1],[H,K|M]):-
+    uniao(T,T1,M).
+
+
+%c
+intersecao([],_,[]).
+
+intersecao([X|XS],Y,M):-
+    member(X,Y),
+    M = [X|M1],
+    intersecao(XS,Y,M1).
+
+intersecao([_|XS],Y,M):-
+    intersecao(XS,Y,M).
 
 
 
 %d
-diferenca([], _, []).
+diferenca([],_,[]).
 
-diferenca([H|T], [H|TS], Y):-
-    diferenca(T, TS, Y).
+diferenca([X|XS],Y,[M|MS]):-
+    \+ member(X,Y),
+    M is X,
+    diferenca(XS,Y,MS).
 
-diferenca([H|T], [_|TS], [H|Y]):-
-    diferenca(T, TS, Y).
+diferenca([X|XS],Y,M):-
+    member(X,Y),
+    diferenca(XS,Y,M).
 
 
 
