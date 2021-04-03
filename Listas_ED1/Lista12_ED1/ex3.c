@@ -9,20 +9,21 @@
         }
         return total;
     }
-    void Desenhalinha(){
-        for(int i=0; i<15; i++){
+    void Desenhalinha(int n){
+        for(int i=0; i<n; i++){
             printf("=");
         }
         printf("\n");
     }
 
     int main(){
-        int x;
+        int x, n;
 
-        Desenhalinha();
-        printf("Numero: ");
+        printf("Digite o tamanho da linha: ");
+        scanf("%d", &n);
+        printf("Digite o numero que deseja calcular o fatorial: ");
         scanf("%d", &x);
-        x = fatorial(x);
-        printf("Fatorial = %d\n", x);
-        Desenhalinha();
+        Desenhalinha(n);
+        printf("O fatorial de %d eh %d\n", x, fatorial(x));
+        Desenhalinha(n);
     }
