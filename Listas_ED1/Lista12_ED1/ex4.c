@@ -17,9 +17,9 @@
     int main(){
         int x, n;
 
-        printf("Base: ");
+        printf("Digite o valor de x: ");
         scanf("%d", &x);
-        printf("Expoente: ");
+        printf("Digite o valor de n: ");
         scanf("%d", &n);
-        printf("Potencia = %d\n", potencia(x,n));
+        printf("O valor de %d elevado a %d eh %d", x, n, potencia(x,n));
     }
