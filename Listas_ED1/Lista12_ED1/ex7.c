@@ -12,11 +12,12 @@
     int main(){
         int a, b;
 
-        printf("A: ");
+        printf("Digite o numero A: ");
         scanf("%d", &a);
-        printf("B: ");
+        printf("Digite o numero B: ");
         scanf("%d", &b);
         troque(&a, &b);
 
-        printf("A = %d\nB = %d\n", a,b);
+        printf("O numero A eh: %d\n", a);
+        printf("O numero B eh: %d", b);
     }
