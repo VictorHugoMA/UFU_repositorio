@@ -38,15 +38,17 @@
 
     int main(){
         ponto p;
-        char dg[10];
+        char dg[10], temp[10];
 
         printf("Digite o ponto: ");
-        scanf("%d", &p.x);
-        scanf("%d", &p.y);
+        fgets(temp, 10, stdin);
+        sscanf(temp, "%d", &p.x);
+        fgets(temp, 10, stdin);
+        sscanf(temp, "%d", &p.y);
         printf("Digite a direcao: ");
-        setbuf(stdin, NULL);
-        fgets(dg, 10, stdin);
-        dg[strcspn(dg, "\n")] = '\0'; 
+        fgets(temp, 10, stdin);
+        temp[strcspn(temp, "\n")] = '\0'; 
+        strcpy(dg, temp);
         
         printf("(%d,%d) ", p.x, p.y);
         ind_diag(&p, dg);
