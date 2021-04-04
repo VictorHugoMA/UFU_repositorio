@@ -1,19 +1,26 @@
 #include<stdio.h>
 //9 - Incrementar ou decrementar funcao parametro
 
-    void incp(int *y){
-        if(*y>=0){
-            *y+=10;
-
-        }
-        else
-            *y-=20;
+   void incp(float *y, float x){
+        float t=(*y);
+        
+        (*y)*=x;
+        t+=(*y);
+        *y=t;
+    
     }
+    
+
     int main(){
-        int y;
+        float y, x;
 
-        scanf("%d", &y);
-        incp(&y);
+        printf("Digite o valor de y: ");
+        scanf("%f", &y);
+        printf("digite o percentual de alteracao: ");
+        scanf("%f", &x);
 
-        printf("Hexadecimal: %x\n", y);
+        incp(&y, x);
+
+
+        printf("O valor alterado eh: %.0f\n", y);
     }

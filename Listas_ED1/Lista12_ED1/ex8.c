@@ -3,15 +3,11 @@
 
     int incp(int y, float x){
         float t=y;
-        if(x>=0){
-            y*=x;
-            t+=y;
-            return t;
-        }
-        else
-            y*=x;
-            t-=y;
-            return t;
+
+        y*=x;
+        t+=y;
+
+        return t;
     }
     int main(){
         int y;
