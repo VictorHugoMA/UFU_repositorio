@@ -20,9 +20,13 @@
     int main(){
         ponto p1,p2,p3;
 
+        printf("Digite o valor de x1: ");
         scanf("%d", &p1.x);
+        printf("Digite o valor de y1: ");
         scanf("%d", &p1.y);
+        printf("Digite o valor de x2: ");
         scanf("%d", &p2.x);
+        printf("Digite o valor de y2: ");
         scanf("%d", &p2.y);
 
         p3=soma_ponto(p1,p2);
@@ -31,8 +35,7 @@
         imprime_ponto(p1); 
         printf(" com ");
         imprime_ponto(p2);
-        printf(" e ");
+        printf(" eh ");
         imprime_ponto(p3);
-        printf("\n");
 
     }
