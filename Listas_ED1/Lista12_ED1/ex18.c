@@ -13,28 +13,34 @@
         }
     }
     void imprime_vet_double(double *vetord, int n){
-        for(int i=0; i<n; i++){
-            printf("%.1lf ", vetord[i]);
+        int i;
+        for(i=0; i<n-1; i++){
+            printf(" %.2lf,", vetord[i]);
         }
-        printf("\n");
+        printf(" %.2lf\n", vetord[i]);
     }
 
     int main(){
-        double vet[5], maior, menor;
-        int i;
+        double *vet, maior, menor;
+        int i, n;
 
-        for(i=0; i<5; i++){
+        printf("Digite o tamnho do vetor: ");
+        scanf("%d", &n);
+        vet=(double *)malloc(n*sizeof(double));
+
+        for(i=0; i<n; i++){
+            printf("Digite o valor %d: ", i+1);
             scanf("%lf", &vet[i]);
         }
         maior=vet[0];
         menor=vet[0];
 
-        printf("Vetor: ");
-        imprime_vet_double(vet, 5);
-        maior_menor_vet(vet, 5, &maior, &menor);
-        printf("Maior = %.1lf\n", maior);
-        printf("Menor = %.1lf\n", menor);
+        printf("O vetor principal eh:");
+        imprime_vet_double(vet, n);
+        maior_menor_vet(vet, n, &maior, &menor);
+        printf("O maior valor eh %.2lf\n", maior);
+        printf("O menor valor eh %.2lf", menor);
 
-
+        free(vet);
 
     }
