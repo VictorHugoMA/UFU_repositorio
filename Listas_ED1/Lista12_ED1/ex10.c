@@ -6,13 +6,15 @@
     };
 
     int imprime_ponto (struct ponto p){
-        printf("(%d,%d)\n", p.x, p.y);
+        printf("O ponto digitado eh: (%d,%d)", p.x, p.y);
     }
 
     int main(){
         struct ponto p;
 
+        printf("Digite o valor de x: ");
         scanf("%d", &p.x);
+        printf("Digite o valor de y: ");
         scanf("%d", &p.y);
         imprime_ponto(p);
     }
