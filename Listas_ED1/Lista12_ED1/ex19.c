@@ -12,21 +12,29 @@
         return total;
     }
     void imprime_vet_float(float *vetorf, int n){
-        for(int i=0; i<n; i++){
-            printf("%.1f ", vetorf[i]);
+        int i;
+        for(i=0; i<n-1; i++){
+            printf(" %.2f,", vetorf[i]);
         }
-        printf("\n");
+        printf(" %.2f\n", vetorf[i]);
     }
 
     int main(){
-        float vet[5];
-        int i;
+        int i, n;
+        float *vet;
 
-        for(i=0; i<5; i++){
+        printf("Digite o tamanho do vetor: ");
+        scanf("%d", &n);
+
+        vet=(float *)malloc(n*sizeof(float));
+
+        for(i=0; i<n; i++){
+            printf("Digite o valor %d: ", i+1);
             scanf("%f", &vet[i]);
         }
-        printf("Vetor: ");
-        imprime_vet_float(vet, 5);
-        printf("Quantidade de negativos no vetor: %d\n", negativos(vet, 5));
+        printf("O vetor principal eh:");
+        imprime_vet_float(vet, n);
+        printf("O vetor tem %d numero(s) negativo(s)", negativos(vet, n));
 
+        free(vet);
     }
