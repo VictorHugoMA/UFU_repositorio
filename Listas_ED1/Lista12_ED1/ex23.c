@@ -70,7 +70,7 @@
         for(i=0; i<n-1; i++){
             printf(" %d,", p2[i]);
         }
-        printf(" %d\n", p2[i]);
+        printf(" %d", p2[i]);
 
         free(p);
         free(p2);
