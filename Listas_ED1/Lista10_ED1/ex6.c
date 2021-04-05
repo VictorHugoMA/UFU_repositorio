@@ -7,7 +7,11 @@
         char c = 'a'  ; 
         int *p_v1;
         double *p_v2; 
-        char *p_c;p_v1 = &v1; p_v2 = &v2; p_c = &c;
+        char *p_c;
+        
+        p_v1 = &v1; 
+        p_v2 = &v2;
+        p_c = &c;
 
         printf("\nEndereco de v1 %u", p_v1); 
         printf("\nEndereco de v2 %u", p_v2); 
