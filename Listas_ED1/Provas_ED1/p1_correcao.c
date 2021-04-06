@@ -195,7 +195,7 @@ int main(){
    // Todas as funções de entrada e saída devem estar no programa
    // principal
    cMaiorCons=busca_maior_consumo(c, n);
-   printf("Carro com maior consumo: %s - Ano %d - Consumo %d\n",cMaiorCons.modelo, cMaiorCons.ano, cMaiorCons.consumo);
+   printf("\nCarro com maior consumo: %s - Ano %d - Consumo %d\n",cMaiorCons.modelo, cMaiorCons.ano, cMaiorCons.consumo);
 
 
    // Ex03: utilizando a função de cálculo de eficiência de um carro
@@ -204,7 +204,7 @@ int main(){
    // exemplo de saída:
    // Ford Ka - 2020 - 10 km/l; Indice: 9.7; Classificação: B
 
-   printf("Eficiencia dos veiculos cadastrados");
+   printf("\nEficiencia dos veiculos cadastrados");
         for(i=0; i<n; i++){
             indiceEficiencia(c, i, ind);
             printf("\n%s - %d - %d km/l; Indice: %.1f; ", c[i].modelo, c[i].ano, c[i].consumo, ind[i]);
@@ -217,9 +217,9 @@ int main(){
    // do carro (deve-se utilizar a estrutura dos exercícios anteriores)
    // Crie uma variável dessa estrutura e inicialize ela com valores 
    // constantes (não precisa ler do teclado) e depois mostre esses valores
-    printf("\nNome: %s\n", d.nome);
+    printf("\n\nNome: %s\n", d.nome);
 
-    printf("CPF: %s", d.cpf);
+    printf("CPF: %s\n", d.cpf);
 
     printf("Modelo do carro: %s\n", d.dc.modelo);
 
@@ -235,7 +235,7 @@ int main(){
    // para a posição do vetor. Mostre no programa principal os dados
    // do carro utilizando o ponteiro retornado.
    cMaiorCons2 = busca_maior_consumo2(c, n);
-   printf("Carro com maior consumo: %s - Ano %d - Consumo %d\n",cMaiorCons.modelo, cMaiorCons.ano, cMaiorCons.consumo);
+   printf("\nCarro com maior consumo: %s - Ano %d - Consumo %d\n",cMaiorCons2->modelo, cMaiorCons2->ano, cMaiorCons2->consumo);
 
    
     return 0;
