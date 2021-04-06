@@ -29,4 +29,5 @@
         imprime_vet_float(vetF, 5);
         printf("\nOs valores inseridos neste vetor de double eh:");
         imprime_vet_double(vetD, 5);
+        
     }

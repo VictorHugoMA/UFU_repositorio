@@ -10,7 +10,6 @@
 
     int main(){
         int n;
-
         printf("Digite a quantidade de linhas a serem impressas: ");
         scanf("%d", &n);
         Desenhalinha(n);

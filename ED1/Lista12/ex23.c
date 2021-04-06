@@ -76,6 +76,7 @@
         free(p2);
 
     }
+    
     void maior_menor_vet(int *vet, int n, int *maior, int *menor){
 
         for(int i=0; i<n; i++){

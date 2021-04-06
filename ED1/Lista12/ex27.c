@@ -29,6 +29,6 @@
         }
         printf(" (%d,%d)", pt[i].x, pt[i].y);
 
-
         free(pt);
+        
     }

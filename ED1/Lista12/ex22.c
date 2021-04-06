@@ -38,4 +38,5 @@
         printf(" %d", p[i]);
 
         free(p);
+        
     }

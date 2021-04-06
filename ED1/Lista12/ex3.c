@@ -26,4 +26,5 @@
         Desenhalinha(n);
         printf("O fatorial de %d eh %d\n", x, fatorial(x));
         Desenhalinha(n);
+        
     }

@@ -20,4 +20,5 @@
 
         printf("O numero A eh: %d\n", a);
         printf("O numero B eh: %d", b);
+        
     }

@@ -22,4 +22,5 @@
         printf("Digite o valor de n: ");
         scanf("%d", &n);
         printf("O valor de %d elevado a %d eh %d", x, n, potencia(x,n));
+        
     }

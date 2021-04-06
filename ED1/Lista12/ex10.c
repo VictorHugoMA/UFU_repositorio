@@ -17,4 +17,5 @@
         printf("Digite o valor de y: ");
         scanf("%d", &p.y);
         imprime_ponto(p);
+        
     }

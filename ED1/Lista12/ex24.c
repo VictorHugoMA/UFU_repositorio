@@ -27,4 +27,5 @@
         imprime_vet_int(p, n);
 
         free(p);
+        
     }

@@ -12,6 +12,7 @@
                 *menor=vet[i];
         }
     }
+    
     void imprime_vet_double(double *vetord, int n){
         int i;
         for(i=0; i<n-1; i++){

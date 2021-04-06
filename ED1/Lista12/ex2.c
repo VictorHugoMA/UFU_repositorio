@@ -19,4 +19,5 @@
         scanf("%d", &y);
 
         Desenhalinhas(x, y);
+        
     }

@@ -23,4 +23,5 @@
             printf("O numero %d eh um quadrado perfeito", num);
         else
             printf("O numero %d nao eh um quadrado perfeito", num);
+            
     }
