@@ -8,5 +8,7 @@ sv --> v.
 det --> [o].
 det --> [a].
 
-n --> [homem]. n --> [mulher]. n --> [bola].
+n --> [homem]. 
+n --> [mulher]. 
+n --> [bola].
 v --> [chuta].
