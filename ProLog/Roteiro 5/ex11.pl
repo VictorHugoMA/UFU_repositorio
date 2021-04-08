@@ -1,8 +1,8 @@
 s --> sn, sv.
 
 sn --> det, n.
-sv --> v, sn.
 
+sv --> v, sn.
 sv --> v.
 
 det --> [Palavra], {lex(Palavra,det)}.
