@@ -1,7 +1,9 @@
-s-->[].
-s-->aT, s, bT, s, cT, s, dT.
+s --> a,s,d.
+s --> bc.
 
-aT-->[a].
-bT-->[b, b].
-cT-->[c, c].
-dT-->[d].
+bc --> [].
+bc --> b,bc,c.
+a --> [a].
+b --> [b,b].
+c --> [c,c].
+d --> [d].
