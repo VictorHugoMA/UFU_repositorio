@@ -1,3 +1,5 @@
+
+
 cardial--> ns.
 cardial--> nn.
 cardial--> nc.
@@ -53,4 +55,3 @@ nc2-->[oitocentos].
 nc2-->[novecentos].
 
 nc3-->[mil].
-

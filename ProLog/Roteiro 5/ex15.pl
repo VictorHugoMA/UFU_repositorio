@@ -1,7 +1,7 @@
 s--> sn(sujeito, X), sv(X).
 
 sn(_, X)--> det(X), n(X).
-sn(P, _)--> pro(P). 
+sn(P, _)--> pro(P).
 
 sv(X)--> v(X), sn(objeto, X).
 sv(X)--> v(X).
