@@ -1,4 +1,5 @@
-
+numero(Num, [um]):-
+    Num is 1.
 
 cardial--> ns.
 cardial--> nn.
