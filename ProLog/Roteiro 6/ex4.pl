@@ -1,1 +1,2 @@
-termoaterrado().
+termoaterrado(X):-
+    ground(X).
