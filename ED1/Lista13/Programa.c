@@ -24,6 +24,7 @@
         acessar_mat(p, i, j, &val2);
         printf("O valor de Mat[%d][%d] eh %.1lf\n", i, j, val2);
 
+        //Mostrando os elemetos da matriz
         printf("\n");
         for(i=0; i<nlin; i++){
             for(j=0; j<ncol; j++){
