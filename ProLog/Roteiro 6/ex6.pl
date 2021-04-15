@@ -1,4 +1,6 @@
 :-op(300, xfx, h).
 
-2 h 15.
-1 h 50.
+X h Y:-
+number(X),
+number(Y).
+
