@@ -1,4 +1,5 @@
 #include<stdlib.h>
+#include<time.h>
 #include "TadMat.h"
 
     struct TadMat{
@@ -36,8 +37,8 @@
         }
     }
 
-    //a funcao escreve um valor na posicao desejada
-    //dado a struct, a linha, a coluna e o valor 
+    //escreve um valor na posicao desejada
+    //dado a struct *, a linha, a coluna e o valor 
     int escrever_mat(TadMat *mat, int nlin, int ncol, double val){
         if(mat==NULL)
             return -1;
@@ -70,8 +71,24 @@
             return -1;
 
         else{
+            srand(time(NULL));
             for(int i=0; i<nlin*ncol; i++){
-                mat->dado[i]=rand() % (int)max;
+                mat->dado[i]=(rand()/(double)RAND_MAX)*max;
+            }
+            return 0;
+        }
+    }
+
+    int soma_mat(TadMat *m1, TadMat *m2, TadMat *sm, int nlin, int ncol){
+        int i;
+
+        if(m1==NULL || m2==NULL){
+            return -1;
+        }
+
+        else{
+            for(i=0; i<nlin*ncol; i++){
+                sm->dado[i] = m1->dado[i] + m2->dado[i];
             }
             return 0;
         }
