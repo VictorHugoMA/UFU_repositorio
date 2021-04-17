@@ -93,3 +93,73 @@
             return 0;
         }
     }
+
+    //mult_mat
+
+    int multConst_mat(TadMat *m1, TadMat *tm, int nlin, int ncol, double num){
+        if(m1==NULL){
+            return -1;
+        }
+
+        else{
+            for(int i=0; i<nlin*ncol; i++){
+                tm->dado[i]=m1->dado[i]*num;
+            }
+        return 0;
+        }
+    }
+
+    int traco_mat(TadMat *m1, int nlin, int ncol, double *tot){
+
+        if(m1==NULL){
+            return -1;
+        }
+        else{
+            int i, j, pos;
+            double dp;
+            for(i=0; i<nlin; i++){
+                for(j=0; j<ncol; j++){
+                    if(i==j){
+                        pos = j*m1->nlinhas+i;
+                        dp+=m1->dado[pos];
+                    }
+                }
+            }
+            *tot=dp;
+            return 0;
+        }
+    }
+
+    int somaL_mat(TadMat *m1, int nlin, int ncol, double *sl){
+        if(m1==NULL){
+            return -1;
+        }
+        else{
+            int i, j, pos;
+
+            for(i=0; i<nlin; i++){
+                for(j=0; j<ncol; j++){
+                    pos = j*m1->nlinhas+i;
+                    sl[i]+=m1->dado[pos];
+                }
+            }
+            return 0;
+        }
+    }
+
+    int somaC_mat(TadMat *m1, int nlin, int ncol, double *sc){
+        if(m1==NULL){
+            return -1;
+        }
+        else{
+            int i, j, pos;
+
+            for(i=0; i<nlin; i++){
+                for(j=0; j<ncol; j++){
+                    pos = j*m1->nlinhas+i;
+                    sc[j]+=m1->dado[pos];
+                }
+            }
+            return 0;
+        }
+    }
