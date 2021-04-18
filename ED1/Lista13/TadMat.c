@@ -94,7 +94,31 @@
         }
     }
 
-    //mult_mat
+    int mult_mat(TadMat *m1, int nlin1, int ncol1, TadMat *m2, int nlin2, int ncol2, TadMat *tm){
+        if(m1==NULL || m2==NULL || tm==NULL || ncol1!=nlin2){
+            return -1;
+        }
+        else{
+            int i, j, k, pos1, pos2, pos3;
+            double total=0;
+
+            for(i=0; i<nlin1; i++){
+		        for(j=0; j<ncol2; j++){
+
+			        for(k=0; k<ncol1; k++){
+                        pos1 = k*m1->nlinhas+i;
+                        pos2 = j*m2->nlinhas+k;
+                        
+                        total+=m1->dado[pos1] * m2->dado[pos2];
+			        }
+                pos3 = j*tm->nlinhas+i;
+			    tm->dado[pos3]=total;
+			    total=0;
+		        }
+	        }
+            return 0;
+        }
+    }
 
     int multConst_mat(TadMat *m1, TadMat *tm, int nlin, int ncol, double num){
         if(m1==NULL){

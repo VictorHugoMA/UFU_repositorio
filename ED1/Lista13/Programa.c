@@ -5,7 +5,7 @@
     int mostra_matriz(TadMat *p, int nlin, int ncol, double *val);
 
     int main(){
-        TadMat *p, *mat[3], *multC;
+        TadMat *p, *mat[3], *mult, *multC;
         int nlin, ncol, i, j;
         double max, val, traco, num;
 
@@ -45,6 +45,11 @@
         traco_mat(mat[2], nlin, ncol, &traco); //traco ou soma da diagonal principal da matriz
         printf("\nTraco da Matriz Soma: %.1lf\n", traco);
 
+        printf("\nMatriz 1 x Matriz 2\n");
+        mult = criar_mat(nlin, ncol);
+        mult_mat(mat[0], nlin, ncol, mat[1], nlin, ncol, mult); //multiplicacao de duas matrizes
+        mostra_matriz(mult, nlin, ncol, &val);
+
         printf("\nDigite o numero que pra multiplicar a matriz soma: ");
         scanf("%lf", &num);
         multC=criar_mat(nlin, ncol);
@@ -74,6 +79,8 @@
         for(i=0; i<3; i++){
             free_mat(mat[i]);
         }
+        free_mat(mult);
+        free_mat(multC);
         free(sl);
         free(sc);
 
