@@ -9,6 +9,7 @@
     };
     //Cria a matriz
     //dado o numero de linhas e colunas
+    //Retorno NULL para erro, Struct TadMat para sucesso
     TadMat *criar_mat(int nlin, int ncol){
         TadMat *mat;
 
@@ -30,6 +31,7 @@
 
     //Libera a memoria
     //dado o ponteiro para a struct
+    //Retorno -1 para erro e 0 para sucesso
     int free_mat(TadMat *mat){
         if(mat==NULL)
             return -1;
@@ -42,6 +44,7 @@
 
     //Escreve um valor na posicao desejada da matriz
     //dado o ponteiro para a struct, a posicao(linha e coluna) e o valor 
+    //Retorno -1 para erro e 0 para sucesso
     int escrever_mat(TadMat *mat, int nlin, int ncol, double val){
         if(mat==NULL)
             return -1;
@@ -56,7 +59,8 @@
     }
 
     //Acessa uma posicao da matriz
-    //dado o ponteiro para a struct, a posicao(linha e coluna), e um ponteiro para double(aux) 
+    //dado o ponteiro para a struct, a posicao(linha e coluna), e um ponteiro para double(aux)
+    //Retorno -1 para erro e 0 para sucesso
     int acessar_mat(TadMat *mat, int lin, int col, double *val){
         if(mat==NULL)
             return -1;
@@ -73,6 +77,7 @@
 
     //Preenche uma matriz com valores aleatorios
     //dado o ponteiro para a struct e o valor maximo de preenchimento
+    //Retorno -1 para erro e 0 para sucesso
     int preencher_mat(TadMat *mat, double max){
         if(mat==NULL)
             return -1;
@@ -88,6 +93,7 @@
 
     //Soma duas matrizes
     //dado dois ponterios para as structs a serem somadas e um para o resultado
+    //Retorno -1 para erro e 0 para sucesso
     int soma_mat(TadMat *m1, TadMat *m2, TadMat *sm){
         int i;
 
@@ -104,7 +110,8 @@
     }
 
     //Multiplica duas matrizes 
-    //dado o ponteiro para struct as duas matrizes a serem multiplicadas e o ponteiro para struct resultante 
+    //dado o ponteiro para struct as duas matrizes a serem multiplicadas e o ponteiro para struct resultante
+    //Retorno -1 para erro e 0 para sucesso 
     int mult_mat(TadMat *m1, TadMat *m2, TadMat *tm){
         if(m1==NULL || m2==NULL || tm==NULL || m1->ncolunas!=m2->nlinhas){
             return -1;
@@ -133,6 +140,7 @@
 
     //Multiplica uma matriz por um numero
     //dado o ponteiro para a struct, ponteiro para a struct resultado e o valor a ser multiplicado
+    //Retorno -1 para erro e 0 para sucesso
     int multConst_mat(TadMat *m1, TadMat *tm, double num){
         if(m1==NULL){
             return -1;
@@ -148,6 +156,7 @@
 
     //Traco ou soma da diagonal principal de uma matriz
     //dado o ponteiro para a struct e o ponterio de double para receber a soma
+    //Retorno -1 para erro e 0 para sucesso
     int traco_mat(TadMat *m1, double *tot){
 
         if(m1==NULL){
@@ -170,7 +179,8 @@
     }
 
     //Vetor com a soma das linahs
-    //dado o ponteiro para a struct e o ponteiro para double
+    //dado o ponteiro para a struct e o ponteiro para double que deve ser criado dinamicamente com a quantidade de linhas
+    //Retorno -1 para erro e 0 para sucesso
     int somaL_mat(TadMat *m1, double *sl){
         if(m1==NULL){
             return -1;
@@ -189,7 +199,8 @@
     }
 
     //Vetor com a soma das colunas
-    //dado o ponteiro para a struct e o ponteiro para double que eh criado dinamicamente
+    //dado o ponteiro para a struct e o ponteiro para double que deve criado dinamicamente com a quantidade de colunas
+    //Retorno -1 para erro e 0 para sucesso
     int somaC_mat(TadMat *m1, double *sc){
         if(m1==NULL){
             return -1;
