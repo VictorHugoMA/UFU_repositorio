@@ -41,7 +41,7 @@
     }
 
     //Escreve um valor na posicao desejada da matriz
-    //dado o ponteiro para a struct, a linha, a coluna e o valor 
+    //dado o ponteiro para a struct, a posicao(linha e coluna) e o valor 
     int escrever_mat(TadMat *mat, int nlin, int ncol, double val){
         if(mat==NULL)
             return -1;
@@ -72,14 +72,14 @@
     }
 
     //Preenche uma matriz com valores aleatorios
-    //dado o ponteiro para a struct, o numero de linhas, numero de colunas e um valor maximo
-    int preencher_mat(TadMat *mat, int nlin, int ncol, double max){
+    //dado o ponteiro para a struct e o valor maximo de preenchimento
+    int preencher_mat(TadMat *mat, double max){
         if(mat==NULL)
             return -1;
 
         else{
             srand(time(NULL));
-            for(int i=0; i<nlin*ncol; i++){
+            for(int i=0; i<mat->nlinhas*mat->ncolunas; i++){
                 mat->dado[i]=(rand()/(double)RAND_MAX)*max;
             }
             return 0;
@@ -87,16 +87,16 @@
     }
 
     //Soma duas matrizes
-    //dado dois ponterios para as structs, o numero de linhas e o numero de colunas
-    int soma_mat(TadMat *m1, TadMat *m2, TadMat *sm, int nlin, int ncol){
+    //dado dois ponterios para as structs a serem somadas e um para o resultado
+    int soma_mat(TadMat *m1, TadMat *m2, TadMat *sm){
         int i;
 
-        if(m1==NULL || m2==NULL){
+        if(m1==NULL || m2==NULL || m1->nlinhas!=m2->nlinhas || m1->ncolunas!=m2->ncolunas){
             return -1;
         }
 
         else{
-            for(i=0; i<nlin*ncol; i++){
+            for(i=0; i<m1->nlinhas*m1->ncolunas; i++){
                 sm->dado[i] = m1->dado[i] + m2->dado[i];
             }
             return 0;
@@ -104,19 +104,19 @@
     }
 
     //Multiplica duas matrizes 
-    //dado o ponteiro para struct e o numero de linhas e colunas das duas matrizes a multiplicar o ponteiro para struct resultante 
-    int mult_mat(TadMat *m1, int nlin1, int ncol1, TadMat *m2, int nlin2, int ncol2, TadMat *tm){
-        if(m1==NULL || m2==NULL || tm==NULL || ncol1!=nlin2){
+    //dado o ponteiro para struct as duas matrizes a serem multiplicadas e o ponteiro para struct resultante 
+    int mult_mat(TadMat *m1, TadMat *m2, TadMat *tm){
+        if(m1==NULL || m2==NULL || tm==NULL || m1->ncolunas!=m2->nlinhas){
             return -1;
         }
         else{
             int i, j, k, pos1, pos2, pos3;
             double total=0;
 
-            for(i=0; i<nlin1; i++){
-		        for(j=0; j<ncol2; j++){
+            for(i=0; i<m1->nlinhas; i++){
+		        for(j=0; j<m2->ncolunas; j++){
 
-			        for(k=0; k<ncol1; k++){
+			        for(k=0; k<m1->ncolunas; k++){
                         pos1 = k*m1->nlinhas+i;
                         pos2 = j*m2->nlinhas+k;
                         
@@ -132,14 +132,14 @@
     }
 
     //Multiplica uma matriz por um numero
-    //dado o ponteiro para a struct, ponteiro para a struct resultado, o numero de linhas, colunas e o valor a ser multiplicado
-    int multConst_mat(TadMat *m1, TadMat *tm, int nlin, int ncol, double num){
+    //dado o ponteiro para a struct, ponteiro para a struct resultado e o valor a ser multiplicado
+    int multConst_mat(TadMat *m1, TadMat *tm, double num){
         if(m1==NULL){
             return -1;
         }
 
         else{
-            for(int i=0; i<nlin*ncol; i++){
+            for(int i=0; i<m1->nlinhas*m1->ncolunas; i++){
                 tm->dado[i]=m1->dado[i]*num;
             }
         return 0;
@@ -147,8 +147,8 @@
     }
 
     //Traco ou soma da diagonal principal de uma matriz
-    //dado o ponteiro para a struct, o numero de linhas, colunas e o ponterio de double para receber a soma
-    int traco_mat(TadMat *m1, int nlin, int ncol, double *tot){
+    //dado o ponteiro para a struct e o ponterio de double para receber a soma
+    int traco_mat(TadMat *m1, double *tot){
 
         if(m1==NULL){
             return -1;
@@ -156,8 +156,8 @@
         else{
             int i, j, pos;
             double dp;
-            for(i=0; i<nlin; i++){
-                for(j=0; j<ncol; j++){
+            for(i=0; i<m1->nlinhas; i++){
+                for(j=0; j<m1->ncolunas; j++){
                     if(i==j){
                         pos = j*m1->nlinhas+i;
                         dp+=m1->dado[pos];
@@ -170,16 +170,16 @@
     }
 
     //Vetor com a soma das linahs
-    //dado o ponteiro para a struct, numero de linhas, colunas e o ponteiro para double
-    int somaL_mat(TadMat *m1, int nlin, int ncol, double *sl){
+    //dado o ponteiro para a struct e o ponteiro para double
+    int somaL_mat(TadMat *m1, double *sl){
         if(m1==NULL){
             return -1;
         }
         else{
             int i, j, pos;
 
-            for(i=0; i<nlin; i++){
-                for(j=0; j<ncol; j++){
+            for(i=0; i<m1->nlinhas; i++){
+                for(j=0; j<m1->ncolunas; j++){
                     pos = j*m1->nlinhas+i;
                     sl[i]+=m1->dado[pos];
                 }
@@ -189,16 +189,16 @@
     }
 
     //Vetor com a soma das colunas
-    //dado o ponteiro para a struct, numero de linhas, colunas e o ponteiro para double
-    int somaC_mat(TadMat *m1, int nlin, int ncol, double *sc){
+    //dado o ponteiro para a struct e o ponteiro para double que eh criado dinamicamente
+    int somaC_mat(TadMat *m1, double *sc){
         if(m1==NULL){
             return -1;
         }
         else{
             int i, j, pos;
 
-            for(i=0; i<nlin; i++){
-                for(j=0; j<ncol; j++){
+            for(i=0; i<m1->nlinhas; i++){
+                for(j=0; j<m1->ncolunas; j++){
                     pos = j*m1->nlinhas+i;
                     sc[j]+=m1->dado[pos];
                 }
