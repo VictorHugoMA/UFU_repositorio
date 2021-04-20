@@ -1,5 +1,3 @@
-pais(alemanha, europa, 83, [franca, belgica, holanda, suica]).
-
 pais(australia, oceania, 25, []).
 
 pais(belgica, europa, 11, [franca, holanda, alemanha]).
@@ -20,9 +18,11 @@ pais(portugal, europa, 10, [espanha]).
 
 pais(suica, europa, 8, [franca, alemanha, italia]).
 
-pop_elevada(Cont, Lista):-
-    setof(Pop-Pais,Cont^pop(Cont, Pais, Pop), Lista).
+isolados_grande(Lista):-
+    setof(Cont, isolados(Cont), Lista).
 
-pop(Cont, Pais, Pop):-
-    pais(Pais, Cont, Pop, _),
-    15=<Pop.
+isolados(Cont):-
+    pais(_Pais, Conta, Pop, Front),
+    15=<Pop,
+    length(Front , X),
+    X=<2.
