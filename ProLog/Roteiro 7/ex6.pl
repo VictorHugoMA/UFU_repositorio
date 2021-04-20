@@ -22,7 +22,7 @@ isolados_grande(Lista):-
     setof(Cont, isolados(Cont), Lista).
 
 isolados(Cont):-
-    pais(_Pais, Conta, Pop, Front),
+    pais(_Pais, Cont, Pop, Front),
     15=<Pop,
     length(Front , X),
     X=<2.
