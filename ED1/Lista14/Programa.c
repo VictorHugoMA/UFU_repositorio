@@ -3,22 +3,39 @@
 
 
     int main(){
-        aluno a={12011, "Victor", 10, 10, 10}, aCon;
+        int i, mat, aux;
         lista *l;
+        aluno aCon, a[3]={
+        {120, "Victor", 10, 10, 10},
+        {110, "Pedro", 10, 10, 10},
+        {130, "Joao", 7, 8, 10}
+        };
 
-        l=cria_lista();
+        l=cria_lista(); //cria a lista
 
-        insere_final_lista(l, a);
+        for(i=0; i<3; i++){
+            insere_ordenado_lista(l, a[i]); //insere os alunos de maneira ordenada pela matricula
+        }
+        imprime_lista(l); //imprime a lista
 
-        consulta_lista_pos(l, 1, &aCon);
-        printf("Matricula: %d\n", aCon.matricula);
-        printf("Matricula: %s\n", aCon.nome);
-        printf("Matricula: %.1f\n", aCon.n1);
-        printf("Matricula: %.1f\n", aCon.n2);
-        printf("Matricula: %.1f\n", aCon.n3);
+        printf("\nDigite uma matricula para consultar: ");
+        scanf("%d", &mat);
+        aux=consulta_lista_mat(l, mat, &aCon); //consulta lista por matricula
+            if(aux==-1)
+                printf("Erro na consulta\n");
+            else if(aux==-2)
+                printf("Matricula nao encontrada\n");
+            else{
+                printf("Informacoes do aluno com a matricula %d\n", aCon.matricula);
+                printf("Nome: %s\n", aCon.nome);
+                printf("Notas: %.1f %.1f %.1f\n", aCon.n1, aCon.n2, aCon.n3);
+            }
+            
 
+        printf("\nImprimindo a lista apos retirar o ultimo elemento\n");
+        remove_final_lista(l); //remove final da lista
+        imprime_lista(l);
 
-
-        free_lista(l);
+        free_lista(l); //libera a lista
         return 0;
     }
