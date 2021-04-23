@@ -1,7 +1,7 @@
-:-dynamic consulta/2.
+:-dynamic res_somatorio/2.
 
 somatorio(X, Resul):-
-    consulta(X, Resul), !.
+    res_somatorio(X, Resul), !.
 
 somatorio(X,Resul):- 
     somatorio(X,0,Resul).
@@ -12,4 +12,4 @@ somatorio(X,T,Resul):-
     T1 is T+X,     
     X1 is X-1,     
     somatorio(X1,T1,Resul),
-    assert(consulta(X, Resul)).
+    assert(res_somatorio(X, Resul)).
