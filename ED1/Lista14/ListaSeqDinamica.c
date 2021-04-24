@@ -253,7 +253,7 @@
             return l->qtd;
     }
 
-    int tamanho_max_lista(lista *l){
+    int tamanho_aloc_lista(lista *l){
         if(l==NULL)
             return -1;
         else 

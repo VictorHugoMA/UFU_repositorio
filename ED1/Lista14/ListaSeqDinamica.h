@@ -34,7 +34,7 @@ int remove_mat_otimizado_lista(lista *l, int mat);
 
 int tamanho_lista(lista *l);
 
-int tamanho_max_lista(lista *l);
+int tamanho_aloc_lista(lista *l);
 
 int cheia_lista(lista *l);
 

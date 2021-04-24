@@ -30,14 +30,19 @@
 
         imprime_lista(l); //imprime a lista
 
-        
-        printf("Tamanho maximo da lista antes de aumentar: %d\n", tamanho_max_lista(l)); //tamanho max que a lista suporta no momento
+        printf("Tamanho da lista antes de remover: %d\n", tamanho_lista(l));
+        printf("Removendo os 5 ultimos elementos da lista\n");
         for(i=0; i<5; i++){
-            aumenta_tam_lista(l); //aumenta tamanho da lista para teste de compactacao
+            remove_final_lista(l); //remove ultimo elemento
         }
-        printf("Tamanho maximo da lista depois de aumentar: %d\n", tamanho_max_lista(l));
+        printf("Tamanho da lista depois de remover: %d\n", tamanho_lista(l));
+        printf("Tamanho alocado na lista: %d\n\n", tamanho_aloc_lista(l));
+        imprime_lista(l);
+
+        printf("Tamanho da lista: %d\n", tamanho_lista(l));
+        printf("Tamanho alocado da lista antes de compactar: %d\n", tamanho_aloc_lista(l)); //tamanho alocado da lista no momento
         compactar_lista(l); //compacta a lista
-        printf("Tamanho maximo da lista depois de compactar: %d\n", tamanho_max_lista(l));
+        printf("Tamanho alocado da lista depois de compactar: %d\n", tamanho_aloc_lista(l));
 
 
         free_lista(l); //libera a lista
