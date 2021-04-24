@@ -1,5 +1,3 @@
-#define MAX 100
-
 typedef struct aluno{
     int matricula;
     char nome[30];
@@ -8,7 +6,11 @@ typedef struct aluno{
 
 typedef struct lista lista;
 
-lista *cria_lista();
+lista *cria_lista(int n);
+
+int aumenta_tam_lista(lista *l);
+
+int compactar_lista(lista *l);
 
 int free_lista(lista *l);
 
@@ -31,6 +33,8 @@ int remove_mat_lista(lista *l, int mat);
 int remove_mat_otimizado_lista(lista *l, int mat);
 
 int tamanho_lista(lista *l);
+
+int tamanho_max_lista(lista *l);
 
 int cheia_lista(lista *l);
 
