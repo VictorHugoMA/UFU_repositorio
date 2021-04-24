@@ -3,9 +3,9 @@
 
 
     int main(){
-        int n, i, mat, aux;
+        int n, i;
         lista *l;
-        aluno aCon, a[10]={
+        aluno a[10]={
         {120, "Victor", 10, 10, 10},
         {110, "Pedro", 10, 10, 10},
         {130, "Joao", 7, 8, 10},
@@ -30,17 +30,17 @@
 
         imprime_lista(l); //imprime a lista
 
-        printf("Tamanho da lista antes de remover: %d\n", tamanho_lista(l));
+        printf("Tamanho da lista: %d\n", tamanho_lista(l)); //tamanho da lista 
         printf("Removendo os 5 ultimos elementos da lista\n");
         for(i=0; i<5; i++){
             remove_final_lista(l); //remove ultimo elemento
         }
         printf("Tamanho da lista depois de remover: %d\n", tamanho_lista(l));
-        printf("Tamanho alocado na lista: %d\n\n", tamanho_aloc_lista(l));
+        printf("Tamanho alocado na lista: %d\n\n", tamanho_aloc_lista(l)); //tamanho alocado da lista no momento
         imprime_lista(l);
 
         printf("Tamanho da lista: %d\n", tamanho_lista(l));
-        printf("Tamanho alocado da lista antes de compactar: %d\n", tamanho_aloc_lista(l)); //tamanho alocado da lista no momento
+        printf("Tamanho alocado da lista antes de compactar: %d\n", tamanho_aloc_lista(l)); 
         compactar_lista(l); //compacta a lista
         printf("Tamanho alocado da lista depois de compactar: %d\n", tamanho_aloc_lista(l));
 

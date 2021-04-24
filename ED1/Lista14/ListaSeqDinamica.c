@@ -24,6 +24,9 @@
         return l;
     }
 
+    //Aumenta o tamnho da lista adicionando o tamanho inicial a cada execucao
+    //dado a lista 
+    //Retorno -1 para erro e 0 para sucesso
     int aumenta_tam_lista(lista *l){
         if(l==NULL || l->dado==NULL)
             return -1;
@@ -36,6 +39,9 @@
         
     }
 
+    //Compacta a lista o maximo possivel, sendo o novo tamanho um multiplo do tamanho inicial
+    //dado a lista
+    //Retorno -1 para erro e 0 para sucesso
     int compactar_lista(lista *l){
         if(l==NULL || l->dado==NULL)
             return -1;
