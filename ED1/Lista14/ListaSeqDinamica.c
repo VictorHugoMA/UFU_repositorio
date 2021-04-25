@@ -259,6 +259,9 @@
         }
     }
 
+    //Remove um aluno da lista de maneira otimizado(perde a ordem)
+    //dado a lista e a matricula
+    //Retorno -1 para erro e 0 para sucesso
     int remove_mat_otimizado_lista(lista *l, int mat){
         if(l==NULL)
             return -1;
@@ -279,6 +282,9 @@
         }
     }
 
+    //Informa a quantidade de alunos na lista
+    //dado a lista
+    //Retorno -1 para erro e a quantidade de alunos caso sucesso
     int tamanho_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -286,6 +292,9 @@
             return l->qtd;
     }
 
+    //Informa a quantidade de espacos ja alocados para os alunos
+    //dado a lista 
+    //Retorno -1 para erro e a quantidade de espacos ja alocados caso sucesso
     int tamanho_aloc_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -293,6 +302,9 @@
             return l->mAtual;
     }
 
+    //Informa se a lista esta cheia 
+    //dado a lista
+    //Retorno -1 para erro, 1 para lista cheia e 0 caso nao esteja
    int cheia_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -300,7 +312,9 @@
             return (l->qtd==l->mAtual);
     }
     
-
+    //Informa se a lista esta vazia
+    //dado a lista
+    //Retorno -1 para erro, 1 para lista vazia e 0 caso nao esteja
     int vazia_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -308,6 +322,9 @@
             return (l->qtd==0);
     }
 
+    //Imprime a lista
+    //dado a lista
+    //Retorno -1 para erro e 0 para sucesso
     int imprime_lista(lista *l){
         if(l==NULL)
             return -1;

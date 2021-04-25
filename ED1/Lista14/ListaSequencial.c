@@ -7,6 +7,9 @@
         aluno dado[MAX];
     };
 
+    //Cria a lista 
+    //dado o numero de alunos
+    //Retorno ponteriro para a lista
     lista *cria_lista(){
         lista *l;
 
@@ -18,6 +21,9 @@
         return l;
     }
 
+    //Libera a lista
+    //dado a lista
+    //Retorno -1 para erro e 0 para sucesso
     int free_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -29,6 +35,9 @@
 
     }
 
+    //Insere um aluno no final da lista
+    //dado a lista e o aluno
+    //Retorno -1 para erro e 0 para sucesso
     int insere_final_lista(lista *l, aluno a){
         if(l==NULL)
             return -1;
@@ -42,6 +51,9 @@
         }
     }
 
+    //Insere um aluno no inicio da lista
+    //dado a lista e o aluno
+    //Retorno -1 para erro e 0 para sucesso
     int insere_inicio_lista(lista *l, aluno a){
         if(l==NULL)
             return -1;
@@ -60,6 +72,9 @@
         }
     }
 
+    //Insere o aluno de maneira ordenada de modo crescente das matriculas
+    //dado a lista e o aluno
+    //Retorno -1 para erro e 0 para sucesso
     int insere_ordenado_lista(lista *l, aluno a){
         if(l==NULL)
             return -1;
@@ -80,7 +95,9 @@
         }
     }
     
-
+    //Consulta os dados de um aluno pela posicao 
+    //dado a lista, a posicao e um ponteiro para aluno para receber as informacoes
+    //Retorno -1 para erro e 0 para sucesso
     int consulta_lista_pos(lista *l, int pos, aluno *ac){
         if(l==NULL || pos<=0 || pos>l->qtd)
             return -1;
@@ -91,8 +108,8 @@
         }
     }
 
-    //Acessa uma os dados de um aluno pela matricula
-    //dado a lista, a matricula e o ponteiro para um aluno
+    //Consulta os dados de um aluno pela matricula
+    //dado a lista, a matricula e o ponteiro para um aluno para receber as informacoes
     //Retorno -1 para erro, -2 caso nao encontre e 1 para sucesso
     int consulta_lista_mat(lista *l, int mat, aluno *ac){
         if(l==NULL)
@@ -114,6 +131,9 @@
         }
     }
 
+    //Remove um aluno do inicio da lista
+    //dado a lista
+    //Retorno -1 para erro e 0 para sucesso
     int remove_inicio_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -130,6 +150,9 @@
         }
     }
 
+    //Remove um aluno do final da lista
+    //dado a lista
+    //Retorno -1 para erro e 0 para sucesso
     int remove_final_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -142,6 +165,9 @@
         }
     }
 
+    //Remove um aluno pelo numero de matricula
+    //dado a lista e a matricula
+    //Retorno -1 para erro e 0 para sucesso
     int remove_mat_lista(lista *l, int mat){
         if(l==NULL)
             return -1;
@@ -166,6 +192,9 @@
         }
     }
 
+    //Remove um aluno da lista de maneira otimizado(perde a ordem)
+    //dado a lista e a matricula
+    //Retorno -1 para erro e 0 para sucesso
     int remove_mat_otimizado_lista(lista *l, int mat){
         if(l==NULL)
             return -1;
@@ -186,6 +215,9 @@
         }
     }
 
+    //Informa a quantidade de alunos na lista
+    //dado a lista
+    //Retorno -1 para erro e a quantidade de alunos caso sucesso
     int tamanho_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -193,6 +225,9 @@
             return l->qtd;
     }
 
+    //Informa se a lista esta cheia 
+    //dado a lista
+    //Retorno -1 para erro, 1 para lista cheia e 0 caso nao esteja
     int cheia_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -200,6 +235,9 @@
             return (l->qtd==MAX);
     }
 
+    //Informa se a lista esta vazia
+    //dado a lista
+    //Retorno -1 para erro, 1 para lista vazia e 0 caso nao esteja
     int vazia_lista(lista *l){
         if(l==NULL)
             return -1;
@@ -207,6 +245,9 @@
             return (l->qtd==0);
     }
 
+    //Imprime a lista
+    //dado a lista
+    //Retorno -1 para erro e 0 para sucesso
     int imprime_lista(lista *l){
         if(l==NULL)
             return -1;
