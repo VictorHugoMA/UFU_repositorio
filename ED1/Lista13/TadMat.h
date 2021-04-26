@@ -18,6 +18,6 @@ int multConst_mat(TadMat *m1, TadMat *tm, double num);
 
 int traco_mat(TadMat *m1, double *tot);
 
-int somaL_mat(TadMat *m1, double *sl);
+int somaL_mat(TadMat *m1, double **sl);
 
-int somaC_mat(TadMat *m1, double *sc);
+int somaC_mat(TadMat *m1, double **sc);

@@ -129,9 +129,9 @@
                         
                         total+=m1->dado[pos1] * m2->dado[pos2];
 			        }
-                pos3 = j*tm->nlinhas+i;
-			    tm->dado[pos3]=total;
-			    total=0;
+                    pos3 = j*tm->nlinhas+i;
+                    tm->dado[pos3]=total;
+                    total=0;
 		        }
 	        }
             return 0;
@@ -179,39 +179,44 @@
     }
 
     //Vetor com a soma das linahs
-    //dado o ponteiro para a struct e o ponteiro para double que deve ser criado dinamicamente com a quantidade de linhas
+    //dado o ponteiro para a struct e o endereco de um ponteiro que sera o vetor
     //Retorno -1 para erro e 0 para sucesso
-    int somaL_mat(TadMat *m1, double *sl){
-        if(m1==NULL){
-            return -1;
-        }
-        else{
-            int i, j, pos;
-
-            for(i=0; i<m1->nlinhas; i++){
-                for(j=0; j<m1->ncolunas; j++){
-                    pos = j*m1->nlinhas+i;
-                    sl[i]+=m1->dado[pos];
-                }
+    int somaL_mat(TadMat *m1, double **sl){
+            if(m1==NULL){
+                return -1;
             }
-            return 0;
-        }
+            else{
+                int i, j, pos;
+            
+                *sl=calloc(m1->nlinhas, sizeof(double));
+                
+                for(i=0; i<m1->nlinhas; i++){
+                    for(j=0; j<m1->ncolunas; j++){
+                        pos = j*m1->nlinhas+i;
+                        (*sl)[i]+=m1->dado[pos];
+                    }
+                }
+                
+                return 0;
+            }
     }
 
     //Vetor com a soma das colunas
-    //dado o ponteiro para a struct e o ponteiro para double que deve criado dinamicamente com a quantidade de colunas
+    //dado o ponteiro para a struct e o endereco de um ponteiro que sera o vetor
     //Retorno -1 para erro e 0 para sucesso
-    int somaC_mat(TadMat *m1, double *sc){
+    int somaC_mat(TadMat *m1, double **sc){
         if(m1==NULL){
             return -1;
         }
         else{
             int i, j, pos;
 
+            *sc=calloc(m1->ncolunas, sizeof(double));
+
             for(i=0; i<m1->nlinhas; i++){
                 for(j=0; j<m1->ncolunas; j++){
                     pos = j*m1->nlinhas+i;
-                    sc[j]+=m1->dado[pos];
+                    (*sc)[j]+=m1->dado[pos];
                 }
             }
             return 0;

@@ -6,7 +6,7 @@
 
     int main(){
         TadMat *p, *mat[3], *mult, *multC;
-        int nlin, ncol, i, j;
+        int nlin, ncol, i, j, aux;
         double max, val, traco, num, *sl, *sc;
 
         printf("Digite a quantidade de linhas e colunas da matriz: ");
@@ -47,8 +47,13 @@
 
         printf("\nMatriz 1 x Matriz 2\n");
         mult = criar_mat(nlin, ncol);
-        mult_mat(mat[0], mat[1], mult); //multiplicacao de duas matrizes
-        mostra_matriz(mult, nlin, ncol, &val);
+        aux = mult_mat(mat[0], mat[1], mult); //multiplicacao de duas matrizes
+            if(aux==-1){
+                printf("Nao foi possivel fazer a multiplicacao\n");
+            }
+            else{
+                mostra_matriz(mult, nlin, ncol, &val);
+            }
 
         printf("\nDigite o numero que pra multiplicar a matriz soma: ");
         scanf("%lf", &num);
@@ -56,20 +61,17 @@
         multConst_mat(mat[2], multC, num); //multiplica uma matriz por um numero escalar
         printf("\nMatriz Soma multilicada por %.1lf\n", num);
         mostra_matriz(multC, nlin, ncol, &val);
-
-
-        sl=calloc(nlin,sizeof(double));
-        sc=calloc(ncol,sizeof(double));
+        
 
         printf("\nVetor com a soma das linhas da Matriz Soma: ");
-        somaL_mat(mat[2], sl); //somas das linhas da matriz
+        somaL_mat(mat[2], &sl); //somas das linhas da matriz
         for(i=0; i<nlin; i++){
             printf("%.1lf ", sl[i]);
         }
         
 
         printf("\nVetor com a soma das colunas da Matriz Soma: ");
-        somaC_mat(mat[2], sc); //somas das colunas da matriz
+        somaC_mat(mat[2], &sc); //somas das colunas da matriz
         for(i=0; i<ncol; i++){
             printf("%.1lf ", sc[i]);
         }
