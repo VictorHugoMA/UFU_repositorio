@@ -17,8 +17,10 @@
         scanf("%lf", &max);
         preencher_mat(p, max); //preencher matriz
 
-        printf("Digite a posicao e o valor que deseja alterar: ");
-        scanf("%d %d %lf", &i, &j, &val);
+        printf("Digite a posicao que deseja alterar: ");
+        scanf("%d %d", &i, &j);
+        printf("Digite o valor a ser inserido: ");
+        scanf("%lf",&val);
         escrever_mat(p, i, j, val); //modificar matriz
 
 
@@ -37,9 +39,14 @@
             mostra_matriz(mat[i], nlin, ncol, &val);
         }
         mat[2]=criar_mat(nlin, ncol);
-        soma_mat(mat[0], mat[1], mat[2]); //soma duas matrizes
-        printf("\nSoma\n");
-        mostra_matriz(mat[2], nlin, ncol, &val);
+        aux = soma_mat(mat[0], mat[1], mat[2]); //soma duas matrizes
+            if(aux==-1){
+                printf("Nao foi possivel fazer a soma\n");
+            }
+            else{
+            printf("\nSoma\n");
+            mostra_matriz(mat[2], nlin, ncol, &val);
+            }
 
 
         traco_mat(mat[2], &traco); //traco ou soma da diagonal principal da matriz
