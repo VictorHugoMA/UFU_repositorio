@@ -36,6 +36,13 @@
         remove_final_lista(l); //remove final da lista
         imprime_lista(l);
 
+        printf("\nTamanho da lista: %d\n", tamanho_lista(l)); //informa a quantidade de alunos na lista
+        aux = cheia_lista(l); // verifica se lista esta cheia
+            if(aux==1)
+                printf("A lista esta cheia\n");
+            else if(aux==0)
+                printf("A lista nao esta cheia\n");
+
         free_lista(l); //libera a lista
         return 0;
     }
