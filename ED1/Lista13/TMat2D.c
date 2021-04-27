@@ -1,6 +1,6 @@
 #include<stdlib.h>
 #include<time.h>
-#include "TadMat.h"
+#include "TMat2D.h"
 
     struct TadMat{
         int nlinhas;

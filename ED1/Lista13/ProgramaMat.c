@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "TadMat.h"
+#include "TMat2D.h"
 
     int mostra_matriz(TadMat *p, int nlin, int ncol, double *val);
 
