@@ -1,6 +1,6 @@
 #include<stdlib.h>
 #include<stdio.h>
-#include "ListaSequencial.h"
+#include "TSeqList.h"
 
     struct lista{
         int qtd;

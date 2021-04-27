@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include "ListaSequencial.h"
+#include "TSeqList.h"
 
 
     int main(){
@@ -24,15 +24,15 @@
             if(aux==-1)
                 printf("Erro na consulta\n");
             else if(aux==-2)
-                printf("Matricula nao encontrada\n");
+                printf("\nMatricula nao encontrada\n");
             else{
-                printf("Informacoes do aluno com a matricula %d\n", aCon.matricula);
+                printf("\nInformacoes do aluno com a matricula %d\n", aCon.matricula);
                 printf("Nome: %s\n", aCon.nome);
                 printf("Notas: %.1f %.1f %.1f\n", aCon.n1, aCon.n2, aCon.n3);
             }
             
 
-        printf("\nImprimindo a lista apos retirar o ultimo elemento\n");
+        printf("\nImprimindo a lista apos retirar o ultimo elemento\n\n");
         remove_final_lista(l); //remove final da lista
         imprime_lista(l);
 
