@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<math.h>
-#include "ListaSeqDinamica.h"
+#include "TVarSeqList.h"
 
     struct lista{
         int qtd;

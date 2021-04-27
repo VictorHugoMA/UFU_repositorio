@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include "ListaSeqDinamica.h"
+#include "TVarSeqList.h"
 
 
     int main(){
