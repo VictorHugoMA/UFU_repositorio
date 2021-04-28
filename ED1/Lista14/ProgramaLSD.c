@@ -3,9 +3,9 @@
 
 
     int main(){
-        int n, i;
+        int n, i, con, aux;
         lista *l;
-        aluno a[10]={
+        aluno aC, a[10]={
         {120, "Victor", 10, 10, 10},
         {110, "Pedro", 10, 10, 10},
         {130, "Joao", 7, 8, 10},
@@ -30,7 +30,43 @@
 
         imprime_lista(l); //imprime a lista
 
-        printf("Tamanho da lista: %d\n", tamanho_lista(l)); //tamanho da lista 
+        printf("\nDigite a matricula para consultar: ");
+        scanf("%d", &con);
+        aux = consulta_lista_mat(l, con, &aC); //consulta lista por matricula
+            if(aux==-1)
+                printf("\nErro na consulta\n");
+            else if(aux==-2)
+                printf("\nMatricula nao encontrada\n");
+            else{
+                printf("\nInformacoes do aluno com a matricula %d\n", aC.matricula);
+                printf("Nome: %s\n", aC.nome);
+                printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
+            }
+        
+        printf("\nDigite a posicao da lista para consultar: ");
+        scanf("%d", &con);
+        aux = consulta_lista_pos(l, con, &aC);
+            if(aux==-1)
+                printf("\nErro na consulta\n");
+            else{
+                printf("\nInformacoes do aluno na posicao %d\n", con);
+                printf("Matricula %d\n", aC.matricula);
+                printf("Nome: %s\n", aC.nome);
+                printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
+            }
+        
+        printf("\nDigite a matricula do aluno que deseja remover da lista: ");
+        scanf("%d", &con);
+        aux = remove_mat_lista(l, con);
+            if(aux==-1)
+                printf("\nErro na remocao\n");
+            else{
+                printf("\nAluno removido\n\n");
+                
+                imprime_lista(l);
+            }
+
+        printf("\nTamanho da lista: %d\n", tamanho_lista(l)); //tamanho da lista 
         printf("Removendo os 5 ultimos elementos da lista\n");
         for(i=0; i<5; i++){
             remove_final_lista(l); //remove ultimo elemento
