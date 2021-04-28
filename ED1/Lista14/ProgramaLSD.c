@@ -45,7 +45,7 @@
         
         printf("\nDigite a posicao da lista para consultar: ");
         scanf("%d", &con);
-        aux = consulta_lista_pos(l, con, &aC);
+        aux = consulta_lista_pos(l, con, &aC); //consulta lista por posicao
             if(aux==-1)
                 printf("\nErro na consulta\n");
             else{
@@ -57,12 +57,11 @@
         
         printf("\nDigite a matricula do aluno que deseja remover da lista: ");
         scanf("%d", &con);
-        aux = remove_mat_lista(l, con);
+        aux = remove_mat_lista(l, con); //remove aluno da lista pela matricula
             if(aux==-1)
                 printf("\nErro na remocao\n");
             else{
                 printf("\nAluno removido\n\n");
-                
                 imprime_lista(l);
             }
 
