@@ -1,11 +1,16 @@
 #include<stdio.h>
 //28 - Tentativa copia de vetor Funcao
 
-    void copiarvet(double *vet, double *vet2, int n){
-        vet2=(double *)malloc(n*sizeof(double));
+/*
+A solucao eh declarar o vet_destino como um ponteiro, passar o endereco, depois fazer
+a funcao receber ele como um ponteiro de ponteiro, e alocar no desreferenciamento do vet_destino
+*/
+
+    void copiarvet(double *vet, double **vet2, int n){
+        *vet2=(double *)malloc(n*sizeof(double));
 
         for(int i=0; i<n; i++){
-            vet2[i]=vet[i];
+            (*vet2)[i]=vet[i];
         }
     }
 
@@ -15,7 +20,7 @@
 
         vet_origem=(double *)calloc(n,sizeof(double));
 
-        copiarvet(vet_origem, vet_destino, n);
+        copiarvet(vet_origem, &vet_destino, n);
 
         printf("\nO vetor de origem eh:");
         for(i=0; i<n-1; i++){
@@ -33,7 +38,3 @@
         free(vet_destino);
 
     }
-/*
-A solucao eh declarar o vet_destino como um ponteiro e depois fazer 
-a alocao dinamica partindo desse ponteiro na funcao copiarvet
-*/
