@@ -18,16 +18,19 @@
         int i, n;
         ponto *pt;
 
-        printf("Digite quantos ponto(x,y) voce deseja: ");
+        printf("Digite quantos pontos(x,y) voce deseja: ");
         scanf("%d", &n);
 
         pt=npontos(n);
 
-        printf("(%d,%d) ,", pt[0].x, pt[0].y);
-        for(i=1; i<n-1; i++){
-            printf(" (%d,%d) ,", pt[i].x, pt[i].y);
+        printf("(%d,%d)", pt[0].x, pt[0].y);
+        if(n>1){
+            printf(" ,");
+            for(i=1; i<n-1; i++){
+                printf(" (%d,%d) ,", pt[i].x, pt[i].y);
+            }
+            printf(" (%d,%d)", pt[i].x, pt[i].y);
         }
-        printf(" (%d,%d)", pt[i].x, pt[i].y);
 
         free(pt);
         
