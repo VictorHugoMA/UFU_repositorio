@@ -7,10 +7,8 @@
 
         nr=sqrt(x);
 
-        if((nr*nr)==x)
-            return 1;
-        else
-            return 0;
+        return ((nr*nr)==x);
+        
     }
 
     int main(){
