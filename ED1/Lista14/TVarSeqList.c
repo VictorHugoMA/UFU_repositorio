@@ -18,13 +18,14 @@
 
         l=malloc(sizeof(lista));
 
-        if(l!=NULL)
+        if(l!=NULL){
             l->qtd=0;
             l->mInicial=n;
             l->mAtual=n;
             l->dado=malloc(n*sizeof(aluno));
         
-        return l;
+            return l;
+        }
     }
 
     //Aumenta o tamnho da lista adicionando o tamanho inicial a cada execucao
