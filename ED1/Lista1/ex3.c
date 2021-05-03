@@ -3,7 +3,13 @@
 
     int main(){
         int x;
-
+        
+        printf("<< Sucessor e Antecessor >>\n");
+        printf("Digite um numero: ");
         scanf("%d", &x);
-        printf("%d %d", x-1, x+1);
+
+        printf("\nAntecessor: %d\n", x-1);
+        printf("Numero: %d\n", x);
+        printf("Sucessor: %d", x+1);
+
     }
