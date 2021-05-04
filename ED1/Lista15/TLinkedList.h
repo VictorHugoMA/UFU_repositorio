@@ -19,3 +19,8 @@ list *list_creat();
 int list_free(list *l);
 
 int list_push_front(list *l, aluno a);
+
+int list_push_back(list *l, aluno a);
+
+int list_print(list *l);
+
