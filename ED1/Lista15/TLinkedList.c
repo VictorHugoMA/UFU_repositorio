@@ -99,6 +99,100 @@ int list_push_back(list *l, aluno a){
     }
 }
 
+
+int list_insert(list *l, int pos, aluno a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        list_node *n, *aux;
+
+        n = malloc(sizeof(list_node));
+
+        if(n==NULL){
+            return OUT_OF_MEMORY;
+        }
+        else{
+
+            n->data=a;
+            if(pos==1){
+                n->next=l->head;
+                l->head=n;
+            }
+            else{
+                int i;
+
+                aux = l->head;
+                for(i=0; i<pos-1; i++){
+                    aux=aux->next;
+                }
+                n->next = aux->next;
+                aux->next = n;
+
+            }
+            return SUCCESS;
+
+        }
+    }
+}
+
+int list_pop_front(list *l){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        list_node *aux;
+
+        aux=l->head;
+        l->head=aux->next; 
+        free(aux);
+
+        return SUCCESS;
+    }
+}
+
+
+int list_pop_back(list *l){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        list_node *aux;
+        aux = l->head;
+
+        while(aux->next != NULL){
+            aux=aux->next;
+        }
+        aux = NULL;
+        free(aux);
+        return SUCCESS;
+    }
+}
+
+int list_front(list *l, aluno *a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        *a=l->head->data;
+        
+        return SUCCESS;
+    }
+}
+
+int list_size(list *l){
+   if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        int cont=0;
+        list_node *aux;
+        
+        aux = l->head;
+        while(aux != NULL){
+            cont++;
+            aux=aux->next;
+        }
+
+        return cont;
+    }
+}
+
 int list_print(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;

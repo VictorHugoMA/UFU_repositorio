@@ -14,13 +14,37 @@ typedef struct list list;
 
 //Funcoes
 
-list *list_creat();
+list *list_creat();//
 
-int list_free(list *l);
+int list_free(list *l);//
 
-int list_push_front(list *l, aluno a);
+int list_push_front(list *l, aluno a);//
 
-int list_push_back(list *l, aluno a);
+int list_push_back(list *l, aluno a);//
 
-int list_print(list *l);
+int list_print(list *l);//
+
+int list_insert(list *l, int pos, aluno a); //n
+
+int list_insert_sorted(list *l, aluno a);
+
+int list_size(list *l);//
+
+int list_pop_front(list *l);//
+
+int list_pop_back(list *l); //n
+
+int list_erase_data(list *l, int mat);
+
+int list_erase_pos(list *l, int pos);
+
+int list_find_pos(list *l, int pos, aluno *a);
+
+int list_find_mat(list *l, int mat, aluno *a);
+
+int list_front(list *l, aluno *a);//
+
+int list_back(list *l, aluno *a);
+
+int list_get_pos(list *l, int mat, int *pos);
 
