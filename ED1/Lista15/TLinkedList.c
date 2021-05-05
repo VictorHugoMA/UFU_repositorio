@@ -166,13 +166,65 @@ int list_pop_back(list *l){
     }
 }
 
+int list_find_mat(list *l, int mat, aluno *a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(l->head==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            list_node *aux;
+
+            aux = l->head;
+            while(aux!= NULL && aux->data.matricula != mat){
+                aux=aux->next;
+            }
+            if(aux == NULL)
+                return ELEM_NOT_FOUND; 
+            
+            else{
+                *a=aux->data;
+                return SUCCESS;
+            }  
+        }
+    }
+}
+
 int list_front(list *l, aluno *a){
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
-        *a=l->head->data;
+        if(l->head==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            *a=l->head->data;
+            return SUCCESS;
+        }
+
+    }
+}
+
+int list_back(list *l, aluno *a){
+    if(l==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        if(l->head==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            list_node *aux;
+
+            aux=l->head;
+            while(aux->next != NULL){
+                aux=aux->next;
+            }
+            *a=aux->data;
+            return SUCCESS;
+        }
         
-        return SUCCESS;
     }
 }
 

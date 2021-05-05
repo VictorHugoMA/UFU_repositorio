@@ -40,11 +40,11 @@ int list_erase_pos(list *l, int pos);
 
 int list_find_pos(list *l, int pos, aluno *a);
 
-int list_find_mat(list *l, int mat, aluno *a);
+int list_find_mat(list *l, int mat, aluno *a);//
 
 int list_front(list *l, aluno *a);//
 
-int list_back(list *l, aluno *a);
+int list_back(list *l, aluno *a);//
 
 int list_get_pos(list *l, int mat, int *pos);
 
