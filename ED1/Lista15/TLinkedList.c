@@ -104,7 +104,7 @@ int list_insert(list *l, int pos, aluno a){
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
-        list_node *n, *aux;
+        list_node *n, *atu, *ant;
 
         n = malloc(sizeof(list_node));
 
@@ -117,19 +117,24 @@ int list_insert(list *l, int pos, aluno a){
             if(pos==1){
                 n->next=l->head;
                 l->head=n;
+                return SUCCESS;
             }
             else{
                 int i;
 
-                aux = l->head;
-                for(i=0; i<pos-1; i++){
-                    aux=aux->next;
+                atu = l->head;
+                ant = l->head;
+                for(i=1; i<pos; i++){
+                    ant=atu;
+                    atu=atu->next;
+                    if(atu==NULL && i<(pos-1)){
+                        return OUT_OF_RANGE;
+                    }
                 }
-                n->next = aux->next;
-                aux->next = n;
-
+                ant->next=n;
+                n->next = atu;
+                return SUCCESS;
             }
-            return SUCCESS;
 
         }
     }
@@ -168,11 +173,61 @@ int list_pop_back(list *l){
     }
 }
 
-int list_erase_data(list *l, int mat){
+int list_erase_data(list *l, int mat){ 
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
-        
+        list_node *atu, *ant;
+
+            atu = l->head;
+            ant = l->head;
+
+            if(atu->data.matricula == mat){
+                l->head=l->head->next;
+                free(atu);
+                return SUCCESS;
+            }
+            else{
+                while(atu!= NULL && atu->data.matricula != mat){
+                    ant=atu;
+                    atu=atu->next;
+                }
+                if(atu == NULL)
+                    return ELEM_NOT_FOUND; 
+                
+                else{
+                    ant->next=atu->next;
+                    free(atu);
+                    return SUCCESS;
+                }  
+            }
+    }
+}
+
+int list_find_pos(list *l, int pos, aluno *a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(l->head==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            list_node *aux;
+            int cont=1;
+
+            aux = l->head;
+            while(aux != NULL && pos != cont){
+                cont++;
+                aux=aux->next;
+            }
+            if(aux == NULL)
+                return ELEM_NOT_FOUND; 
+            
+            else{
+                *a=aux->data;
+                return SUCCESS;
+            }  
+        }
     }
 }
 

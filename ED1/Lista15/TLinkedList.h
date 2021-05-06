@@ -24,7 +24,7 @@ int list_push_back(list *l, aluno a);//
 
 int list_print(list *l);//
 
-int list_insert(list *l, int pos, aluno a); //n
+int list_insert(list *l, int pos, aluno a); //
 
 int list_insert_sorted(list *l, aluno a);
 
@@ -34,11 +34,11 @@ int list_pop_front(list *l);//
 
 int list_pop_back(list *l); //
 
-int list_erase_data(list *l, int mat);
+int list_erase_data(list *l, int mat);//
 
 int list_erase_pos(list *l, int pos);
 
-int list_find_pos(list *l, int pos, aluno *a);
+int list_find_pos(list *l, int pos, aluno *a);//
 
 int list_find_mat(list *l, int mat, aluno *a);//
 

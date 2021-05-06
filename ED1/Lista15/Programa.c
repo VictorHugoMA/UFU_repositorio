@@ -2,26 +2,31 @@
 #include"TLinkedList.h"
 
     int main(){
-        int i, aux, mat;
-        aluno   a[5]={
+        int i, aux, mat, pos;
+        aluno a[10]={
         {120, "Victor", 10, 10, 10},
         {110, "Pedro", 10, 10, 10},
+        {130, "Joao", 7, 8, 10},
         {105, "Maria", 7.5, 9.1, 10},
         {150, "Guilherme", 6.5, 9.0, 8},
-        {100, "Alisson", 10, 8, 10}
+        {100, "Alisson", 10, 10, 10},
+        {170, "Felipe", 10, 10, 10},
+        {200, "Carolina", 7, 8, 10},
+        {115, "Jorge", 7.5, 9.1, 10},
+        {195, "Ana", 6.5, 9.0, 8}
         }, aC;
 
         list *l;
 
         l = list_creat(); // cria a lista 
 
-        for(i=0; i<4; i++){
+        for(i=0; i<9; i++){
             list_push_front(l, a[i]); //insere na primeira posicao da lista
         }
 
-       list_push_back(l, a[4]); //insere na ultima posicao da lista
+       //list_push_back(l, a[9]); //insere na ultima posicao da lista
 
-        //list_insert(l, 2, a[4]);
+        list_insert(l, 2, a[9]);
 
         list_print(l); //imprime toda a lista
 
@@ -80,6 +85,37 @@
                 printf("Nome: %s\n", aC.nome);
                 printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
             }
+        
+        printf("\nDigite a posicao para consultar: ");
+        scanf("%d", &pos);
+        aux = list_find_pos(l, pos, &aC); //Consulta o aluno pela posicao na lista
+
+            if(aux==INVALID_NULL_POINTER)
+                printf("\nPonteiro invalido\n");
+            else if(aux == ELEM_NOT_FOUND){
+                printf("\nElemento nao encontrado\n");
+            }
+            else if(aux == SUCCESS){
+                printf("Matricula %d\n", aC.matricula);
+                printf("Nome: %s\n", aC.nome);
+                printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
+            }
+
+        printf("\nDigite a matricula para remover: ");
+        scanf("%d", &mat);
+        aux = list_erase_data(l, mat); //remove um aluno pela matricula 
+
+            if(aux==INVALID_NULL_POINTER)
+                printf("\nPonteiro invalido\n");
+            else if(aux == ELEM_NOT_FOUND){
+                printf("\nElemento nao encontrado\n");
+            }
+            else if(aux == SUCCESS){
+                printf("Elemento removido\n");
+            }
+        
+        list_print(l);
+
 
         list_free(l);
 
