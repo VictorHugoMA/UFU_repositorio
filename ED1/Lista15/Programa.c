@@ -101,9 +101,36 @@
                 printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
             }
 
+        list_get_pos(l, mat, &pos);
+        printf("\nDigite a matricula para consultar a posicao na lista: ");
+        scanf("%d", &mat);
+        aux = list_get_pos(l, mat, &pos); //remove um aluno pela matricula 
+
+            if(aux==INVALID_NULL_POINTER)
+                printf("\nPonteiro invalido\n");
+            else if(aux == ELEM_NOT_FOUND){
+                printf("\nElemento nao encontrado\n");
+            }
+            else if(aux == SUCCESS){
+                printf("\nA posicao da matricula %d na lista eh %d\n", mat, pos);
+            }
+
         printf("\nDigite a matricula para remover: ");
         scanf("%d", &mat);
         aux = list_erase_data(l, mat); //remove um aluno pela matricula 
+
+            if(aux==INVALID_NULL_POINTER)
+                printf("\nPonteiro invalido\n");
+            else if(aux == ELEM_NOT_FOUND){
+                printf("\nElemento nao encontrado\n");
+            }
+            else if(aux == SUCCESS){
+                printf("Elemento removido\n");
+            }
+        
+        printf("\nDigite a a posicao para remover: ");
+        scanf("%d", &pos);
+        aux = list_erase_pos(l, pos); //remove um aluno pela matricula 
 
             if(aux==INVALID_NULL_POINTER)
                 printf("\nPonteiro invalido\n");

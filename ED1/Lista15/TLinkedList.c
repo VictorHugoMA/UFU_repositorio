@@ -173,6 +173,42 @@ int list_pop_back(list *l){
     }
 }
 
+int list_erase_pos(list *l, int pos){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        list_node *atu, *ant;
+        int cont=1;
+
+            atu = l->head;
+            ant = l->head;
+
+            if(l->head==NULL)
+                return ELEM_NOT_FOUND;
+            
+            else if(pos == 1 ){
+                l->head=l->head->next;
+                free(atu);
+                return SUCCESS;
+            }
+            else{
+                while(atu!= NULL && cont != pos){
+                    cont++;
+                    ant=atu;
+                    atu=atu->next;
+                }
+                if(atu == NULL)
+                    return ELEM_NOT_FOUND; 
+                
+                else{
+                    ant->next=atu->next;
+                    free(atu);
+                    return SUCCESS;
+                }  
+            }
+    }
+}
+
 int list_erase_data(list *l, int mat){ 
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -182,7 +218,10 @@ int list_erase_data(list *l, int mat){
             atu = l->head;
             ant = l->head;
 
-            if(atu->data.matricula == mat){
+            if(l->head ==NULL)
+                return ELEM_NOT_FOUND;
+
+            else if(atu->data.matricula == mat){
                 l->head=l->head->next;
                 free(atu);
                 return SUCCESS;
@@ -307,6 +346,33 @@ int list_size(list *l){
         }
 
         return cont;
+    }
+}
+
+int list_get_pos(list *l, int mat, int *pos){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(l->head==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            list_node *aux;
+            int cont=1;
+
+            aux = l->head;
+            while(aux!= NULL && aux->data.matricula != mat){
+                cont++;
+                aux=aux->next;
+            }
+            if(aux == NULL)
+                return ELEM_NOT_FOUND; 
+            
+            else{
+                *pos=cont;
+                return SUCCESS;
+            }  
+        }
     }
 }
 
