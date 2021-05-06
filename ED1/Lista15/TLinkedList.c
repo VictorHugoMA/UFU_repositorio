@@ -99,7 +99,6 @@ int list_push_back(list *l, aluno a){
     }
 }
 
-
 int list_insert(list *l, int pos, aluno a){
     if(l==NULL)
         return INVALID_NULL_POINTER;

@@ -149,7 +149,6 @@
         printf("\nLista ordenada:\n");
         list_print(l2);
 
-
         list_free(l);
         list_free(l2);
 

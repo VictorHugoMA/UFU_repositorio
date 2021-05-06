@@ -12,8 +12,6 @@ typedef struct aluno{
 
 typedef struct list list;
 
-//Funcoes
-
 list *list_creat();
 
 int list_free(list *l);
