@@ -32,7 +32,7 @@ int list_size(list *l);//
 
 int list_pop_front(list *l);//
 
-int list_pop_back(list *l); //n
+int list_pop_back(list *l); //
 
 int list_erase_data(list *l, int mat);
 

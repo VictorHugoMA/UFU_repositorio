@@ -154,15 +154,25 @@ int list_pop_back(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
-        list_node *aux;
-        aux = l->head;
+        list_node *atu, *ant;
 
-        while(aux->next != NULL){
-            aux=aux->next;
+        atu = l->head;
+        ant = l->head;
+        while(atu->next != NULL){
+            ant=atu;
+            atu=atu->next;
         }
-        aux = NULL;
-        free(aux);
+        ant->next=NULL;
+        free(atu);
         return SUCCESS;
+    }
+}
+
+int list_erase_data(list *l, int mat){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        
     }
 }
 

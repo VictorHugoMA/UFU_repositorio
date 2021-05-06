@@ -26,12 +26,14 @@
         list_print(l); //imprime toda a lista
 
         printf("\nTamanho da lista: %d\n", list_size(l)); //devolve o tamaho da lista
-/*
+
+        /*
         aux = list_pop_back(l); //apaga o ultimo elemento da lista
         printf("%d", aux);
-        printf("\nDepois de retirar\n");
-        list_print(l);
-*/
+        printf("\nRetirarando o ultimo elemento\n");
+        list_print(l);  
+        */
+
         printf("\nRemovendo o primeiro elemento da lista\n");
         list_pop_front(l); //apaga o primeiro elemento da lista
         list_print(l);
