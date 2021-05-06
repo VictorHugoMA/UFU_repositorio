@@ -140,6 +140,41 @@ int list_insert(list *l, int pos, aluno a){
     }
 }
 
+int list_insert_sorted(list *l, aluno a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        list_node *n, *atu, *ant;
+
+        n = malloc(sizeof(list_node));
+
+        if(n==NULL){
+            return OUT_OF_MEMORY;
+        }
+        else{
+            n->data=a;
+            
+            atu = l->head;
+            ant = l->head;
+
+            if(l->head==NULL || l->head->data.matricula> n->data.matricula){
+                n->next=l->head;
+                l->head=n;
+                return SUCCESS;
+            }
+            else{
+                while(atu!= NULL && atu->data.matricula < n->data.matricula){
+                        ant=atu;
+                        atu=atu->next;
+                    }
+                ant->next=n;
+                n->next=atu;
+                return SUCCESS;
+            }
+        }
+    }
+}
+
 int list_pop_front(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;

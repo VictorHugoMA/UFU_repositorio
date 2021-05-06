@@ -20,26 +20,21 @@
 
         l = list_creat(); // cria a lista 
 
-        for(i=0; i<9; i++){
+        for(i=0; i<8; i++){
             list_push_front(l, a[i]); //insere na primeira posicao da lista
         }
 
-       //list_push_back(l, a[9]); //insere na ultima posicao da lista
+       list_push_back(l, a[8]); //insere na ultima posicao da lista
 
-        list_insert(l, 2, a[9]);
+        list_insert(l, 2, a[9]); //insere em uma determinada posicao
 
         list_print(l); //imprime toda a lista
 
         printf("\nTamanho da lista: %d\n", list_size(l)); //devolve o tamaho da lista
 
-        /*
-        aux = list_pop_back(l); //apaga o ultimo elemento da lista
-        printf("%d", aux);
-        printf("\nRetirarando o ultimo elemento\n");
-        list_print(l);  
-        */
-
-        printf("\nRemovendo o primeiro elemento da lista\n");
+        
+        printf("\nRetirarando o primeiro e o ultimo elemento da lista\n"); 
+        list_pop_back(l); //apaga o ultimo elemento da lista
         list_pop_front(l); //apaga o primeiro elemento da lista
         list_print(l);
 
@@ -104,7 +99,7 @@
         list_get_pos(l, mat, &pos);
         printf("\nDigite a matricula para consultar a posicao na lista: ");
         scanf("%d", &mat);
-        aux = list_get_pos(l, mat, &pos); //remove um aluno pela matricula 
+        aux = list_get_pos(l, mat, &pos); //da a posicacao de uma matricula na lista
 
             if(aux==INVALID_NULL_POINTER)
                 printf("\nPonteiro invalido\n");
@@ -128,9 +123,9 @@
                 printf("Elemento removido\n");
             }
         
-        printf("\nDigite a a posicao para remover: ");
+        printf("\nDigite a posicao para remover: ");
         scanf("%d", &pos);
-        aux = list_erase_pos(l, pos); //remove um aluno pela matricula 
+        aux = list_erase_pos(l, pos); //remove um aluno pela posicao
 
             if(aux==INVALID_NULL_POINTER)
                 printf("\nPonteiro invalido\n");
@@ -143,8 +138,20 @@
         
         list_print(l);
 
+        list *l2;
+
+        l2 = list_creat();
+
+            for(i=0; i<10; i++){
+                list_insert_sorted(l2, a[i]); //insere os alunos de maneira ordenado na lista
+            }
+        
+        printf("\nLista ordenada:\n");
+        list_print(l2);
+
 
         list_free(l);
+        list_free(l2);
 
         return 0;
     }
