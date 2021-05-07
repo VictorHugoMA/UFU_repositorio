@@ -178,13 +178,17 @@ int list_pop_front(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
-        list_node *aux;
+        if(l->head==NULL)
+            return ELEM_NOT_FOUND;
+        else{
+            list_node *aux;
 
-        aux=l->head;
-        l->head=aux->next; 
-        free(aux);
+            aux=l->head;
+            l->head=aux->next; 
+            free(aux);
 
-        return SUCCESS;
+            return SUCCESS;
+        }
     }
 }
 
