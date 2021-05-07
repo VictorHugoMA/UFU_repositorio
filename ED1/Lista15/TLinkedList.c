@@ -459,6 +459,9 @@ int list_get_pos(list *l, int mat, int *pos){
     }
 }
 
+//Imprime a lista
+//dado a lista
+//Retorno INVALID_NULL_POINTER(-1) para erro e SUCCESS(0) para sucesso
 int list_print(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;
