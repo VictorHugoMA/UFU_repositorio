@@ -3,6 +3,7 @@
 #define OUT_OF_MEMORY -2
 #define OUT_OF_RANGE -3
 #define ELEM_NOT_FOUND -4
+#define NOT_ALLOWED -5
 
 typedef struct aluno{
     int matricula;
@@ -12,7 +13,7 @@ typedef struct aluno{
 
 typedef struct list list;
 
-list *list_creat();
+list *list_creat(int su);
 
 int list_free(list *l);
 

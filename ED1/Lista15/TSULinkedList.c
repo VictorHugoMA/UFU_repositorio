@@ -11,17 +11,24 @@ struct list_node{
 
 struct list{
     list_node *head;
+    int size;
+    int sorted;
 };
 
 
 
-list *list_creat(){
+list *list_creat(int su){
     list *l;
 
     l = malloc(sizeof(list));
 
     if(l!=NULL)
         l->head=NULL;
+        l->size=0;
+    if(su==0)
+        l->sorted=0; //nao ordenada
+    else
+        l->sorted=1; //ordenada
 
     return l;
 }
@@ -47,6 +54,8 @@ int list_free(list *l){
 }
 
 int list_push_front(list *l, aluno a){
+    if(l->sorted==1)
+        return NOT_ALLOWED;
     if(l==NULL){
         return INVALID_NULL_POINTER;
     }
@@ -61,13 +70,16 @@ int list_push_front(list *l, aluno a){
         n->data=a;
         n->next=l->head;
         l->head=n;
-        
+        l->size++;
+
         return SUCCESS;
     }
 }
 
 int list_push_back(list *l, aluno a){
-   if(l==NULL)
+    if(l->sorted==1)
+        return NOT_ALLOWED;
+    if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
         list_node *n;
@@ -94,12 +106,15 @@ int list_push_back(list *l, aluno a){
                 aux->next=n;
 
             }
+            l->size++;
             return SUCCESS;
         }
     }
 }
 
 int list_insert(list *l, int pos, aluno a){
+    if(l->sorted==1)
+        return NOT_ALLOWED;
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
@@ -116,6 +131,8 @@ int list_insert(list *l, int pos, aluno a){
             if(pos==1){
                 n->next=l->head;
                 l->head=n;
+                l->size++;
+
                 return SUCCESS;
             }
             else{
@@ -132,6 +149,8 @@ int list_insert(list *l, int pos, aluno a){
                 }
                 ant->next=n;
                 n->next = atu;
+                l->size++;
+
                 return SUCCESS;
             }
 
@@ -140,6 +159,8 @@ int list_insert(list *l, int pos, aluno a){
 }
 
 int list_insert_sorted(list *l, aluno a){
+    if(l->sorted==0)
+        return NOT_ALLOWED;
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
@@ -159,6 +180,8 @@ int list_insert_sorted(list *l, aluno a){
             if(l->head==NULL || l->head->data.matricula> n->data.matricula){
                 n->next=l->head;
                 l->head=n;
+                l->size++;
+
                 return SUCCESS;
             }
             else{
@@ -168,6 +191,8 @@ int list_insert_sorted(list *l, aluno a){
                     }
                 ant->next=n;
                 n->next=atu;
+                l->size++;
+
                 return SUCCESS;
             }
         }
@@ -178,13 +203,18 @@ int list_pop_front(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;
     else{
-        list_node *aux;
+        if(l->head==NULL)
+            return ELEM_NOT_FOUND;
+        else{
+            list_node *aux;
 
-        aux=l->head;
-        l->head=aux->next; 
-        free(aux);
+            aux=l->head;
+            l->head=aux->next; 
+            free(aux);
+            l->size--;
 
-        return SUCCESS;
+            return SUCCESS;
+        }
     }
 }
 
@@ -203,6 +233,8 @@ int list_pop_back(list *l){
         }
         ant->next=NULL;
         free(atu);
+        l->size--;
+
         return SUCCESS;
     }
 }
@@ -223,6 +255,8 @@ int list_erase_pos(list *l, int pos){
             else if(pos == 1 ){
                 l->head=l->head->next;
                 free(atu);
+                l->size--;
+
                 return SUCCESS;
             }
             else{
@@ -237,6 +271,8 @@ int list_erase_pos(list *l, int pos){
                 else{
                     ant->next=atu->next;
                     free(atu);
+                    l->size--;
+
                     return SUCCESS;
                 }  
             }
@@ -258,6 +294,8 @@ int list_erase_data(list *l, int mat){
             else if(atu->data.matricula == mat){
                 l->head=l->head->next;
                 free(atu);
+                l->size--;
+
                 return SUCCESS;
             }
             else{
@@ -271,6 +309,8 @@ int list_erase_data(list *l, int mat){
                 else{
                     ant->next=atu->next;
                     free(atu);
+                    l->size--;
+
                     return SUCCESS;
                 }  
             }
@@ -425,6 +465,7 @@ int list_print(list *l){
 
             aux=aux->next;
         }
+        printf("\nTamanho da lista: %d\n", l->size);
         return SUCCESS;
     }
 }
