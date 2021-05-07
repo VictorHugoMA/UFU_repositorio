@@ -14,7 +14,8 @@ struct list{
 };
 
 
-
+//Cria a lista
+//Retorna o ponteiro para a lista
 list *list_creat(){
     list *l;
 
@@ -26,6 +27,9 @@ list *list_creat(){
     return l;
 }
 
+//Libera a lista
+//dado a lista
+//Retorno INVALID_NULL_POINTER(-1) para erro e SUCCESS(0) para sucesso
 int list_free(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -46,6 +50,9 @@ int list_free(list *l){
     }
 }
 
+//Insere um elemento na primeira posicao da lista
+//dado a lista e o aluno
+//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
 int list_push_front(list *l, aluno a){
     if(l==NULL){
         return INVALID_NULL_POINTER;
@@ -66,6 +73,9 @@ int list_push_front(list *l, aluno a){
     }
 }
 
+//Insere um elemento na ultima posicao da lista
+//dado a lista e o aluno
+//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
 int list_push_back(list *l, aluno a){
    if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -99,6 +109,9 @@ int list_push_back(list *l, aluno a){
     }
 }
 
+//Insere um elemento em uma determinada posicao da lista
+//dado a lista, a posicao e o aluno
+//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
 int list_insert(list *l, int pos, aluno a){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -139,6 +152,9 @@ int list_insert(list *l, int pos, aluno a){
     }
 }
 
+//Insere um elemento de maneira ordenada na lista
+//dado a lista e o aluno
+//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
 int list_insert_sorted(list *l, aluno a){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -174,6 +190,9 @@ int list_insert_sorted(list *l, aluno a){
     }
 }
 
+//Remove o primeiro elemento da lista
+//dado a lista
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_pop_front(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -192,7 +211,9 @@ int list_pop_front(list *l){
     }
 }
 
-
+//Remove o ultimo elemento da lista
+//dado a lista
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_pop_back(list *l){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -211,6 +232,9 @@ int list_pop_back(list *l){
     }
 }
 
+//Remove um elemento de uma determindada posicao da lista
+//dado a lista e a posicao
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_erase_pos(list *l, int pos){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -247,6 +271,9 @@ int list_erase_pos(list *l, int pos){
     }
 }
 
+//Remove um elemento da lista pela matricula
+//dado a lista e a matricula
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_erase_data(list *l, int mat){ 
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -281,6 +308,9 @@ int list_erase_data(list *l, int mat){
     }
 }
 
+//Consulta os dados de uma posicao da lista
+//dado a lista, a posicao e o ponteiro para aluno que recebe os dados
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_find_pos(list *l, int pos, aluno *a){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -308,6 +338,9 @@ int list_find_pos(list *l, int pos, aluno *a){
     }
 }
 
+//Consulta os dados de uma matricula na lista
+//dado a lista, a matricula e o ponteiro para aluno que recebe os dados
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_find_mat(list *l, int mat, aluno *a){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -333,6 +366,9 @@ int list_find_mat(list *l, int mat, aluno *a){
     }
 }
 
+//Consulta os dados da primeira posicao da lista
+//dado a lista e o ponteiro para aluno que recebe os dados
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_front(list *l, aluno *a){
     if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -348,6 +384,9 @@ int list_front(list *l, aluno *a){
     }
 }
 
+//Consulta os dados da ultima posicao da lista
+//dado a lista e o ponteiro para aluno que recebe os dados
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_back(list *l, aluno *a){
     if(l==NULL){
         return INVALID_NULL_POINTER;
@@ -370,6 +409,9 @@ int list_back(list *l, aluno *a){
     }
 }
 
+//Verifica o tamanho da lista
+//dado a lista
+//Retorno INVALID_NULL_POINTER(-1) para erro e a tamnho da lista para sucesso
 int list_size(list *l){
    if(l==NULL)
         return INVALID_NULL_POINTER;
@@ -387,6 +429,9 @@ int list_size(list *l){
     }
 }
 
+//Informa a posicao de um elemento na lista
+//dado a lista, a matricula e o ponteiro de inteiro que recebe a posicao
+//Retorno INVALID_NULL_POINTER(-1) ou ELEM_NOT_FOUND(-4) para erro e SUCCESS(0) para sucesso
 int list_get_pos(list *l, int mat, int *pos){
     if(l==NULL)
         return INVALID_NULL_POINTER;
