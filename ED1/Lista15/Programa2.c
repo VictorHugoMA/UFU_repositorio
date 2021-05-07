@@ -2,7 +2,7 @@
 #include"TSULinkedList.h"
 
     int main(){
-        int i, aux;
+        int i, aux, mat;
         aluno a[10]={
         {120, "Victor", 10, 10, 10},
         {110, "Pedro", 10, 10, 10},
@@ -18,7 +18,7 @@
 
         list *l;
 
-        l = list_creat(0); //cria a lista sabendo se eh ordenada ou nao
+        l = list_creat(1); //cria a lista sabendo se eh ordenada ou nao
         
         printf("Inserindo elemento de maneira ordenada:\n");
         for(i=0; i<10; i++){
@@ -43,6 +43,21 @@
                 printf("Nao foi posivel alocar a memoria\n");
             else if(aux==NOT_ALLOWED)
                 printf("Tipo de insercao nao permitida\n");
+        
+        list_print(l);
+
+        printf("\nDigite a matricula para remover: ");
+        scanf("%d", &mat);
+        aux = list_erase_data(l, mat); //remove um aluno pela matricula 
+
+            if(aux==INVALID_NULL_POINTER)
+                printf("\nPonteiro invalido\n");
+            else if(aux == ELEM_NOT_FOUND){
+                printf("\nElemento nao encontrado\n");
+            }
+            else if(aux == SUCCESS){
+                printf("Elemento removido\n");
+            }
         
         list_print(l);
 
