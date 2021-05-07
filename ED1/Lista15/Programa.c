@@ -24,7 +24,7 @@
             list_push_front(l, a[i]); //insere na primeira posicao da lista
         }
 
-       list_push_back(l, a[8]); //insere na ultima posicao da lista
+        list_push_back(l, a[8]); //insere na ultima posicao da lista
 
         list_insert(l, 2, a[9]); //insere em uma determinada posicao
 
