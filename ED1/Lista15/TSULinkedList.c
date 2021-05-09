@@ -60,7 +60,7 @@ int list_free(list *l){
 
 //Insere um elemento na primeira posicao da lista
 //dado a lista e o aluno
-//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
+//Retorno INVALID_NULL_POINTER(-1), OUT_OF_MEMORY(-2) ou NOT_ALLOWED(-5) para erro e SUCCESS(0) para sucesso
 int list_push_front(list *l, aluno a){
     if(l->sorted==1)
         return NOT_ALLOWED;
@@ -86,7 +86,7 @@ int list_push_front(list *l, aluno a){
 
 //Insere um elemento na ultima posicao da lista
 //dado a lista e o aluno
-//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
+//Retorno INVALID_NULL_POINTER(-1), OUT_OF_MEMORY(-2) ou NOT_ALLOWED(-5) para erro e SUCCESS(0) para sucesso
 int list_push_back(list *l, aluno a){
     if(l->sorted==1)
         return NOT_ALLOWED;
@@ -125,7 +125,7 @@ int list_push_back(list *l, aluno a){
 
 //Insere um elemento em uma determinada posicao da lista
 //dado a lista, a posicao e o aluno
-//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
+//Retorno INVALID_NULL_POINTER(-1), OUT_OF_MEMORY(-2) ou NOT_ALLOWED(-5) para erro e SUCCESS(0) para sucesso
 int list_insert(list *l, int pos, aluno a){
     if(l->sorted==1)
         return NOT_ALLOWED;
@@ -174,7 +174,7 @@ int list_insert(list *l, int pos, aluno a){
 
 //Insere um elemento de maneira ordenada na lista
 //dado a lista e o aluno
-//Retorno INVALID_NULL_POINTER(-1) ou OUT_OF_MEMORY(-2) para erro e SUCCESS(0) para sucesso
+//Retorno INVALID_NULL_POINTER(-1), OUT_OF_MEMORY(-2) ou NOT_ALLOWED(-5) para erro e SUCCESS(0) para sucesso
 int list_insert_sorted(list *l, aluno a){
     if(l->sorted==0)
         return NOT_ALLOWED;
