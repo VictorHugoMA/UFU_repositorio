@@ -12,6 +12,12 @@ typedef struct aluno{
 
 typedef struct TDLinkedList DLlist;
 
-DLlist* list_creat();
+DLlist* list_creat();//
 
 int list_free(DLlist *list);
+
+int list_push_front(DLlist *l, aluno a);//
+
+int list_print_forward(DLlist *l);//
+
+int list_print_reverse(DLlist *l);//
