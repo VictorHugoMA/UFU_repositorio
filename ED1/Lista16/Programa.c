@@ -17,13 +17,15 @@
 
         DLlist *l;
 
-        l = list_creat();
+        l = list_creat(); //cria a lista
 
-        list_push_front(l, a[0]);
+        list_push_front(l, a[0]); //insere aluno na primeira posicao
 
-        list_print_forward(l);
+        list_insert(l, 2, a[1]); //insere aluno em uma posicao
 
-        list_free(l);
+        list_print_forward(l); //imprime a lista na ordem 
+
+        list_free(l); //libera a lista
 
 
         return 0;
