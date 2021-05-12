@@ -22,8 +22,8 @@
         list_push_front(l, a[0]);
 
         list_print_forward(l);
-        
 
+        list_free(l);
 
 
         return 0;

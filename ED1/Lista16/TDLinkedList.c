@@ -30,7 +30,23 @@ DLlist* list_creat(){
 }
 
 int list_free(DLlist *l){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
     
+    else{
+        DLNode *atu, *prox;
+
+        atu=l->begin;
+
+        while(atu != NULL){
+            prox=atu->next;
+            free(atu);
+            atu=prox;
+        }
+
+        free(l);
+        return SUCCESS;
+    }
 }
 
 int list_push_front(DLlist *l, aluno a){
