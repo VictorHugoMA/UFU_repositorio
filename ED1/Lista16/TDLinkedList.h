@@ -18,27 +18,27 @@ int list_free(DLlist *list);//
 
 int list_push_front(DLlist *l, aluno a);//
 
-int list_push_back(DLlist *li, struct aluno al);
+int list_push_back(DLlist *l, aluno a); //
 
 int list_insert(DLlist *l, int pos, aluno a);//
 
-int list_size(DLlist *li);
+int list_size(DLlist *l); //
 
-int list_pop_front(DLlist *li);
+int list_pop_front(DLlist *l);
 
-int list_pop_back(DLlist *li); 
+int list_pop_back(DLlist *l); 
 
-int list_erase(DLlist *li, int pos);
+int list_erase(DLlist *l, int pos);
 
-int list_find_pos(DLlist *li, int pos, struct aluno *al);
+int list_find_pos(DLlist *l, int pos, aluno *a);
 
-int list_find_mat(DLlist *li, int nmat, struct aluno *al);
+int list_find_mat(DLlist *l, int mat, aluno *a);
 
-int list_front(DLlist *li, struct aluno *al); 
+int list_front(DLlist *l, aluno *a); 
 
-int list_back(DLlist *li, struct aluno *al); 
+int list_back(DLlist *l, aluno *a); 
 
-int list_get_pos(DLlist *li, int mat, int *pos);
+int list_get_pos(DLlist *l, int mat, int *pos);
 
 int list_print_forward(DLlist *l);//
 

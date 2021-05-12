@@ -81,6 +81,39 @@ int list_push_front(DLlist *l, aluno a){
 
 }
 
+int list_push_back(DLlist *l, aluno a){
+    if(l == NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        DLNode *n;
+        n=malloc(sizeof(DLNode));
+
+        if(n==NULL){
+            return OUT_OF_MEMORY;
+        }
+        else{
+            n->data=a;
+            n->next=NULL;
+
+            if(l->begin==NULL){
+                l->begin=n;
+                l->end=n;
+                n->prev=NULL;
+                l->size++;
+            }
+            else{
+                l->end->next=n;
+                n->prev=l->end;
+                l->end=n;
+                l->size++;
+            }
+
+            return SUCCESS;
+        }
+    }
+}
+
 int list_insert(DLlist *l, int pos, aluno a){
     if(l == NULL)
         return INVALID_NULL_POINTER;
@@ -133,6 +166,36 @@ int list_insert(DLlist *l, int pos, aluno a){
                 aux->next=n;
                 l->size++;
             }
+            return SUCCESS;
+        }
+    }
+}
+
+int list_size(DLlist *l){
+    if(l == NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        return l->size;
+    }
+}
+
+int list_pop_front(DLlist *l){
+    if(l == NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        if(l->begin==NULL)
+            return ELEM_NOT_FOUND;
+        else{
+            DLNode *aux;
+
+            aux=l->begin;
+            l->begin=l->begin->next;
+            l->begin->prev=NULL;
+            free(aux);
+            l->size--;
+
             return SUCCESS;
         }
     }
