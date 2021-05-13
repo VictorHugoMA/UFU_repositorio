@@ -201,6 +201,184 @@ int list_pop_front(DLlist *l){
     }
 }
 
+int list_pop_back(DLlist *l){
+    if(l == NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        if(l->begin==NULL || l->end==NULL)
+            return ELEM_NOT_FOUND;
+        else{
+            DLNode *aux;
+
+            aux = l->end;
+            l->end = l->end->prev;
+            l->end->next=NULL;
+            free(aux);
+            l->size--;
+
+            return SUCCESS;
+        }
+    }
+}
+
+int list_erase(DLlist *l, int pos){
+    if(l == NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        if(l->begin==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            DLNode *aux;
+            int cont=1;
+
+            if(pos==1){
+                aux=l->begin;
+                l->begin=l->begin->next;
+                l->begin->prev=NULL;
+                free(aux);
+                l->size--;
+            }
+            else if(pos==l->size){
+                aux=l->end;
+                l->end=l->end->prev;
+                l->end->next=NULL;
+                free(aux);
+                l->size--;
+            }
+            else{
+                aux=l->begin;
+                while(aux!=NULL && pos != cont){
+                    aux=aux->next;
+                    cont++;
+                }
+                if(aux==NULL){
+                    return ELEM_NOT_FOUND;
+                }
+                else{
+                    aux->prev->next=aux->next;
+                    aux->next->prev=aux->prev;
+                    free(aux);
+                    l->size--;
+                }
+            }
+            return SUCCESS;
+        }
+
+    }
+}
+
+int list_find_pos(DLlist *l, int pos, aluno *a){
+    if(l == NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        if(l->begin==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            DLNode *aux;
+            int cont=1;
+
+            aux = l->begin;
+            while(aux!=NULL && cont!=pos){
+                aux=aux->next;
+                cont++;
+            }
+            if(aux==NULL){
+                return ELEM_NOT_FOUND;
+            }
+            else{
+                *a=aux->data;
+                return SUCCESS;
+            }
+        }
+    }
+}
+
+int list_find_mat(DLlist *l, int mat, aluno *a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(l->begin==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            DLNode *aux;
+
+            aux = l->begin;
+            while(aux!= NULL && aux->data.matricula != mat){
+                aux=aux->next;
+            }
+            if(aux == NULL)
+                return ELEM_NOT_FOUND; 
+            
+            else{
+                *a=aux->data;
+                return SUCCESS;
+            }  
+        }
+    }
+}
+
+int list_front(DLlist *l, aluno *a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(l->begin==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            *a=l->begin->data;
+            return SUCCESS;
+        }
+
+    }
+}
+int list_back(DLlist *l, aluno *a){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(l->end==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            *a=l->end->data;
+            return SUCCESS;
+        }
+
+    }
+}
+
+int list_get_pos(DLlist *l, int mat, int *pos){
+    if(l==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(l->begin==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            DLNode *aux;
+            int cont=1;
+
+            aux = l->begin;
+            while(aux!= NULL && aux->data.matricula != mat){
+                cont++;
+                aux=aux->next;
+            }
+            if(aux == NULL)
+                return ELEM_NOT_FOUND; 
+            
+            else{
+                *pos=cont;
+                return SUCCESS;
+            }  
+        }
+    }
+}
+
 int list_print_forward(DLlist *l){
     if(l == NULL)
         return INVALID_NULL_POINTER;
