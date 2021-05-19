@@ -22,6 +22,8 @@ int consulta_lista_pos(lista *l, int pos, aluno *ac);
 
 int consulta_lista_mat(lista *l, int mat, aluno *ac);
 
+int consulta_lista_fim(lista *l, struct aluno *ac);
+
 int remove_inicio_lista(lista *l);
 
 int remove_final_lista(lista *l);

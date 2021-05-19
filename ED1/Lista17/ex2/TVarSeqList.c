@@ -199,6 +199,16 @@
         }
     }
 
+    int consulta_lista_fim(lista *l, struct aluno *ac){
+        if(l==NULL)
+            return -1;
+        
+        else{
+            *ac=l->dado[l->qtd-1];
+            return 0;
+        }
+    }
+
     //Remove um aluno do inicio da lista
     //dado a lista
     //Retorno -1 para erro e 0 para sucesso
