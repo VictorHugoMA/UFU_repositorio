@@ -21,9 +21,27 @@
 
         t = stack_create();
 
-        aux = stack_push(t, a[0]);
+        for(int i=0; i<10; i++){
+            stack_push(t, a[i]);
+        }
 
-        printf("%d\n", aux);
+        stack_print(t);
+
+        stack_top(t, &aC);
+        printf("\nConsultando ultimo elemento: ");
+        aux=stack_top(t, &aC); //consulta ultimo aluno 
+            if(aux==-1)
+                printf("Erro na consulta\n");
+            else{
+                printf("\nInformacoes do aluno com a matricula %d\n", aC.matricula);
+                printf("Nome: %s\n", aC.nome);
+                printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
+            }
+        
+        printf("\nRetirando o ultimo elemento\n\n");
+        stack_pop(t);
+
+        stack_print(t);
 
 
         stack_free(t);

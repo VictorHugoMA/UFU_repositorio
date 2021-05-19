@@ -70,9 +70,20 @@ int stack_empty(TStack *st){
 }
 
 int stack_full(TStack *st){
+    if(st==NULL)
+        return ERROR;
 
+    else{
+        return cheia_lista(st->list);
+    }
 }
 
 int stack_print(TStack *st){
+    if(st==NULL)
+        return ERROR;
 
+    else{
+        return imprime_lista(st->list);
+    }
+  
 }
