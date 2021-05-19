@@ -24,7 +24,14 @@ TStack *stack_create(){
 
 
 int stack_free(TStack *st){
-
+    if(st ==NULL)
+        return ERROR;
+    
+    else{
+        free_lista(st->list);
+        free(st);
+        return SUCCESS;
+    }
 }
 
 int stack_push(TStack *st, struct aluno a){
@@ -36,15 +43,30 @@ int stack_push(TStack *st, struct aluno a){
 }
 
 int stack_pop(TStack *st){
+    if (st == NULL)
+        return ERROR;
 
+    else{
+        return remove_final_lista(st->list);
+    }
 }
 
 int stack_top(TStack *st, struct aluno *a){
+    if (st == NULL)
+        return ERROR;
 
+    else{
+        return consulta_lista_fim(st->list, a);
+    }
 }
 
 int stack_empty(TStack *st){
-
+    if (st == NULL)
+        return ERROR;
+    
+    else{
+        return vazia_lista(st->list);
+    }
 }
 
 int stack_full(TStack *st){

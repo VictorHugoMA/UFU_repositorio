@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include"TStack.h"
-#include"aluno.h"
+#include"aluno.h" 
 
     int main(){
         int aux, pos;
@@ -26,5 +26,6 @@
         printf("%d\n", aux);
 
 
+        stack_free(t);
         return 0;
     }

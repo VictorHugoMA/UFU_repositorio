@@ -1,3 +1,6 @@
+#ifndef _TSeqList_
+#define _TSeqList_
+
 #define MAX 100
 #include"aluno.h"
 
@@ -18,6 +21,8 @@ int consulta_lista_pos(lista *l, int pos, struct aluno *ac);
 
 int consulta_lista_mat(lista *l, int mat, struct aluno *ac);
 
+int consulta_lista_fim(lista *l, struct aluno *ac);
+
 int remove_inicio_lista(lista *l);
 
 int remove_final_lista(lista *l);
@@ -33,3 +38,5 @@ int cheia_lista(lista *l);
 int vazia_lista(lista *l);
 
 int imprime_lista(lista *l);
+
+#endif
