@@ -1,11 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"TStack.h"
-#include"TVarSeqList.h"
+#include"TLinkedList.h"
 
 
 struct TStack{
-    lista *list;
+    list *list;
 };
 
 
@@ -13,7 +13,7 @@ TStack *stack_create(int n){
     TStack *st;
     st = malloc(sizeof(TStack));
     if(st!=NULL){
-        st->list = cria_lista(n);
+        st->list = list_creat();
         if (st->list == NULL){
             free(st);
             return NULL;
@@ -28,7 +28,7 @@ int stack_free(TStack *st){
         return ERROR;
     
     else{
-        free_lista(st->list);
+        list_free(st->list);
         free(st);
         return SUCCESS;
     }
@@ -38,7 +38,7 @@ int stack_push(TStack *st, struct aluno a){
     if (st == NULL)
         return ERROR;
     
-    return insere_final_lista(st->list, a);
+    return list_push_back(st->list, a);
 
 }
 
@@ -47,7 +47,7 @@ int stack_pop(TStack *st){
         return ERROR;
 
     else{
-        return remove_final_lista(st->list);
+        return list_pop_back(st->list);
     }
 }
 
@@ -56,7 +56,7 @@ int stack_top(TStack *st, struct aluno *a){
         return ERROR;
 
     else{
-        return consulta_lista_fim(st->list, a);
+        return list_back(st->list, a);
     }
 }
 
@@ -65,25 +65,17 @@ int stack_empty(TStack *st){
         return ERROR;
     
     else{
-        return vazia_lista(st->list);
+        return list_size(st->list);
     }
 }
 
-int stack_full(TStack *st){
-    if(st==NULL)
-        return ERROR;
-
-    else{
-        return cheia_lista(st->list);
-    }
-}
 
 int stack_print(TStack *st){
     if(st==NULL)
         return ERROR;
 
     else{
-        return imprime_lista(st->list);
+        return list_print(st->list);
     }
   
 }
