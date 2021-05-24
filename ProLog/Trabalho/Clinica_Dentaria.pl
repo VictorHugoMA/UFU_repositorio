@@ -17,8 +17,8 @@ http_server(http_dispatch, [port(Porta)]).
 /* Localização dos diretórios no sistema de arquivos */
 :- multifile user:file_search_path/2.
 
-user:file_search_path(dir_css, 'css').
-user:file_search_path(dir_js, 'js').
+user:file_search_path(dir_css, 'C:/UFU_repositorio/ProLog/Trabalho/css').
+user:file_search_path(dir_js, 'C:/UFU_repositorio/ProLog/Trabalho/js').
 
 /* Liga as rotas aos respectivos diretórios */
 :-http_handler(css(.), serve_files_in_directory(dir_css), [prefix]).
@@ -28,6 +28,7 @@ user:file_search_path(dir_js, 'js').
 :- http_handler(root(.), home , []).
 :- http_handler(root(tabela1), tabela1 , []).
 :- http_handler(root(tabela2), tabela2 , []).
+:- http_handler(root(tabela3), tabela3 , []).
 
 :- multifile user:body//2.
 
@@ -53,8 +54,9 @@ home(_Pedido) :-
     [ div(class(container),
         [ h1('Sistema de Gestao para Clinica Dentaria'),
             nav(class(['nav', 'flex-column']),
-                [ p(\link_tabela(1)),
-                  p(\link_tabela(2)) ])
+                [ \link_tabela(1),
+                  \link_tabela(2),
+                  \link_tabela(3) ])
         ])
     ]).
 
@@ -83,7 +85,7 @@ tabela1(_Pedido) :-
 retorna_home -->
     html(div(class(row),
         a([ class(['btn', 'btn-primary']), href('/')],
-            'Voltar para o início'))).
+            'Voltar para o inicio'))).
 
 tabela2(_Pedido) :-
     reply_html_page(
@@ -106,3 +108,20 @@ tabela2(_Pedido) :-
                     div(class('col-md-4'),
                         'Barra Lateral')])),
                 \retorna_home ])]).
+
+tabela3(_Pedido) :-
+    reply_html_page(bootstrap, [title('Formulario')],
+    \retorna_home),
+    format('<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Endereco de email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+    <br>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Senha</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>').
