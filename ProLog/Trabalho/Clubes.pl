@@ -110,6 +110,42 @@ formulario2(_Pedido) :-
                 \retorna_home ])]).
 
 formulario3(_Pedido) :-
+    reply_html_page( 
+    bootstrap,
+    [ title('Reservas')],
+    [ div(class(container),
+        [ \html_requires(css('estilo.css')),
+            h2(class("my-5 text-center"),
+                'Reservas'),
+    
+            p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
+            \retorna_home ])]).
+/*
+
+    [div(class(container),
+        [ \html_requires(css('estilo.css')),
+            h2(class("my-5 text-center"),
+                'Reservas'),
+            button([ class('btn btn-primary'), type(submit)], 'Enviar'),
+        
+
+        \retorna_home
+    ]]).
+
+formulario5(_Pedido) :-
+    reply_html_page( 
+    bootstrap,
+    [div(class=container),
+                title(class("my-5 text-center"),
+                    'Reservas'),
+                div(class('container my-5'),
+                    div(class(form-group),
+                        label(for=formGroupExampleInput, 'Nome'),
+                        input(type=text, class=form-control, id=formGroupExampleInput, placeholder='Nome'))),
+                \retorna_home ]).
+
+
+formulario4(_Pedido) :-
     reply_html_page(
     bootstrap,
     [title('Formulario')],
@@ -135,3 +171,5 @@ formulario3(_Pedido) :-
   <br>
   <button type="submit" class="btn btn-primary">Enviar</button>
 </form>').
+*/
+
