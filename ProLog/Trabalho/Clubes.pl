@@ -26,9 +26,9 @@ user:file_search_path(dir_js, 'C:/UFU_repositorio/ProLog/Trabalho/js').
 
 % Liga a rota ao tratador
 :- http_handler(root(.), home , []).
-:- http_handler(root(tabela1), tabela1 , []).
-:- http_handler(root(tabela2), tabela2 , []).
-:- http_handler(root(tabela3), tabela3 , []).
+:- http_handler(root(formulario1), formulario1 , []).
+:- http_handler(root(formulario2), formulario2 , []).
+:- http_handler(root(formulario3), formulario3 , []).
 
 :- multifile user:body//2.
 
@@ -50,23 +50,23 @@ user:body(bootstrap, Corpo) -->
 home(_Pedido) :-
     reply_html_page(
     bootstrap,
-    [ title('Clinica Dentaria')],
+    [ title('Clubes Recreativos e Esportivos')],
     [ div(class(container),
-        [ h1('Sistema de Gestao para Clinica Dentaria'),
+        [ h1('Sistema de Gestao para Clubes Recreativos e Esportivos'),
             nav(class(['nav', 'flex-column']),
-                [ \link_tabela(1),
-                  \link_tabela(2),
-                  \link_tabela(3) ])
+                [ \link_formulario(1),
+                  \link_formulario(2),
+                  \link_formulario(3) ])
         ])
     ]).
 
-link_tabela(N) -->
+link_formulario(N) -->
     html(a([ class(['nav-link']),
-        href('/tabela~d' -N)],
-        'Tabela ~d' -N)).
+        href('/formulario~d' -N)],
+        'Formulario ~d' -N)).
 
 
-tabela1(_Pedido) :-
+formulario1(_Pedido) :-
     reply_html_page(
     bootstrap,
     [ title('Exemplo 1')],
@@ -87,7 +87,7 @@ retorna_home -->
         a([ class(['btn', 'btn-primary']), href('/')],
             'Voltar para o inicio'))).
 
-tabela2(_Pedido) :-
+formulario2(_Pedido) :-
     reply_html_page(
         bootstrap,
         [ title('Exemplo 2')],
@@ -109,8 +109,10 @@ tabela2(_Pedido) :-
                         'Barra Lateral')])),
                 \retorna_home ])]).
 
-tabela3(_Pedido) :-
-    reply_html_page(bootstrap, [title('Formulario')],
+formulario3(_Pedido) :-
+    reply_html_page(
+    bootstrap,
+    [title('Formulario')],
     \retorna_home),
     format('<form>
   <div class="form-group">
@@ -121,6 +123,14 @@ tabela3(_Pedido) :-
   <div class="form-group">
     <label for="exampleInputPassword1">Senha</label>
     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+  </div>
+   <div class="form-group">
+    <label for="formGroupExampleInput">Example label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
   </div>
   <br>
   <button type="submit" class="btn btn-primary">Enviar</button>
