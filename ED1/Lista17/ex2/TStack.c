@@ -38,7 +38,7 @@ int stack_push(TStack *st, struct aluno a){
     if (st == NULL)
         return ERROR;
     
-    return list_push_back(st->list, a);
+    return list_push_front(st->list, a);
 
 }
 
@@ -47,7 +47,7 @@ int stack_pop(TStack *st){
         return ERROR;
 
     else{
-        return list_pop_back(st->list);
+        return list_pop_front(st->list);
     }
 }
 
@@ -56,7 +56,7 @@ int stack_top(TStack *st, struct aluno *a){
         return ERROR;
 
     else{
-        return list_back(st->list, a);
+        return list_front(st->list, a);
     }
 }
 
