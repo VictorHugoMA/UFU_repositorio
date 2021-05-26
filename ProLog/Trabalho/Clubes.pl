@@ -26,9 +26,8 @@ user:file_search_path(dir_js, 'C:/UFU_repositorio/ProLog/Trabalho/js').
 
 % Liga a rota ao tratador
 :- http_handler(root(.), home , []).
-:- http_handler(root(formulario1), formulario1 , []).
-:- http_handler(root(formulario2), formulario2 , []).
-:- http_handler(root(formulario3), formulario3 , []).
+:- http_handler(root(convidados), convidados , []).
+:- http_handler(root(reservas), reservas , []).
 
 :- multifile user:body//2.
 
@@ -54,18 +53,52 @@ home(_Pedido) :-
     [ div(class(container),
         [ h1('Sistema de Gestao para Clubes Recreativos e Esportivos'),
             nav(class(['nav', 'flex-column']),
-                [ \link_formulario(1),
-                  \link_formulario(2),
-                  \link_formulario(3) ])
-        ])
+                [ \link_reservas(1),
+                  \link_convidados(1)])
+                ])
     ]).
 
-link_formulario(N) -->
+link_reservas(1) -->
     html(a([ class(['nav-link']),
-        href('/formulario~d' -N)],
-        'Formulario ~d' -N)).
+        href('/reservas')],
+        'Reservas')).
+link_convidados(1) -->
+    html(a([ class(['nav-link']),
+        href('/convidados')],
+        'Convidados')).
 
 
+
+reservas(_Pedido) :-
+    reply_html_page( 
+    bootstrap,
+    [ title('Reservas')],
+    [ div(class(container),
+        [ \html_requires(css('estilo.css')),
+            h2(class("my-5 text-center"),
+                'Reservas'),
+    
+            p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
+            \retorna_home ])]).
+
+convidados(_Pedido) :-
+    reply_html_page( 
+    bootstrap,
+    [ title('Convidados')],
+    [ div(class(container),
+        [ \html_requires(css('estilo.css')),
+            h2(class("my-5 text-center"),
+                'Convidados'),
+    
+            p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
+            \retorna_home ])]).
+
+
+retorna_home -->
+    html(div(class(row),
+        a([ class(['btn', 'btn-primary']), href('/')],
+            'Voltar para o inicio'))).
+/*
 formulario1(_Pedido) :-
     reply_html_page(
     bootstrap,
@@ -82,10 +115,6 @@ formulario1(_Pedido) :-
                         'Barra Lateral')])),
             \retorna_home ])]).
 
-retorna_home -->
-    html(div(class(row),
-        a([ class(['btn', 'btn-primary']), href('/')],
-            'Voltar para o inicio'))).
 
 formulario2(_Pedido) :-
     reply_html_page(
@@ -109,28 +138,6 @@ formulario2(_Pedido) :-
                         'Barra Lateral')])),
                 \retorna_home ])]).
 
-formulario3(_Pedido) :-
-    reply_html_page( 
-    bootstrap,
-    [ title('Reservas')],
-    [ div(class(container),
-        [ \html_requires(css('estilo.css')),
-            h2(class("my-5 text-center"),
-                'Reservas'),
-    
-            p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
-            \retorna_home ])]).
-/*
-
-    [div(class(container),
-        [ \html_requires(css('estilo.css')),
-            h2(class("my-5 text-center"),
-                'Reservas'),
-            button([ class('btn btn-primary'), type(submit)], 'Enviar'),
-        
-
-        \retorna_home
-    ]]).
 
 formulario5(_Pedido) :-
     reply_html_page( 
