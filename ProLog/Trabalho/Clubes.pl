@@ -77,7 +77,13 @@ reservas(_Pedido) :-
         [ \html_requires(css('estilo.css')),
             h2(class("my-5 text-center"),
                 'Reservas'),
-    
+            \campo(id_reserva, 'ID Reserva', number),
+            \campo(id_ambiente, 'ID Ambiente', number),
+            \campo(id_usuario, 'ID Usuario', number),
+            \campo(data_res, 'Data da reserva', date),
+            \campo(hora_res, 'Horario da reserva', time),
+            \campo(descricao, 'Descricao', text),
+            
             p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
             \retorna_home ])]).
 
@@ -89,6 +95,9 @@ convidados(_Pedido) :-
         [ \html_requires(css('estilo.css')),
             h2(class("my-5 text-center"),
                 'Convidados'),
+            \campo(id_convidado, 'ID Convidado', number),
+            \campo(nome, 'Nome', text),
+            \campo(rg, 'RG', text),
     
             p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
             \retorna_home ])]).
@@ -98,6 +107,17 @@ retorna_home -->
     html(div(class(row),
         a([ class(['btn', 'btn-primary']), href('/')],
             'Voltar para o inicio'))).
+
+campo(Nome, Rotulo, Tipo) -->
+    html(div(class('mb-3'),
+        [   label([for(Nome), class('form-label')], Rotulo),
+            input([type(Tipo), class('form-control'),
+                id(Nome), name(Nome)])
+        ]
+        )).
+
+
+
 /*
 formulario1(_Pedido) :-
     reply_html_page(
