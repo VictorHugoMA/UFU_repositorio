@@ -11,7 +11,7 @@ reservas(_Pedido) :-
             \campo(id_usuario, 'ID Usuario', number),
             \campo(data_res, 'Data da reserva', date),
             \campo(hora_res, 'Horario da reserva', time),
-            \campo(descricao, 'Descricao', text),
+            \campo(descricao_res, 'Descricao', text),
             
             p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
             \retorna_home ])]).
