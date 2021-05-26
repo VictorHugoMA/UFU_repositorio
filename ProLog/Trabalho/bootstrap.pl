@@ -133,4 +133,86 @@ Colunas)
 },
 html(Colunas).
 
+/*
+formulario1(_Pedido) :-
+    reply_html_page(
+    bootstrap,
+    [ title('Exemplo 1')],
+    [ div(class(container),
+        [ \html_requires(css('estilo.css')),
+            h2(class("my-5 text-center"),
+                'Exemplo 1 com Bootstrap 5 e SWI-Prolog'),
+            div(class("container my-5"),
+                div(class(row),
+                    [div(class('col-md-8'),
+                        'Conteudo Principal'),
+                    div(class('col-md-4'),
+                        'Barra Lateral')])),
+            \retorna_home ])]).
+
+
+formulario2(_Pedido) :-
+    reply_html_page(
+        bootstrap,
+        [ title('Exemplo 2')],
+        [ div(class(container),
+            [ \html_requires(css('estilo.css')),
+                h2(class("my-5 text-center"),
+                    'Exemplo 2 com Bootstrap 5 e SWI-Prolog'),
+                div(class('container my-5'),
+                    div(class(row),
+                        [div(class('col-md-8 text-center'),
+                            ['Cabecalho',
+                        div(class="row text-center",
+                            [div(class="col-md-6",
+                                [ 'Artigo 1', p('Paragrafo 1.')]),
+                            div(class="col-md-6",
+                                [ 'Artigo 2', p('Paragrafo 2.')]),
+                            span('Rodape')])]),
+                    div(class('col-md-4'),
+                        'Barra Lateral')])),
+                \retorna_home ])]).
+
+
+formulario5(_Pedido) :-
+    reply_html_page( 
+    bootstrap,
+    [div(class=container),
+                title(class("my-5 text-center"),
+                    'Reservas'),
+                div(class('container my-5'),
+                    div(class(form-group),
+                        label(for=formGroupExampleInput, 'Nome'),
+                        input(type=text, class=form-control, id=formGroupExampleInput, placeholder='Nome'))),
+                \retorna_home ]).
+
+
+formulario4(_Pedido) :-
+    reply_html_page(
+    bootstrap,
+    [title('Formulario')],
+    \retorna_home),
+    format('<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Endereco de email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+    <br>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Senha</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+  </div>
+   <div class="form-group">
+    <label for="formGroupExampleInput">Example label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>').
+*/
+
 
