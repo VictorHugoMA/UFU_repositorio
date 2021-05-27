@@ -19,6 +19,7 @@
         else
             printf("Sequencia nao eh bem formada");
 
+        stack_free(t);
 
         return 0;
     }
