@@ -18,7 +18,6 @@ int queue_pop(TQueue *st);
 int queue_top(TQueue *st, struct aluno *a);
 
 int queue_empty(TQueue *st);
-int queue_full(TQueue *st);
 int queue_print(TQueue *st);
 
 #endif

@@ -66,3 +66,66 @@ int queue_push(TQueue *t, aluno a){
         return SUCCESS;
     }
 }
+
+
+int queue_pop(TQueue *t){
+    if(t==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else if(t->size==0){
+        return ELEM_NOT_FOUND;
+    }
+    else{
+        TQueue *aux;
+
+        aux=t->begin;
+        t->begin=t->begin->next;
+        free(aux);
+
+        return SUCCESS;
+    }
+}
+
+
+int queue_top(TQueue *t, aluno *a){
+    if(t==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else if(t->size==0){
+        return ELEM_NOT_FOUND;
+    }
+    else{
+        *a=t->begin->data;
+        return SUCCESS;
+    }
+}
+
+int queue_empty(TQueue *t){
+    if(t==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        return (t->size==0);
+    }
+}
+
+
+int queue_printf(TQueue *t){
+    if(t==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else if(t->size==0){
+        return ELEM_NOT_FOUND;
+    }
+    else{
+        Qnode *aux;
+        aux = t->begin;
+
+        printf("\n---------------\n");
+        printf("Matricula: %d\n", aux->data.matricula);
+        printf("Nome: %s\n", aux->data.nome);
+        printf("Notas: %.1f %.1f %.1f\n", aux->data.n1, aux->data.n2, aux->data.n3);
+
+        return SUCCESS;
+    }
+}
