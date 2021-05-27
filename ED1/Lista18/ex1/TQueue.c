@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include"TStack.h"
+#include"TQueue.h"
 #include"Tlinkedlist.h"
 
 
