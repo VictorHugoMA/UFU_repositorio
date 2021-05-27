@@ -12,7 +12,7 @@ struct TQueue{
 
 struct Qnode{
     aluno data;
-    TQueue *next;
+    Qnode *next;
 };
 
 TQueue *queue_create(){
@@ -76,7 +76,7 @@ int queue_pop(TQueue *t){
         return ELEM_NOT_FOUND;
     }
     else{
-        TQueue *aux;
+        Qnode *aux;
 
         aux=t->begin;
         t->begin=t->begin->next;
@@ -110,7 +110,7 @@ int queue_empty(TQueue *t){
 }
 
 
-int queue_printf(TQueue *t){
+int queue_print(TQueue *t){
     if(t==NULL){
         return INVALID_NULL_POINTER;
     }
