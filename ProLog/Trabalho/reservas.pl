@@ -5,7 +5,7 @@ reservas(_Pedido) :-
     [ div(class(container),
         [ \html_requires(css('estilo.css')),
             h2(class("my-5 text-center"),
-                'Reservas'),
+                'Cadastro de Reservas'),
             \campo(id_reserva, 'ID Reserva', number),
             \campo(id_ambiente, 'ID Ambiente', number),
             \campo(id_usuario, 'ID Usuario', number),
