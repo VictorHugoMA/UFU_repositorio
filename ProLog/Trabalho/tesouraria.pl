@@ -1,4 +1,4 @@
-tesouraria(Pedido):-
+tesouraria(_Pedido):-
     reply_html_page( 
     bootstrap,
     [ title('Tesouraria')],
