@@ -7,8 +7,8 @@ http_server(http_dispatch, [port(Porta)]).
 
 % Liga a rota ao tratador
 :- http_handler(root(.), home , []).
-:- http_handler(root(convidados), convidados , []).
-:- http_handler(root(reservas), reservas , []).
+:- http_handler(root(tesouraria), tesouraria , []).
+:- http_handler(root(formapagamento), formapagamento , []).
 
 /* html_requires está aqui */
 :- use_module(library(http/html_head)).
@@ -47,26 +47,26 @@ user:body(bootstrap, Corpo) -->
 home(_Pedido) :-
     reply_html_page(
     bootstrap,
-    [ title('Clubes Recreativos e Esportivos')],
+    [ title('Controle Financeiro')],
     [ div(class(container),
-        [ h1('Sistema de Gestao para Clubes Recreativos e Esportivos'),
+        [ h1('Sistema de Informacao para Controle Financeiro de uma Microempresa'),
             nav(class(['nav', 'flex-column']),
-                [ \link_reservas(1),
-                  \link_convidados(1)])
+                [ \link_tesouraria(1),
+                  \link_formapagamento(1)])
                 ])
     ]).
 
-link_reservas(1) -->
+link_tesouraria(1) -->
     html(a([ class(['nav-link']),
-        href('/reservas')],
-        'Reservas')).
-link_convidados(1) -->
+        href('/tesouraria')],
+        'Tesouraria')).
+link_formapagamento(1) -->
     html(a([ class(['nav-link']),
-        href('/convidados')],
-        'Convidados')).
+        href('/formapagamento')],
+        'Forma de Pagamento')).
 
 
-:- ensure_loaded([reservas, convidados]).
+:- ensure_loaded([tesouraria, formapagamento]).
 
 retorna_home -->
     html(div(class(row),
