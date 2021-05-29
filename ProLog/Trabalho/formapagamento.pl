@@ -1,3 +1,6 @@
+:- use_module(library(persistency)).
+
+
 formapagamento(_Pedido):-
     reply_html_page( 
     bootstrap,
@@ -11,3 +14,9 @@ formapagamento(_Pedido):-
     
             p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
             \retorna_home ])]).
+
+
+
+:- persistent
+   tabFormaPag(id_formapagamento:nonneg,
+                descr_formapagento:string).
