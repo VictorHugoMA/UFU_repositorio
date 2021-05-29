@@ -11,17 +11,19 @@
 typedef struct TQueue TQueue;
 
 TQueue *queue_create(int n);
-int queue_free(TQueue *st);
+int queue_free(TQueue *q);
 
 int queue_increase(TQueue *q);
 int queue_compact(TQueue *q);
 
 
-int queue_push(TQueue *st, struct aluno a);
-int queue_pop(TQueue *st);
-int queue_top(TQueue *st, struct aluno *a);
+int queue_push(TQueue *q, struct aluno a);
+int queue_pop(TQueue *q);
+int queue_top(TQueue *q, struct aluno *a);
 
-int queue_empty(TQueue *st);
-int queue_print(TQueue *st);
+int queue_empty(TQueue *q);
+int queue_full(TQueue *q);
+
+int queue_print(TQueue *q);
 
 #endif
