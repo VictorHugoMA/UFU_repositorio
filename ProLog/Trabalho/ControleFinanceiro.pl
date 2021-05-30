@@ -89,7 +89,19 @@ tesouraria(_Pedido):-
             p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
             \retorna_home ])]).
 
+formapagamento(_Pedido) :-
+     reply_html_page(bootstrap, 
+         [title('Fromas de Pagamento')],
+             [ form([action='/receptor', method='POST'],
+                 [ p([], [ label([for=id_formapagamento],'ID Forma de Pagamento:'),
+                     input([name=id_formapagamento, type=number]) ]),
+                 p([], [ label([for=descr_formapagento],'Descriacao:'),
+                     input([name=descr_formapagento, type=text]) ]),
+                 p([], input([ name=submit, type=submit, value='Enviar'],
+                             []))
+             ])]). 
 
+/*
 formapagamento(_Pedido):-
     reply_html_page( 
     bootstrap,
@@ -103,7 +115,7 @@ formapagamento(_Pedido):-
     
             p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
             \retorna_home ])]).
-
+*/
 retorna_home -->
     html(div(class(row),
         a([ class(['btn', 'btn-primary']), href('/')],
@@ -116,3 +128,24 @@ campo(Nome, Rotulo, Tipo) -->
                 id(Nome), name(Nome)])
         ]
         )).
+
+
+:-ensure_loaded([tesouraria, formapagamento]).
+
+/* http_read_data está aqui */
+:- use_module(library(http/http_client)).
+
+:- http_handler('/receptor', recebe_formulario(Method),
+            [ method(Method),
+                methods([post]) ]).
+                
+
+recebe_formulario(post, Pedido) :-
+    http_read_data(Pedido, Dados, []),
+    format('Content-type: text/html~n~n', []),
+    format('<p>', []),
+    portray_clause(Dados), % escreve os dados do corpo
+    format('</p><p>========~n', []),portray_clause(Pedido), % escreve o pedido todo
+    format('</p>').
+
+    %insere().
