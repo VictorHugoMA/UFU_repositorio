@@ -45,3 +45,34 @@ pagina-->
         type('text/javascript')], [])
     ]).
 
+
+
+/*
+formapagamento(_Pedido) :-
+     reply_html_page(bootstrap, 
+         [title('Fromas de Pagamento')],
+             [ form([action='/receptor', method='POST'],
+                 [ p([], [ label([for=id_formapagamento],'ID Forma de Pagamento:'),
+                     input([name=id_formapagamento, type=number]) ]),
+                 p([], [ label([for=descr_formapagento],'Descriacao:'),
+                     input([name=descr_formapagento, type=text]) ]),
+                 p([], input([ name=submit, type=submit, value='Enviar'],
+                             []))
+             ])]). 
+
+formapagamento(_Pedido):-
+    reply_html_page( 
+    bootstrap,
+    [ title('Formas de Pagamentos')],
+    [ div(class(container),
+    form([ class(container),action='/receptor', method='POST'],
+        [ \html_requires(css('estilo.css')),
+            h2(class("my-5 text-center"),
+                'Formas de Pagamento'),
+            \campo(id_formapagamento, 'ID Forma de Pagamento', number),
+            \campo(descr_formapagento, 'Descricao', text),
+    
+            p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
+            \retorna_home ])]).
+*/
+

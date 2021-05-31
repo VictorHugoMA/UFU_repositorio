@@ -1,6 +1,13 @@
+/* Modulos */
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/html_write)).
+:- use_module(library(http/http_parameters)).
+:- use_module(library(http/html_head)).
+:- use_module(library(http/http_server_files)).
+:- use_module(library(http/http_client)).
+%:- use_module(tesouraria,[]). 
+:- use_module(formapagamento,[]).
 
 servidor(Porta) :-
 http_server(http_dispatch, [port(Porta)]).
@@ -9,12 +16,6 @@ http_server(http_dispatch, [port(Porta)]).
 :- http_handler(root(.), home , []).
 :- http_handler(root(tesouraria), tesouraria , []).
 :- http_handler(root(formapagamento), formapagamento , []).
-
-/* html_requires está aqui */
-:- use_module(library(http/html_head)).
-
-/* serve_files_in_directory está aqui */
-:- use_module(library(http/http_server_files)).
 
 /* Localização dos diretórios no sistema de arquivos */
 :- multifile user:file_search_path/2.
@@ -65,7 +66,30 @@ link_formapagamento(1) -->
         href('/formapagamento')],
         'Forma de Pagamento')).
 
+tesouraria(_Pedido):-
+    reply_html_page(
+            bootstrap,
+            [ title('Tesouraria')],
+              form([ class(container),action='/receptorTes', method='POST'],
+                [ \html_requires(css('estilo.css')),
+                    h2(class("my-5 text-center"),
+                        'Tesouraria'),
+                    \campo(id_tesouraria, 'ID Tesouraria', number),
+                    \campo(id_empresa, 'ID Empresa', number),
+                    \campo(id_cliente, 'ID Cliente', number),
+                    \campo(id_planoContas, 'ID Plano de Contas', number),
+                    \campo(id_fornecedores, 'ID Fornecedores', number),
+                    \campo(formapagamento_tes, 'Formas de Pagamento', text),
+                    \campo(valor_tes, 'Valor', text),
+                    \campo(numero_tes, 'Numero', text),
+                    \campo(data_emissao_tes, 'Data de Emissao', date),
+                    \campo(data_venc_tes, 'Data de Vencimento', date),
+                    \campo(data_disp_tes, 'Data de Disponibilidade', date),
+          
 
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
+/*
 tesouraria(_Pedido):-
     reply_html_page( 
     bootstrap,
@@ -88,34 +112,23 @@ tesouraria(_Pedido):-
             
             p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
             \retorna_home ])]).
-
-formapagamento(_Pedido) :-
-     reply_html_page(bootstrap, 
-         [title('Fromas de Pagamento')],
-             [ form([action='/receptor', method='POST'],
-                 [ p([], [ label([for=id_formapagamento],'ID Forma de Pagamento:'),
-                     input([name=id_formapagamento, type=number]) ]),
-                 p([], [ label([for=descr_formapagento],'Descriacao:'),
-                     input([name=descr_formapagento, type=text]) ]),
-                 p([], input([ name=submit, type=submit, value='Enviar'],
-                             []))
-             ])]). 
-
-/*
-formapagamento(_Pedido):-
-    reply_html_page( 
-    bootstrap,
-    [ title('Formas de Pagamentos')],
-    [ div(class(container),
-        [ \html_requires(css('estilo.css')),
-            h2(class("my-5 text-center"),
-                'Formas de Pagamento'),
-            \campo(id_formapagamento, 'ID Forma de Pagamento', number),
-            \campo(descr_formapagento, 'Descricao', text),
-    
-            p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
-            \retorna_home ])]).
 */
+
+formapagamento(_Pedido):-
+    reply_html_page(
+            bootstrap,
+            [ title('Formas de Pagamentos')],
+              form([ class(container),action='/receptorFor', method='POST'],
+                [ \html_requires(css('estilo.css')),
+                    h2(class("my-5 text-center"),
+                        'Formas de Pagamentos'),
+                    \campo(id_formapagamento, 'ID Forma de Pagamento', number),
+                    \campo(descr_formapagento, 'Descricao', text),
+          
+
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
+
 retorna_home -->
     html(div(class(row),
         a([ class(['btn', 'btn-primary']), href('/')],
@@ -129,23 +142,50 @@ campo(Nome, Rotulo, Tipo) -->
         ]
         )).
 
-
-:-ensure_loaded([tesouraria, formapagamento]).
-
-/* http_read_data está aqui */
-:- use_module(library(http/http_client)).
-
-:- http_handler('/receptor', recebe_formulario(Method),
+/*
+:- http_handler('/receptorTes', recebe_Tes(Method),
             [ method(Method),
                 methods([post]) ]).
-                
 
-recebe_formulario(post, Pedido) :-
+recebe_Tes(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[id_formapagamento(Id_formapagamento,[integer]),
+                                    descr_formapagento(Descr_formapagento,[])]),
+            _E,
+            fail),
+        !,
+        tabFormaPag:insere(Id_formapagamento, Descr_formapagento),
+        reply_html_page( bootstrap,[title('Pedido')],
+        [ p('Pedido Recebido.'),
+            \retorna_home
+        ]).
+*/
+                
+:- http_handler('/receptorFor', recebe_FormaPag(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+recebe_FormaPag(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[id_formapagamento(Id_formapagamento,[integer]),
+                                    descr_formapagento(Descr_formapagento,[])]),
+            _E,
+            fail),
+        !,
+        tabFormaPag:insere(Id_formapagamento, Descr_formapagento),
+        reply_html_page( bootstrap,[title('Pedido')],
+        [ p('Pedido Recebido.'),
+            \retorna_home
+        ]).
+
+
+/*
+recebe_formulario2(post, Pedido) :-
     http_read_data(Pedido, Dados, []),
     format('Content-type: text/html~n~n', []),
     format('<p>', []),
     portray_clause(Dados), % escreve os dados do corpo
     format('</p><p>========~n', []),portray_clause(Pedido), % escreve o pedido todo
     format('</p>').
+*/
 
-    %insere().
