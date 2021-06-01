@@ -9,7 +9,7 @@
    tabFormaPag(id_formapagamento:nonneg,
                 descr_formapagento:atom).
 
-:- initialization(db_attach('tbl_formaPagamento.pl', [])).
+:- initialization(db_attach('C:/UFU_repositorio/ProLog/Trabalho/tbl_formaPagamento.pl', [])).
 
 insere(Id_formapagamento, Descr_formapagento):-
     with_mutex(tabFormaPag,

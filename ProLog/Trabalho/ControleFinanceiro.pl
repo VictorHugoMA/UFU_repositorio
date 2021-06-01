@@ -6,7 +6,7 @@
 :- use_module(library(http/html_head)).
 :- use_module(library(http/http_server_files)).
 :- use_module(library(http/http_client)).
-%:- use_module(tesouraria,[]). 
+:- use_module(tesouraria,[]). 
 :- use_module(formapagamento,[]).
 
 servidor(Porta) :-
@@ -89,30 +89,7 @@ tesouraria(_Pedido):-
 
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
-/*
-tesouraria(_Pedido):-
-    reply_html_page( 
-    bootstrap,
-    [ title('Tesouraria')],
-    [ div(class(container),
-        [ \html_requires(css('estilo.css')),
-            h2(class("my-5 text-center"),
-                'Tesouraria'),
-            \campo(id_tesouraria, 'ID Tesouraria', number),
-            \campo(id_empresa, 'ID Empresa', number),
-            \campo(id_cliente, 'ID Cliente', number),
-            \campo(id_planoContas, 'ID Plano de Contas', number),
-            \campo(id_fornecedores, 'ID Fornecedores', number),
-            \campo(formapagamento_tes, 'Formas de Pagamento', text),
-            \campo(valor_tes, 'Valor', text),
-            \campo(numero_tes, 'Numero', text),
-            \campo(data_emissao_tes, 'Data de Emissao', date),
-            \campo(data_venc_tes, 'Data de Vencimento', date),
-            \campo(data_disp_tes, 'Data de Disponibilidade', date),
-            
-            p(button([ class('btn btn-primary'), type(submit)], 'Enviar')),
-            \retorna_home ])]).
-*/
+
 
 formapagamento(_Pedido):-
     reply_html_page(
@@ -142,25 +119,34 @@ campo(Nome, Rotulo, Tipo) -->
         ]
         )).
 
-/*
+
 :- http_handler('/receptorTes', recebe_Tes(Method),
             [ method(Method),
                 methods([post]) ]).
 
 recebe_Tes(post,Pedido) :-
         catch(
-            http_parameters(Pedido,[id_formapagamento(Id_formapagamento,[integer]),
-                                    descr_formapagento(Descr_formapagento,[])]),
+            http_parameters(Pedido,[id_tesouraria(Id_tesouraria, [integer]), id_empresa(Id_empresa, [integer]), id_cliente(Id_cliente, [integer]), 
+                                    id_planoContas(Id_planoContas, [integer]), id_fornecedores(Id_fornecedores, [integer]),
+                                    formapagamento_tes(Formapagamento_tes, []), valor_tes(Valor_tes, []), numero_tes(Numero_tes, []), 
+                                    data_emissao_tes(Data_emissao_tes, []), data_venc_tes(Data_venc_tes, []), data_disp_tes(Data_disp_tes, [])]),
             _E,
             fail),
         !,
-        tabFormaPag:insere(Id_formapagamento, Descr_formapagento),
-        reply_html_page( bootstrap,[title('Pedido')],
-        [ p('Pedido Recebido.'),
-            \retorna_home
-        ]).
-*/
-                
+        tabTesouraria:insere( Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
+                            Formapagamento_tes, Valor_tes, Numero_tes,
+                            Data_emissao_tes, Data_venc_tes, Data_disp_tes),
+        reply_html_page(
+            bootstrap,
+            [ title('Pedido')],
+            [ div(class(container),
+                [ h1('Pedido Recebido'),
+                    \retorna_home
+                ])
+            ]).
+
+
+
 :- http_handler('/receptorFor', recebe_FormaPag(Method),
             [ method(Method),
                 methods([post]) ]).
@@ -173,10 +159,21 @@ recebe_FormaPag(post,Pedido) :-
             fail),
         !,
         tabFormaPag:insere(Id_formapagamento, Descr_formapagento),
-        reply_html_page( bootstrap,[title('Pedido')],
+        reply_html_page(
+            bootstrap,
+            [ title('Pedido')],
+            [ div(class(container),
+                [ h1('Pedido Recebido'),
+                    \retorna_home
+                ])
+            ]).
+
+        /*reply_html_page( bootstrap,[title('Pedido')],
         [ p('Pedido Recebido.'),
             \retorna_home
         ]).
+        */
+
 
 
 /*
