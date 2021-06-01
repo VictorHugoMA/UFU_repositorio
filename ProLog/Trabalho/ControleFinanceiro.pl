@@ -168,14 +168,6 @@ recebe_FormaPag(post,Pedido) :-
                 ])
             ]).
 
-        /*reply_html_page( bootstrap,[title('Pedido')],
-        [ p('Pedido Recebido.'),
-            \retorna_home
-        ]).
-        */
-
-
-
 /*
 recebe_formulario2(post, Pedido) :-
     http_read_data(Pedido, Dados, []),
@@ -185,4 +177,3 @@ recebe_formulario2(post, Pedido) :-
     format('</p><p>========~n', []),portray_clause(Pedido), % escreve o pedido todo
     format('</p>').
 */
-
