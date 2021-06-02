@@ -12,7 +12,7 @@
 servidor(Porta) :-
 http_server(http_dispatch, [port(Porta)]).
 
-% Liga a rota ao tratador
+/* Liga a rota ao tratador */
 :- http_handler(root(.), home , []).
 :- http_handler(root(tesouraria), tesouraria , []).
 :- http_handler(root(formapagamento), formapagamento , []).
@@ -133,9 +133,9 @@ recebe_Tes(post,Pedido) :-
             _E,
             fail),
         !,
-        tabTesouraria:insere( Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
-                            Formapagamento_tes, Valor_tes, Numero_tes,
-                            Data_emissao_tes, Data_venc_tes, Data_disp_tes),
+        tabTesouraria:insere(Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
+                             Formapagamento_tes, Valor_tes, Numero_tes,
+                             Data_emissao_tes, Data_venc_tes, Data_disp_tes),
         reply_html_page(
             bootstrap,
             [ title('Pedido')],

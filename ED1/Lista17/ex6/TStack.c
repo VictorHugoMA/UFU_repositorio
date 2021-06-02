@@ -154,3 +154,12 @@ char *inf_pos(TStack *ts){
         return p;
     }
 }
+
+int calcula_op(TStack *t, int *res){
+    if(t==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        
+    }
+}

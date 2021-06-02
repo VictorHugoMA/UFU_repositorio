@@ -41,11 +41,28 @@ int queue_free(TQueue *q){
 
 
 int queue_increase(TQueue *q){
+    if(q==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        q->data=realloc(q->data, (q->sizeC+q->sizeI)*sizeof(aluno));
+        q->sizeI+=q->sizeI;
 
+        return SUCCESS;
+    }
 }
 
 int queue_compact(TQueue *q){
-
+    if(q==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    else{
+        int comp;
+        comp=ceil((q->qt)/(float)q->sizeI)*q->sizeI;
+        q->data=realloc(q->data, comp*sizeof(aluno));
+        q->sizeC=comp;
+        return SUCCESS;
+    }
 }
 
 

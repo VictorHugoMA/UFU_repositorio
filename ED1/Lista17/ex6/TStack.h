@@ -20,6 +20,7 @@ int stack_empty(TStack *st);
 int stack_print(TStack *st);
 
 char *inf_pos(TStack *t);
+int calcula_op(TStack *t, int *res);
 
 
 #endif
