@@ -1,0 +1,35 @@
+﻿2ª PROVA ED1 – Sistemas de Informação
+
+1) Considere a existência de uma função gráfica mostrar_grafico que pertence ao TAD TGrafico. Essa função consegue mostrar um gráfico de linha, que são formados por conjuntos de pontos (x,y). Essa função recebe como entrada uma lista de pontos armazenados no TAD TGrafico e consegue desenhar um gráfico a partir das informações contidas nessa lista (veja a seguir um exemplo de um gráfico que mostra o tempo (time) x velocidade (speed)).
+
+Considere o TAD TGrafico, que guarda uma lista de pontos para serem exibidos em um gráfico, bem como os nomes dos eixos x e y do gráfico e o título do gráfico. Faça um programa que utiliza esse TAD para armazenar os nomes dos eixos, o título e n pontos. Após a leitura de todos os pontos, chame a função mostrar_grafico. A saída do programa deve ser como a mostrada a seguir. Para simplificar, não há necessidade de fazer nenhuma verificação de erro.
+Como deve ser a saída:
+Exemplo do gráfico geradoDigite o nome do eixo x: Time(s)
+Digite o nome do eixo y: Speed(m/s)
+Digite o nome do Título: Ford Ka
+Digite quantos pontos deseja inserir na lista: 7
+Digite a coordenada (x) do ponto 1: 0
+Digite a coordenada (y) do ponto 1: 0
+Digite a coordenada (x) do ponto 2: 1
+Digite a coordenada (y) do ponto 2: 2.5
+Digite a coordenada (x) do ponto 3: 2
+Digite a coordenada (y) do ponto 3: 6.5
+....
+Digite a coordenada (x) do ponto 7: 6
+Digite a coordenada (y) do ponto 7: 45
+2) Altere o TAD para incluir uma função que busca pelo maior valor existente no eixo y. O tipo retornado pela função deve ser um número inteiro, sendo 0 se a função executou com sucesso e -1 se ocorreu algum problema. Apesar da busca ser pelo maior valor no eixo y, a função devolve também ao programa principal o valor no eixo x correspondente ao maior valor em y. Mostrar no programa principal o uso dessa função.
+Exemplo de saída:
+Maior valor: 45 (ponto x=6;y=45)
+
+3) Implemente uma nova função que permite inserir um novo elemento no gráfico em uma posição escolhida pelo usuário. A ordem dos elementos que o gráfico tinha antes da inserção deverá ser mantida (observe que isso não implica que os pontos estavam ordenados). Caso a posição desejada pelo usuário seja maior que a quantidade de pontos atualmente no gráfico, o elemento deverá ser inserido na posição desejada (se for possível) e os pontos entre o último elemento do gráfico e o novo elemento deverão receber o valor 0 (x=0,y=0). Todas as outras situações inválidas a função deverá retornar como código de erro o número -1. Sucesso retornar 0. Mantenha o padrão pré-definido do TAD, que diz que a posição 1 corresponde ao primeiro elemento do gráfico.
+Exemplo de saída:
+Digite a posição em que o ponto será inserido: 3
+Digite a coordenada (x) do ponto 3: 3.0
+Digite a coordenada (y) do ponto 3: 5.5
+
+4) Considere TAD para armazenar e manipular dados de uma matriz de inteiros quadrada (número de linhas igual ao número de colunas). Implemente a função cria_mat_identidade, que cria a matriz identidade de ordem m (matriz de tamanho mxm com todos os elementos da diagonal igual a 1 e o restante 0).
+
+5) Considerando o mesmo TAD do exercício anterior, implemente a função copia_diagonal, que copia os elementos da diagonal principal da matriz para um vetor. A função fará a alocação do vetor. Em caso de erro a função retorna NULL. Em caso de sucesso, um ponteiro para o vetor alocado. Mostre a chamada e uso correto para essa função no programa principal.
+
+
+

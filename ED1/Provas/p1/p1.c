@@ -219,6 +219,7 @@ int main(){
    // constantes (não precisa ler do teclado) e depois mostre esses valores
     printf("\nNome: %s\n", d.nome);
 
+
     printf("CPF: %s", d.cpf);
 
     printf("Modelo do carro: %s\n", d.dc.modelo);
@@ -236,7 +237,6 @@ int main(){
    // do carro utilizando o ponteiro retornado.
    cMaiorCons2 = busca_maior_consumo2(c, n);
    printf("Carro com maior consumo: %s - Ano %d - Consumo %d\n",cMaiorCons.modelo, cMaiorCons.ano, cMaiorCons.consumo);
-
    
     return 0;
 }
