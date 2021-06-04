@@ -8,6 +8,7 @@
 :- use_module(library(http/http_client)).
 :- use_module(tesouraria,[]). 
 :- use_module(formapagamento,[]).
+:-use_module(chave, []).
 
 servidor(Porta) :-
 http_server(http_dispatch, [port(Porta)]).
@@ -89,7 +90,7 @@ tesouraria(_Pedido):-
 
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
-
+ 
 
 formapagamento(_Pedido):-
     reply_html_page(
