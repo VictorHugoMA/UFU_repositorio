@@ -14,7 +14,7 @@
 
 
 insere(Id_formapagamento, Descr_formapagento):-
-    %chave:pk(formapagamento, Id_formapagamento),
+    chave:pk(formapagamento, Id_formapagamento),
     with_mutex(tabFormaPag,
                assert_tabFormaPag(Id_formapagamento, Descr_formapagento)).
 

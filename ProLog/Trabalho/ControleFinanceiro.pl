@@ -75,7 +75,7 @@ tesouraria(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Tesouraria'),
-                    \campo(id_tesouraria, 'ID Tesouraria', number),
+                    %\campo(id_tesouraria, 'ID Tesouraria', number),
                     \campo(id_empresa, 'ID Empresa', number),
                     \campo(id_cliente, 'ID Cliente', number),
                     \campo(id_planoContas, 'ID Plano de Contas', number),
@@ -100,7 +100,7 @@ formapagamento(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Formas de Pagamentos'),
-                    \campo(id_formapagamento, 'ID Forma de Pagamento', number),
+                    %\campo(id_formapagamento, 'ID Forma de Pagamento', number),
                     \campo(descr_formapagento, 'Descricao', text),
           
 
@@ -127,14 +127,14 @@ campo(Nome, Rotulo, Tipo) -->
 
 recebe_Tes(post,Pedido) :-
         catch(
-            http_parameters(Pedido,[id_tesouraria(Id_tesouraria, [integer]), id_empresa(Id_empresa, [integer]), id_cliente(Id_cliente, [integer]), 
+            http_parameters(Pedido,[id_empresa(Id_empresa, [integer]), id_cliente(Id_cliente, [integer]), 
                                     id_planoContas(Id_planoContas, [integer]), id_fornecedores(Id_fornecedores, [integer]),
                                     formapagamento_tes(Formapagamento_tes, []), valor_tes(Valor_tes, []), numero_tes(Numero_tes, []), 
                                     data_emissao_tes(Data_emissao_tes, []), data_venc_tes(Data_venc_tes, []), data_disp_tes(Data_disp_tes, [])]),
             _E,
             fail),
         !,
-        tabTesouraria:insere(Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
+        tabTesouraria:insere(_Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
                              Formapagamento_tes, Valor_tes, Numero_tes,
                              Data_emissao_tes, Data_venc_tes, Data_disp_tes),
         reply_html_page(
@@ -154,6 +154,25 @@ recebe_Tes(post,Pedido) :-
 
 recebe_FormaPag(post,Pedido) :-
         catch(
+            http_parameters(Pedido,
+                                    [descr_formapagento(Descr_formapagento,[])]),
+            _E,
+            fail),
+        !,
+        tabFormaPag:insere(_Id_formapagamento, Descr_formapagento),
+        reply_html_page(
+            bootstrap,
+            [ title('Pedido')],
+            [ div(class(container),
+                [ h1('Pedido Recebido'),
+                    \retorna_home
+                ])
+            ]).
+
+
+/*
+recebe_FormaPag(post,Pedido) :-
+        catch(
             http_parameters(Pedido,[id_formapagamento(Id_formapagamento,[integer]),
                                     descr_formapagento(Descr_formapagento,[])]),
             _E,
@@ -169,7 +188,6 @@ recebe_FormaPag(post,Pedido) :-
                 ])
             ]).
 
-/*
 recebe_formulario2(post, Pedido) :-
     http_read_data(Pedido, Dados, []),
     format('Content-type: text/html~n~n', []),

@@ -24,6 +24,7 @@
 insere(  Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
          Formapagamento_tes, Valor_tes, Numero_tes, Data_emissao_tes,
          Data_venc_tes, Data_disp_tes):-
+    chave:pk(tesouraria, Id_tesouraria),
     with_mutex(tabTesouraria,
                assert_tabTesouraria(Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
                                     Formapagamento_tes, Valor_tes, Numero_tes, Data_emissao_tes,
