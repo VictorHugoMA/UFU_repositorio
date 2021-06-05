@@ -75,7 +75,6 @@ tesouraria(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Tesouraria'),
-                    %\campo(id_tesouraria, 'ID Tesouraria', number),
                     \campo(id_empresa, 'ID Empresa', number),
                     \campo(id_cliente, 'ID Cliente', number),
                     \campo(id_planoContas, 'ID Plano de Contas', number),
@@ -100,7 +99,6 @@ formapagamento(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Formas de Pagamentos'),
-                    %\campo(id_formapagamento, 'ID Forma de Pagamento', number),
                     \campo(descr_formapagento, 'Descricao', text),
           
 
@@ -154,8 +152,7 @@ recebe_Tes(post,Pedido) :-
 
 recebe_FormaPag(post,Pedido) :-
         catch(
-            http_parameters(Pedido,
-                                    [descr_formapagento(Descr_formapagento,[])]),
+            http_parameters(Pedido,[descr_formapagento(Descr_formapagento,[])]),
             _E,
             fail),
         !,
@@ -171,23 +168,6 @@ recebe_FormaPag(post,Pedido) :-
 
 
 /*
-recebe_FormaPag(post,Pedido) :-
-        catch(
-            http_parameters(Pedido,[id_formapagamento(Id_formapagamento,[integer]),
-                                    descr_formapagento(Descr_formapagento,[])]),
-            _E,
-            fail),
-        !,
-        tabFormaPag:insere(Id_formapagamento, Descr_formapagento),
-        reply_html_page(
-            bootstrap,
-            [ title('Pedido')],
-            [ div(class(container),
-                [ h1('Pedido Recebido'),
-                    \retorna_home
-                ])
-            ]).
-
 recebe_formulario2(post, Pedido) :-
     http_read_data(Pedido, Dados, []),
     format('Content-type: text/html~n~n', []),
