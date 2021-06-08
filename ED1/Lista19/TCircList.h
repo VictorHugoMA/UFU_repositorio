@@ -15,15 +15,15 @@ typedef struct aluno{
 
 typedef struct CircList CircList;
 
-CircList *list_creat();
+CircList *list_creat();//
 
-int list_free(CircList *c);
+int list_free(CircList *c);//
 
-int list_push_front(CircList *c, aluno a);
+int list_push_front(CircList *c, aluno a);//
 
-int list_push_back(CircList *c, aluno a);
+int list_push_back(CircList *c, aluno a);//
 
-int list_print(CircList *c);
+int list_print(CircList *c);//
 
 int list_insert(CircList *c, int pos, aluno a);
 
@@ -31,9 +31,9 @@ int list_insert_sorted(CircList *c, aluno a);
 
 int list_size(CircList *c);
 
-int list_pop_front(CircList *c);
+int list_pop_front(CircList *c);//
 
-int list_pop_back(CircList *c);
+int list_pop_back(CircList *c);//
 
 int list_erase_data(CircList *c, int mat);
 

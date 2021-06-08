@@ -32,12 +32,17 @@ int list_free(CircList *c){
     CLNode *aux, *prox;
     aux = c->end->next;
 
+    if(c->end==NULL){
+        return SUCCESS;
+    } 
+
     while(aux->next!=c->end){
         prox = aux->next;
         free(aux);
         aux = prox;
     }
     free(c->end);
+    free(c);
 
     return SUCCESS;
 }   
@@ -97,6 +102,26 @@ int list_pop_front(CircList *c){
     aux = c->end->next;
     c->end->next = c->end->next->next;
     free(aux);
+
+    return SUCCESS;
+}
+
+int list_pop_back(CircList *c){
+    if(c==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    if(c->end==NULL){
+        return ELEM_NOT_FOUND;
+    }
+    CLNode *aux;
+    
+    aux = c->end->next;
+    while(aux->next!=c->end){
+        aux = aux->next;
+    }
+    aux = c->end->next;
+    free(c->end);
+    c->end = aux;
 
     return SUCCESS;
 }
