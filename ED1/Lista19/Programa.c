@@ -14,7 +14,7 @@
         {115, "Jorge", 7.5, 9.1, 10},
         {195, "Ana", 6.5, 9.0, 8}
         };
-        int aux;
+        int aux, pos;
 
         CircList *c;
 
@@ -34,6 +34,10 @@
         printf("\nRemovendo um elemento:\n");
         list_pop_front(c);
         list_print(c);
+
+        aux = list_size(c);
+        printf("\n%d\n", aux);
+
 
         list_free(c);
         return 0;

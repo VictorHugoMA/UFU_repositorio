@@ -27,9 +27,7 @@ int list_print(CircList *c);//
 
 int list_insert(CircList *c, int pos, aluno a);
 
-int list_insert_sorted(CircList *c, aluno a);
-
-int list_size(CircList *c);
+int list_size(CircList *c);//
 
 int list_pop_front(CircList *c);//
 
@@ -47,6 +45,6 @@ int list_front(CircList *c, aluno *a);
 
 int list_back(CircList *c, aluno *a);
 
-int list_get_pos(CircList *c, int mat, int *pos);
+int list_get_pos(CircList *c, int mat, int *pos);//
 
 #endif

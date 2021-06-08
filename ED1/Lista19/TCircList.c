@@ -126,6 +126,52 @@ int list_pop_back(CircList *c){
     return SUCCESS;
 }
 
+int list_size(CircList *c){
+    if(c==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    CLNode *aux;
+    int cont=0;
+
+    if(c->end==NULL){
+        return cont;;
+    }
+    aux = c->end;
+    cont++;
+    while(aux->next!=c->end){
+        cont++;
+        aux = aux->next;
+    }
+    return cont;
+}
+
+int list_get_pos(CircList *c, int mat, int *pos){
+    if(c==NULL)
+        return INVALID_NULL_POINTER;
+    else{
+        if(c->end==NULL){
+            return ELEM_NOT_FOUND;
+        }
+        else{
+            CLNode *aux;
+            int cont=1;
+
+            aux = c->end;
+            while(aux->next!= c->end && aux->data.matricula != mat){
+                cont++;
+                aux=aux->next;
+            }
+            if(aux == c->end)
+                return ELEM_NOT_FOUND; 
+            
+            else{
+                *pos=cont;
+                return SUCCESS;
+            }  
+        }
+    }
+}
+
 int list_print(CircList *c){
     if(c==NULL){
         return INVALID_NULL_POINTER;
