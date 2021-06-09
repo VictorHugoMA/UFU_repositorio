@@ -13,21 +13,19 @@
         {200, "Carolina", 7, 8, 10},
         {115, "Jorge", 7.5, 9.1, 10},
         {195, "Ana", 6.5, 9.0, 8}
-        };
-        int aux, pos;
+        }, aC;
+        int aux, pos, mat;
 
         CircList *c;
 
         c = list_creat();
 
-        aux = list_push_back(c, a[0]);
-        printf("%d\n", aux);
-        aux = list_push_front(c, a[1]);
-        printf("%d\n", aux);
-        aux = list_push_front(c, a[2]);
-        printf("%d\n", aux);
-        aux = list_push_back(c, a[3]);
-        printf("%d\n", aux);
+        list_push_back(c, a[3]);
+        list_push_back(c, a[1]);
+
+        list_push_front(c, a[0]);
+        list_push_front(c, a[2]);
+        
 
         list_print(c);
 
@@ -37,6 +35,22 @@
 
         aux = list_size(c);
         printf("\n%d\n", aux);
+
+        printf("\nDigite a matricula para consultar: ");
+        scanf("%d", &pos);
+        aux = list_find_mat(c, mat, &aC); //Consulta o aluno pela posicao na lista
+
+            if(aux==INVALID_NULL_POINTER)
+                printf("\nPonteiro invalido\n");
+            else if(aux == ELEM_NOT_FOUND){
+                printf("\nElemento nao encontrado\n");
+            }
+            else if(aux == SUCCESS){
+                printf("Matricula %d\n", aC.matricula);
+                printf("Nome: %s\n", aC.nome);
+                printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
+            }
+
 
 
         list_free(c);

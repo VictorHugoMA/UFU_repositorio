@@ -145,31 +145,86 @@ int list_size(CircList *c){
     return cont;
 }
 
+ 
+int list_find_mat(CircList *c, int mat, aluno *a){
+    if(c==NULL){
+        return INVALID_NULL_POINTER;
+    }
+    if(mat<0 || c->end ==NULL){
+        return ELEM_NOT_FOUND;
+    }
+    else{
+        CLNode *aux;
+        int tam, cont=1;
+        aux = c->end->next;
+
+        tam = list_size(c);
+
+        while(aux!= c->end && aux->data.matricula != mat){
+            aux=aux->next;
+            cont++;
+        }
+        if(cont>tam)
+            return ELEM_NOT_FOUND; 
+        
+        else{
+            *a=aux->data;
+            return SUCCESS;
+            }  
+            
+    }
+
+}
+
 int list_get_pos(CircList *c, int mat, int *pos){
     if(c==NULL)
         return INVALID_NULL_POINTER;
-    else{
-        if(c->end==NULL){
-            return ELEM_NOT_FOUND;
-        }
-        else{
-            CLNode *aux;
-            int cont=1;
-
-            aux = c->end;
-            while(aux->next!= c->end && aux->data.matricula != mat){
-                cont++;
-                aux=aux->next;
-            }
-            if(aux == c->end)
-                return ELEM_NOT_FOUND; 
-            
-            else{
-                *pos=cont;
-                return SUCCESS;
-            }  
-        }
+    if(c->end==NULL){
+        return ELEM_NOT_FOUND;
     }
+    else{
+        CLNode *aux;
+        int cont=1;
+
+        aux = c->end;
+        while(aux->next!= c->end && aux->data.matricula != mat){
+            cont++;
+            aux=aux->next;
+        }
+        if(aux == c->end)
+            return ELEM_NOT_FOUND; 
+        
+        else{
+            *pos=cont;
+            return SUCCESS;
+        }  
+    }
+}
+
+int list_front(CircList *c, aluno *a){
+    if(c==NULL)
+        return INVALID_NULL_POINTER;
+    if(c->end==NULL){
+        return ELEM_NOT_FOUND;
+    }
+    else{
+        *a=c->end->next->data;
+        return SUCCESS;
+    }
+     
+}
+
+int list_back(CircList *c, aluno *a){
+    if(c==NULL)
+        return INVALID_NULL_POINTER;
+    if(c->end==NULL){
+        return ELEM_NOT_FOUND;
+    }
+    else{
+        *a=c->end->data;
+        return SUCCESS;
+    }
+     
 }
 
 int list_print(CircList *c){

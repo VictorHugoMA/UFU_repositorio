@@ -39,11 +39,11 @@ int list_erase_pos(CircList *c, int pos);
 
 int list_find_pos(CircList *c, int pos, aluno *a);
 
-int list_find_mat(CircList *c, int mat, aluno *a);
+int list_find_mat(CircList *c, int mat, aluno *a);//n
 
-int list_front(CircList *c, aluno *a);
+int list_front(CircList *c, aluno *a);//
 
-int list_back(CircList *c, aluno *a);
+int list_back(CircList *c, aluno *a);//
 
 int list_get_pos(CircList *c, int mat, int *pos);//
 
