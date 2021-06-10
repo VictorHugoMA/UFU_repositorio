@@ -36,20 +36,9 @@
         aux = list_size(c);
         printf("\n%d\n", aux);
 
-        printf("\nDigite a matricula para consultar: ");
-        scanf("%d", &pos);
-        aux = list_find_mat(c, mat, &aC); //Consulta o aluno pela posicao na lista
+        printf("Imprimindo o proximo aluno:");
+        print_next(c);
 
-            if(aux==INVALID_NULL_POINTER)
-                printf("\nPonteiro invalido\n");
-            else if(aux == ELEM_NOT_FOUND){
-                printf("\nElemento nao encontrado\n");
-            }
-            else if(aux == SUCCESS){
-                printf("Matricula %d\n", aC.matricula);
-                printf("Nome: %s\n", aC.nome);
-                printf("Notas: %.1f %.1f %.1f\n", aC.n1, aC.n2, aC.n3);
-            }
 
 
 

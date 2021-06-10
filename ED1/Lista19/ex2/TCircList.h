@@ -25,6 +25,8 @@ int list_push_back(CircList *c, aluno a);//
 
 int list_print(CircList *c);//
 
+int print_next(CircList *c);
+
 int list_insert(CircList *c, int pos, aluno a);
 
 int list_size(CircList *c);//
