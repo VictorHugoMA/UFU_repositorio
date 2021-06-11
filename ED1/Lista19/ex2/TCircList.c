@@ -11,7 +11,7 @@ struct CLNode{
 
 struct CircList{
     CLNode *end;
-    int pos;
+    CLNode *next;
 };
 
 
@@ -22,7 +22,7 @@ CircList *list_creat(){
 
     if(c!=NULL){
         c->end = NULL;
-        c->pos=0;
+        c->next=NULL;
     }
     return c;
 }
@@ -44,6 +44,7 @@ int list_free(CircList *c){
         aux = prox;
     }
     free(c->end);
+    free(c->next);
     free(c);
 
     return SUCCESS;
@@ -258,34 +259,17 @@ int print_next(CircList *c){
     if(c==NULL){
         return INVALID_NULL_POINTER;
     }
-    if(c->pos==0){
-        printf("\n------------------\n");
-        printf("Matricula: %d\n", c->end->next->data.matricula);
-        printf("Nome: %s\n", c->end->next->data.nome);
-        printf("Notas: %.1f; %.1f; %.1f;\n", c->end->next->data.n1, c->end->next->data.n2, c->end->next->data.n3);
-
-        c->pos++;
+    if(c->next==NULL){
+        return ELEM_NOT_FOUND;
     }
-
-        CLNode *aux;
-        int cont=0;
-        aux = c->end->next;
-
-        while (cont!=c->pos){
-            aux=aux->next;
-            cont++;
-
-            if(aux==c->end){
-                c->pos=0;
-                break;
-            }
-
-        }
-        printf("\n------------------\n");
-        printf("Matricula: %d\n", aux->data.matricula);
-        printf("Nome: %s\n", aux->data.nome);
-        printf("Notas: %.1f; %.1f; %.1f;\n", aux->data.n1, aux->data.n2, aux->data.n3);
-        
+    
+    
+    printf("\n------------------\n");
+    printf("Matricula: %d\n", c->next->data.matricula);
+    printf("Nome: %s\n", c->next->data.nome);
+    printf("Notas: %.1f; %.1f; %.1f;\n", c->next->data.n1, c->next->data.n2, c->next->data.n3);
+    
+    c->next=c->next->next;
 
         return SUCCESS;
 
