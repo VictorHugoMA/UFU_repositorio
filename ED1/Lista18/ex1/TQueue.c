@@ -4,14 +4,14 @@
 #include"Tlinkedlist.h"
 
 
-struct TStack{
+struct TQueue{
     list *list;
 };
 
 
-TStack *stack_create(){
-    TStack *st;
-    st = malloc(sizeof(TStack));
+TQueue *queue_create(){
+    TQueue *st;
+    st = malloc(sizeof(TQueue));
     if(st!=NULL){
         st->list = list_creat();
         if (st->list == NULL){
@@ -23,7 +23,7 @@ TStack *stack_create(){
 }
 
 
-int stack_free(TStack *st){
+int queue_free(TQueue *st){
     if(st ==NULL)
         return ERROR;
     
@@ -34,7 +34,7 @@ int stack_free(TStack *st){
     }
 }
 
-int stack_push(TStack *st, struct aluno a){
+int queue_push(TQueue *st, struct aluno a){
     if (st == NULL)
         return ERROR;
     
@@ -42,7 +42,7 @@ int stack_push(TStack *st, struct aluno a){
 
 }
 
-int stack_pop(TStack *st){
+int queue_pop(TQueue *st){
     if (st == NULL)
         return ERROR;
 
@@ -51,7 +51,7 @@ int stack_pop(TStack *st){
     }
 }
 
-int stack_top(TStack *st, struct aluno *a){
+int queue_top(TQueue *st, struct aluno *a){
     if (st == NULL)
         return ERROR;
 
@@ -61,7 +61,7 @@ int stack_top(TStack *st, struct aluno *a){
 }
 
 //Retorno -1 para erro, 0 para vazia
-int stack_empty(TStack *st){
+int queue_empty(TQueue *st){
     if (st == NULL)
         return ERROR;
     
@@ -71,7 +71,7 @@ int stack_empty(TStack *st){
 }
 
 
-int stack_print(TStack *st){
+int queue_print(TQueue *st){
     if(st==NULL)
         return ERROR;
 

@@ -1,21 +1,21 @@
-#ifndef _TStack_
-#define _TStack_
+#ifndef _TQueue_
+#define _TQueue_
 
 #define SUCCESS 0
 #define ERROR -1
 #include "aluno.h"
 
-typedef struct TStack TStack;
+typedef struct TQueue TQueue;
 
-TStack *stack_create();
-int stack_free(TStack *st);
+TQueue *queue_create();
+int queue_free(TQueue *st);
 
-int stack_push(TStack *st, struct aluno a);
-int stack_pop(TStack *st);
-int stack_top(TStack *st, struct aluno *a);
+int queue_push(TQueue *st, struct aluno a);
+int queue_pop(TQueue *st);
+int queue_top(TQueue *st, struct aluno *a);
 
-int stack_empty(TStack *st);
-int stack_full(TStack *st);
-int stack_print(TStack *st);
+int queue_empty(TQueue *st);
+int queue_full(TQueue *st);
+int queue_print(TQueue *st);
 
 #endif
