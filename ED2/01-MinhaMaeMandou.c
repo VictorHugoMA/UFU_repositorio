@@ -8,8 +8,19 @@
         for(int i=0; i<e; i++){
             scanf("%d %d", &n, &k);
 
-            a1 = (sil*k)/n + 1;
-            aEsc = sil*k - n + 1;
+            aEsc = (sil*k)%n + 1;
+
+
+            if(sil*k==n || n==1)
+                a1 = (sil*k)/n;
+
+            else if(sil*k>n)
+                a1 = (sil*k)/n + 1;
+                
+            else{
+                a1=1;
+                aEsc=sil*k+1;
+            }
 
             printf("%d %d\n", a1, aEsc);
         }
