@@ -14,15 +14,15 @@ public class Retangulo {
 		return lados;
 	}
 
-	public void setLados(float l1, float l2) {
-		this.lados[0] = l1;
-		this.lados[1] = l2;
+	public void setLados(float l[]) {
+		this.lados = l.clone();
+		//this.lados[0] = l1;
+		//this.lados[1] = l2;
 	}
 	
-	public void testeRet(float l1, float l2) {
-		this.setLados(l1, l2);
+	public void testeRet(float l[]) {
+		this.setLados(l);
 		
-		float l[] = new float[2];
 		l=this.getLados();
 		System.out.println("Lado A: " + l[0]);
 		System.out.println("Lado B: " + l[1]);

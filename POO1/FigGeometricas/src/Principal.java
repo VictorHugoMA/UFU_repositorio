@@ -6,7 +6,8 @@ public class Principal {
 		//q.testaQuad(2);
 				
 		Retangulo r = new Retangulo();
-		r.testeRet(12.0f, 10.0f);
+		float vet[] = {12,10};
+		r.testeRet(vet);
 		
 	}
 
