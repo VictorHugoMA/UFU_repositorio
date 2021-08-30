@@ -1,14 +1,15 @@
+.include "BibliotecaMacros.asm"
+
 .data
 	.align 2
 	file: .asciiz "C:\\UFU_repositorio\\AOC\\teste.txt"
-	buff: .space 4
+	buff: .space 40
 
 .text
 	#fopen
   	li   $v0, 13       # system call for open file
   	la   $a0, file     # output file name
   	li   $a1, 1        # Open for writing (flags are 0: read, 1: write)
-  	li   $a2, 0        # mode is ignored
   	syscall            # open a file (file descriptor returned in $v0)
   	move $s6, $v0      # save the file descriptor 
 
@@ -33,4 +34,6 @@ SAI1:
   	#fclose
   	li   $v0, 16       # system call for close file
   	move $a0, $s6      # file descriptor to close
-  	syscall            # close file
+  	syscall            # close file	
+  	
+  	return0
