@@ -4,15 +4,41 @@ public class Pessoa {
 	private String nome;
 	private String cpf, rg;
 	private byte estadoCivil;
-	private Endereco enderecoP;
+	private Endereco endereco;
 	
 	
+	
+	
+	public Pessoa(String nome, String cpf, String rg, String estadoCivil, Endereco endereco) {
+		this.setNome(nome);
+		this.setCpf(cpf);
+		this.setRg(rg);
+		this.setEstadoCivil(estadoCivil);
+		this.endereco = endereco;
+	}
+	
+	public Pessoa(String nome, String cpf) {
+		this.setNome(nome);
+		this.setCpf(cpf);
+	}
+	
+	public Pessoa(){
+		
+	}
+
 	public String getNome() {
 		return nome;
 	}
 	
-	public void setNome(String nome) {
-		this.nome = nome;
+	public boolean setNome(String nome) {
+		if(nome.length()>0) {
+			this.nome = nome;
+			return true;
+		}
+		else {
+			return false;
+		}
+		
 	}
 	
 	public String getCpf() {
@@ -33,23 +59,60 @@ public class Pessoa {
 		return rg;
 	}
 	
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-	public byte getEstadoCivil() {
-		return estadoCivil;
+	public boolean setRg(String rg) {
+		if(rg.length()>0) {
+			this.rg = rg;
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
-	public void setEstadoCivil(byte estadoCivil) {
-		this.estadoCivil = estadoCivil;
+	
+	public String getEstadoCivil() {
+		if(this.estadoCivil==0) {
+			return "Solteiro";
+		}
+		else if(this.estadoCivil==1){
+			return "Casado";
+		}
+		else if(this.estadoCivil==2) {
+			return "Divorciado";
+		}
+		else {
+			return "Estado Invalido";
+		}
+	}
+	
+	public boolean setEstadoCivil(String estadoCivil) {
+		if(estadoCivil.equals("Solteiro")) {
+			this.estadoCivil = 0;
+			return true;
+		}
+		else if(estadoCivil.equals("Casado")) {
+			this.estadoCivil = 1;
+			return true;
+		}
+		else if(estadoCivil.equals("Divorciado")) {
+			this.estadoCivil = 2;
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
-	public Endereco getEnderecoP() {
-		return enderecoP;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecoP(Endereco enderecoP) {
-		this.enderecoP = enderecoP;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
+	public String mostraDados() {
+		return this.getNome() + "\nCPF: " + this.getCpf() + "\nRG: " + this.getRg() + "\nEstado Civil: " + this.getEstadoCivil() + endereco.mostraDados();
 	}
 	
 	
