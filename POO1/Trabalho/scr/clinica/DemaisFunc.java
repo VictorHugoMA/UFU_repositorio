@@ -1,4 +1,4 @@
-
+package clinica;
 
 public class DemaisFunc extends Funcionario {
 	private float salarioBase;

@@ -1,3 +1,4 @@
+package clinica;
 import java.text.ParseException;
 
 public class PacSPlano extends Paciente {

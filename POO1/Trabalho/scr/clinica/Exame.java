@@ -1,3 +1,4 @@
+package clinica;
 
 public class Exame {
 	private String nome;

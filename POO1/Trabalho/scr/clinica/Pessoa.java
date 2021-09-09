@@ -1,4 +1,4 @@
-
+package clinica;
 
 public class Pessoa {
 	private String nome;

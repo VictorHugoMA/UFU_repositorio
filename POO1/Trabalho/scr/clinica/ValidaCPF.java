@@ -1,3 +1,4 @@
+package clinica;
 
 import java.util.InputMismatchException;
 

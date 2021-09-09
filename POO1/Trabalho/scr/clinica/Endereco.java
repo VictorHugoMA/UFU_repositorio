@@ -1,3 +1,4 @@
+package clinica;
 
 public class Endereco {
 	private String rua;
