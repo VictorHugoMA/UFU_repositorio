@@ -1,14 +1,11 @@
 #Escreva um programa em assembly mips que salva os números de 1 a 10 na memória.
 #A seguir leia os números da memória, calcule seu quadrado e salve novamente na memória
 
-.data
-	.align 2
-	array: .space 4000
-
-
 .text
 
-	la	$s7, array
+	#la	$s7, array
+	lui $at, 4097
+	ori $s7, $at, 0
 	addiu 	$s0, $zero, 1		# contador
 	addiu 	$s5, $zero, 11 		# maximo
 
@@ -22,7 +19,9 @@ FOR1:	slt	$t0, $s0, $s5	  	# s0 <11 -> t0 = 1
 	addiu	$s0, $s0, 1		# +1 no contador
 	j	FOR1
 
-SAI1:	la $s7, array			# volta para a primeira pos do array
+SAI1:	#la $s7, array			# volta para a primeira pos do array
+	lui $at, 4097
+	ori $s7, $at, 0
 	addiu 	$s0, $zero, 1		# contador
 	addiu 	$s5, $zero, 11 		# maximo
 
