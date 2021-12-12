@@ -22,10 +22,16 @@ main{
     margin: 0 auto;
     padding: 20px;
     background-color: #AAB1BF;
+    border: 0.7px solid gray;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 ul{
-    margin: 0px;
+    margin-top: 0px;
+    margin-left: 10%;
+    margin-right: 10%;
     text-align: center;
     list-style-type: none;
     font-weight: 400;
