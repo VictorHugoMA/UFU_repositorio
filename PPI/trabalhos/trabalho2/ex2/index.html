@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body{
+            background-color: lightgray;
+        }
+        main{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            
+            background-color: white;
+            width: 50%;
+            padding: 25px;
+            border: 0.7px solid gray;
+            border-radius: 10px;
+        }
+        input{
+            display: block;
+            width: 95%;
+            padding: 7px;
+            margin: 7px 0 14px;
+            border: 0.7px solid gray;
+            border-radius: 5px;
+        }
+        input:focus{
+            border: 0.3px solid blue;
+            box-shadow: 0px 0px 5px black;
+            outline: none;
+        }
+        button{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <form action="action_page.php" method="post">
+            <label for="user">Usuario</label>
+            <input type="text" id="user" name="user" required>
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button>Entrar</button>
+        </form>
+    </main>
+</body>
+</html>

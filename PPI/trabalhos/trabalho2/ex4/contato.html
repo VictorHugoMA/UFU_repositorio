@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Area para contato com John J. Vickers">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Contato</title>
+    <style>
+         body{
+            margin: 0;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-color: #EFF3F6;
+        }
+        header{
+            padding: 20px;
+            background-color: #121D26;
+        }
+        header > h1{
+            padding: 10px;
+            margin: 0;
+            text-align: center;
+            color: azure;
+        }
+        nav{
+            text-align: center;
+            padding: 5px;
+            margin: 0 auto;
+            
+            background-color: #AAB1BF;
+        }
+        nav > ul{
+            padding: 0;
+            list-style: none;
+        }
+        nav li{
+            display: inline;
+            margin-left: 10px;
+            margin-right: 10px;
+            
+        }
+        li > a{
+            text-decoration: none;
+            color: black;
+        }
+        li > a:hover{
+            text-decoration: underline;
+        }
+        form{
+            padding: 20px;
+        }
+        form p{
+            margin-bottom: 5px;
+        }
+        section{
+            padding: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="number"], input[type="tel"], input[type="date"], textarea{
+            display: block;
+            width: 50%;
+            padding: 7px;
+            margin: 7px 0 14px;
+            border: 0.7px solid gray;
+            border-radius: 5px;
+        }
+        input:focus, textarea:focus{
+            border: 0.3px solid #003972;
+            outline: none;
+        }
+        .validacao input{
+            display: inline;
+        }
+        .validacao label{
+            display: block;
+        }
+        input:invalid + span::after{
+            padding: 2%;
+            content: '❌';
+        }
+        input:valid + span::after{
+            padding: 2%;
+            content: '✔️';
+        }
+        #check{
+            display: block;
+            padding-bottom: 10px;
+        }
+        button{
+            margin: 10px;
+            padding: 5px;
+        }
+        footer{
+            padding: 5px;
+            background-color: #AAB1BF;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contato</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Página Principal</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="contato.html">Contato</a></li>
+        </ul>
+    </nav>
+    <main>
+        <form action="action_page.php" method="post">
+            <section>
+                <h2>Dados Pessoais</h2>
+                <div class="validacao">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" minlength="1" required><span></span>
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required><span></span>
+                    <label for="idade">Idade</label>
+                    <input type="number" id="idade" name="idade" required><span></span>
+                </div>
+                <label for="telefone">Telefone</label>
+                <input  type="tel" id="telefone" name="telefone" required>
+                <label for="nascimento">Data de Nascimento</label>
+                <input type="date" id="nascimento" name="nascimento">
+                
+                <p>Sexo</p>
+                <input type="radio" id="masculino" name="sexo" value="masculino">
+                <label for="masculino">Masculino</label><br>
+                <input type="radio" id="feminino" name="sexo" value="feminino">
+                <label for="feminino">Feminino</label><br>
+                <input type="radio" id="naoInf" name="sexo" value="naoInf">
+                <label for="naoInf">Não Informar</label><br>
+                
+                <p>Estado Civil</p>
+                <input type="radio" id="casado" name="estCivil" value="casado">
+                <label for="casado">Casado</label><br>
+                <input type="radio" id="solteiro" name="estCivil" value="solteiro">
+                <label for="solteiro">Solteiro</label><br>
+                <input type="radio" id="divorciado" name="estCivil" value="divorciado">
+                <label for="divorciado">Divorciado</label><br>
+            </section>
+            
+            <section>
+                <h2>Dados da Empresa</h2>
+                <label for="cnpj">CNPJ</label>
+                <input type="text" id="cnpj" name="cnpj">
+                <label for="razaoSocial">Razão Social</label>
+                <input type="text" id="razaoSocial" name="razaoSocial">
+            
+                <div id="check">
+                    <p>Ramo de Atuação</p>
+                    <input type="checkbox" id="industria" name="ramo" value="industria">
+                    <label for="industria">Industria</label><br>
+                    <input type="checkbox" id="comercio" name="ramo" value="comercio">
+                    <label for="comercio">Comércio</label><br>
+                    <input type="checkbox" id="servico" name="ramo" value="servico">
+                    <label for="servico">Serviço</label><br>
+                    <input type="checkbox" id="outro" name="ramo" value="outro">
+                    <label for="outro">Outro</label><br>
+                </div>
+            </section>
+            
+            <section>
+                <h2>Endereço</h2>
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" name="cep" required>
+                <div id="check">
+                    <p>Tipo de logradouro</p>
+                    <input type="checkbox" id="rua" name="tipoLog" value="rua">
+                    <label for="rua">Rua</label><br>
+                    <input type="checkbox" id="avenida" name="tipoLog" value="avenida">
+                    <label for="avenida">Avenida</label><br>
+                    <input type="checkbox" id="praca" name="tipoLog" value="praca">
+                    <label for="praca">Praça</label><br>
+                </div>
+                
+                <label for="logradouro">Logradouro</label>
+                <input type="text" id="logradouro" name="logradouro" required>
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade" required>
+                <label for="estado">Estado</label>
+                <input type="text" id="estado" name="estado" required>
+            </section>
+    
+            <section>
+                <h2>Descrição do interesse</h2>
+                <label for="descricao">Detalhe o interesse</label>
+                <textarea name="descricao" id="descricao" cols="40" rows="6"></textarea>
+            </section>
+    
+            <section>
+                <h2>Outros</h2>
+                <fieldset>
+                    <legend>Sobre o Contrato</legend>
+                    <div id="check">
+                        <p>Tipo de contrato</p>
+                        <input type="checkbox" id="cartAss" name="tipoContrato" value="cartAss">
+                        <label for="cartAss">Carteira Assinada</label><br>
+                        <input type="checkbox" id="terceirizado" name="tipoContrato" value="terceirizado">
+                        <label for="terceirizado">Terceirizado</label><br>
+                        <input type="checkbox" id="freelancer" name="tipoContrato" value="freelancer">
+                        <label for="freelancer">Freelancer</label><br>
+                        <input type="checkbox" id="outroContrato" name="tipoContrato" value="outroContrato">
+                        <label for="outroContrato">Outro</label><br>
+                    </div>
+                        <p>Duração do contrato</p>
+                        <input type="radio" id="1a2" name="duracaoContrato" value="1a2">
+                        <label for="1a2">1-2 anos</label><br>
+                        <input type="radio" id="3a5" name="duracaoContrato" value="3a5">
+                        <label for="3a5">3-5 anos</label><br>
+                        <input type="radio" id="6mais" name="duracaoContrato" value="6mais">
+                        <label for="6mais">6 ou mais anos</label><br>
+                </fieldset>
+            </section>
+                
+            <button>Enviar</button>
+
+        </form>
+    </main>
+    <footer>
+        <p>Atualizado em 10/12/2021</p>
+    </footer>
+    
+</body>
+</html>
