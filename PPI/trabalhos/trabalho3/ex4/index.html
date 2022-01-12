@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <style>
+        body{
+            margin: 0;
+            background-color: #B9B7BD;
+        }
+        main{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            
+            width: 50%;
+            padding: 2%;
+            background-color: #E7D2CC;
+            border: 0.7px solid gray;
+            border-radius: 10px;
+        }
+        div{
+            padding-bottom: 2%;
+        }
+        label{
+            margin-top: 10px;
+        }
+        input{
+            display: block;
+            width: 95%;
+            padding: 7px;
+            margin: 7px 0 5px;
+            background-color: #EEEDE7;
+            border: 0.7px solid gray;
+            border-radius: 5px;
+        }
+        input:focus{
+            border: 0.3px solid #2F2F1B;
+            outline: none;
+        }
+        button{
+            border: none;
+            margin-top: 10px;
+            border: 0.7px solid #2F2F1B;
+            border-radius: 2px;
+            background-color: #EEEDE7;
+        }
+        button:hover{
+            background-color: #cacac7
+        }
+        span{
+            color: #d60000;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h2>Cadastro Usuario</h2>
+        <form name="formCadastro" action="action_page.php" method="post">
+            <div>
+                <label for="usuario">Usuario</label>
+                <input type="text" id="usuario" name="usuario">
+                <span></span>  
+            </div>
+            <div>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha">
+                <span></span>  
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="off">
+                <span></span>  
+            </div>
+            <button>Cadastrar</button>
+        </form>
+    </main>
+
+    <script>
+            document.forms.formCadastro.onsubmit = validaFormulario; //quando o formulario for acionado chamara a funcao de validar
+
+        function validaFormulario(e){
+            let formulario = e.target; //seleciona o formulario
+            let formularioValido = true; //inicializa a validacao do formulario como verdadeira
+
+            //inicializa as variaveis com os elementos desejados
+            const spanUsuario = formulario.usuario.nextElementSibling; //usuario do formulario
+            const spanSenha = formulario.senha.nextElementSibling;  //senha do formulario
+            const spanEmail = formulario.email.nextElementSibling;  //email do formulario
+
+            //adiciona um conteudo vazio nos span
+           spanUsuario.textContent = "";
+           spanSenha.textContent = "";
+           spanEmail.textContent = "";
+
+           //verifica se os campo de preenchimento estao vazio com um if para cada campo
+           //se estiver vazio adiciona um texto de aviso no span e retorna o formulario valido como falso
+           if(formulario.usuario.value == ""){
+               spanUsuario.textContent = "Usuario deve ser preenchido.";
+               formularioValido = false;
+           }
+           if(formulario.senha.value == ""){
+               spanSenha.textContent = "Senha deve ser preenchida";
+               formularioValido = false;
+           }
+           if(formulario.email.value == ""){
+               spanEmail.textContent = "Email deve ser preenchido";
+               formularioValido=false;
+           }
+           return formularioValido; //caso nao entre em nenhum if retorna o formulario valido como true
+        }
+    </script>
+</body>
+</html>

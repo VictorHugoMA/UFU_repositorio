@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista</title>
+    <style>
+        body{
+            margin: 0;
+            background-color: #324A60;
+            color: #2F2F1B;
+        }
+        main{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            padding: 2%;
+            border-radius: 5px;
+            background-color: #E8AB16;
+        }
+        input{
+            background-color: #E7E1E0;
+            margin: 7px 0 14px;
+            border: 0.7px solid gray;
+        }
+        input:focus{
+            border: 0.3px solid #2F2F1B;
+            outline: none;
+        }
+        li{
+            background-color: #E7E1E0;
+            padding: 2%;
+
+        }
+        li button{
+            float: right;
+            border: none;
+            cursor: pointer;
+
+            background-color: #E7E1E0;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div>
+            <label for="lista">Lista</label>
+            <input type="text" name="lista" id="lista">
+            
+        </div>
+        <ol>
+            
+        </ol>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", observaTecla); //chamada da funcao de callback quando DOM esta carregado
+
+        function observaTecla(){
+            const campoLista = document.querySelector("#lista");//seleciona o elemento desejado
+            campoLista.addEventListener("keyup", function(tecla){ //adiciona um observador no campo de preencimento
+                if(tecla.key==="Enter"){ //se a tecla precionada for enter chama a funcao que gerencia a lista
+                    gerenciaLista();
+                }
+            });
+        }
+        function gerenciaLista(){
+            //seleciona os elementos desejados
+            const campoLista = document.querySelector("#lista"); //input
+            const elementoLista = document.querySelector("ol");  //lista 
+            //cria os novos elementos a serem adicionados
+            const novoLi = document.createElement("li"); //item da lista
+            const novoSpan = document.createElement("span");//span que contem o conteudo
+            const novoBotao = document.createElement("button"); //botao de remocao
+
+            novoSpan.textContent = campoLista.value;    //coloca o conteudo obtido no input no span
+            novoBotao.textContent = '❌';               //coloca no botao o simbolo X
+
+            novoLi.appendChild(novoSpan); //adiciona no li o span
+            novoLi.appendChild(novoBotao);//adiciona no li o botao
+            elementoLista.appendChild(novoLi);//adiciona o li no ol
+
+            novoBotao.onclick = function(){ //quando o botao eh clicado remove o li do ol
+                novoLi.remove();
+            }
+            campoLista.value=''; //limpa o input    
+        }
+    </script>
+</body>
+</html>

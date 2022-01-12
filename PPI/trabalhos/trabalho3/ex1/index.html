@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janela Modal</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 2%;
+            background-color: #E9EAEC;
+            color: #333652;
+        }
+        main{
+            width: 60%;
+            margin: 0 auto;
+            text-align: justify;
+        }
+        main > h1{
+            text-align: center;
+            padding-bottom: 1%;
+        }
+        .modal{
+            background-color: #0006;
+            display: none;
+            width: 100%;
+            height: 100%;
+
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            overflow: auto;
+            z-index: 1;
+        }
+        .modalContent{
+            margin: auto;
+            padding: 2%;
+            box-shadow: 0px 0px 5px black;
+            border-radius: 5px;
+
+            width: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            background-color: #FAD02C;
+            color: black;
+            text-align: center;
+        }
+        button{
+            background-color: #333652;
+            color: white;
+            border: 0.7px solid black;
+            border-radius: 4px;
+            outline: none;
+            padding: 5px;
+        }
+        button:hover{
+            background-color: #4e537e;
+        }
+        .btnCentral{
+            width: max-content;
+            margin: 4% auto;
+        }
+        .modalContent button{
+            width: 100%;
+            margin-top: 1%;
+            margin-bottom: 1%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Exercicio 1</h1>
+        <p> 
+            Aperte o botão para abrir a janela modal, hendrerit turpis pellentesque natoque imperdiet metus sapien quis potenti neque nascetur, cursus mattis nulla consectetur pulvinar enim leo et fames blandit interdum,
+            Mas devo explicar-lhe como nasceu toda essa idéia equivocada de denunciar um prazer e louvar a dor, e lhe darei um relato completo do sistema, expondo os ensinamentos reais do 
+            grande explorador da verdade, o mestre-construtor. da felicidade humana. Ninguém rejeita, não gosta, porque é prazer, mas porque aqueles que não sabem.
+        </p>
+        <p>
+            Como buscar racionalmente conseqüências que são Cupiditate, voluptatem doloribus? Ea atque pariatur aperiam soluta asperiores. Delectus beatae animi ea mollitia! Fugiat omnis, quae ratione ad sequi minus unde.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum iure eos molestias et ea incidunt sunt veritatis culpa soluta repudiandae rerum, temporibus iusto quaerat provident facilis cumque itaque suscipit? Id.
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque odit nisi ipsam velit recusandae labore nobis, tenetur saepe quibusdam ipsa distinctio sit, vero reiciendis ex sapiente. Veritatis rem sed illo.
+        </p>
+    </main>
+    <div class="btnCentral">
+        <button type="button" id="btnAbrirModal">Abrir Modal</button>
+    </div>
+
+    <div class="modal">
+        <div class="modalContent">
+            <h2>Janela modal</h2>
+            <button type="button" id="btnFecharModal">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = trocarModal; //quando a pagina eh carregada, chama a funcao trocaModal
+
+        function trocarModal(){
+            //inicializa as constantes com seus respectivos elementos selecionados
+            const modal = document.querySelector(".modal");             //classe modal
+            const btnFechar = modal.querySelector("#btnFecharModal");   //botao de fechar modal
+            const btnAbrir = document.querySelector("#btnAbrirModal");  //botao de abrir modal
+
+            btnFechar.addEventListener("click", function(){fecharModal(modal)});    //no click do botao de fechar chama a funcao fecharModal
+            btnAbrir.addEventListener("click", function(){abrirModal(modal)})       //no click do botao de abrir chama a funcao abrirModal
+
+        }
+        function fecharModal(elemento){ //funcao que recebe como parametro o elemento que vai ter seu display mudado para none
+            elemento.style.display = 'none'; 
+        }
+        function abrirModal(elemento){  //funcao que recebe como parametro o elemento que vai ter seu display mudado para block
+            elemento.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
