@@ -31,27 +31,19 @@
                 $qde = $_GET["qde"];
                 
                 for ($i=0; $i < $qde; $i++) { 
-                    $valorAleatorio1 = rand(0,9);
-                    $valorAleatorio2 = rand(0,9);
-                    $valorAleatorio3 = rand(0,9);
-
-                    $contagem1 = 1+($i*3);
-                    $contagem2 = 2+($i*3);
-                    $contagem3 = 3+($i*3);
+                    $valorAleatorio = rand(0,9);
+                    $contagem = $i+1;
 
                     echo <<<HTML
                         <tr>
                             <td>
-                                <span>$contagem1 - $produtos[$valorAleatorio1]</span>
-                                <p>$descricao[$valorAleatorio1]</p>
+                                <span>$contagem</span>
                             </td>
                             <td>
-                                <span>$contagem2 - $produtos[$valorAleatorio2]</span>
-                                <p>$descricao[$valorAleatorio2]</p>
+                                <span>$produtos[$valorAleatorio]</span>
                             </td>
                             <td>
-                                <span>$contagem3 - $produtos[$valorAleatorio3]</span>
-                                <p>$descricao[$valorAleatorio3]</p>
+                                <span>$descricao[$valorAleatorio]</span>
                             </td>
                         </tr>
                         HTML;
