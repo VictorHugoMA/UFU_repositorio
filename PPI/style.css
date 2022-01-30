@@ -1,49 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,700&display=swap');
-
-body{
-    margin: 0;
-    background-color: lightgray;
-    font-family: 'Roboto', sans-serif;
-    color: black;
-}
-
 header {
-    padding: 10px;
+    padding: 0.3vw;
     margin: 0;
     width: 100%;
     text-align: center;
     background-color: #121D26;
     color: white;
     font-size: 15px;
-  }
-
+}
 main{
-    width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #AAB1BF;
-    border: 0.7px solid gray;
-    border-top: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-ul{
-    margin-top: 0px;
-    margin-left: 10%;
-    margin-right: 10%;
     text-align: center;
-    list-style-type: none;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 48px;
-    text-decoration: none;
-}
-
-a{
-    text-decoration: none;
-    color: black;
-}
-a:hover{
-    text-decoration: underline;
 }
