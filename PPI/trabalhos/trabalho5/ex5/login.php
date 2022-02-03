@@ -7,12 +7,12 @@
     $SenhaHashGravada = carregaString("../dados/senhaHash.txt");
 
     if($emailFornecido===$emailGravado && password_verify($senhaFornecida, $SenhaHashGravada)){
-        header("Location: http://victoralves.atwebpages.com/trabalho5/ex5/loginSucesso.html");
+        header("Location: loginSucesso.html");
         exit();
         
     }
     else{
-        header("Location: http://victoralves.atwebpages.com/trabalho5/ex5/login.html");
+        header("Location: login.html");
         exit();
     }
 
