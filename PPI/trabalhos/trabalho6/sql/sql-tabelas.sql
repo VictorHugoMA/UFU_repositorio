@@ -34,6 +34,7 @@ CREATE TABLE pessoa
    estado varchar(10)
 ) ENGINE=InnoDB;
 
+
 CREATE TABLE paciente
 (
    id int PRIMARY KEY auto_increment,
