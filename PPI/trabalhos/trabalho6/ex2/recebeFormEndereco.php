@@ -9,7 +9,6 @@
     $estado = isset($_POST["estado"]) ? $_POST["estado"] : "";
 
     try {
-
         $sql = <<<SQL
         INSERT INTO endereco (cep, logradouro, bairro, cidade, estado)
         VALUES (?, ?, ?, ?, ?)
@@ -20,11 +19,11 @@
       
         header("location: mostraDadosEndereco.php");
         exit();
-      } 
-      catch (Exception $e) {  
-        if ($e->errorInfo[1] === 1062)
-          exit('Dados duplicados: ' . $e->getMessage());
-        else
-          exit('Falha ao cadastrar os dados: ' . $e->getMessage());
-      }
+    } 
+    catch (Exception $e) {  
+      if ($e->errorInfo[1] === 1062)
+        exit('Dados duplicados: ' . $e->getMessage());
+      else
+        exit('Falha ao cadastrar os dados: ' . $e->getMessage());
+    }
 ?>
