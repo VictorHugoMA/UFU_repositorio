@@ -37,7 +37,7 @@
   <div class="container">
     <main>
       <h3>Login</h3>
-      <form method="POST" class="row g-3">
+      <form onsubmit="return false" class="row g-3">
         <div class="col-sm-12">
           <label for="email" class="form-label">Email</label>
           <input type="email" name="email" class="form-control" id="email">
@@ -47,60 +47,45 @@
           <input type="password" name="senha" class="form-control" id="senha">
         </div>
 
-          <button class="btn btn-primary col-sm-12">Entrar</button>
+          <button onclick="verificaForm()" class="btn btn-primary col-sm-12">Entrar</button>
+          <div id="errorMsg"></div>
       </form>
       <a href="index.html">Voltar para Menu</a>
 
     </main>
   </div>
-  <script>
-        document.addEventListener("DOMContentLoaded", observaBotao);
+    <script>
+        window.addEventListener("load", function () {
+            var form = document.querySelector("form");
 
-        function observaBotao(){
-            let botao = document.querySelector("form button");
-            botao.onclick = () => verificaForm();
-        }
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+            });
+        });
+        const verificaForm = () => {
+            let meuForm = document.querySelector("form");
+            let formData = new FormData(meuForm);
 
-
-        function verificaForm(){
-            let formulario = document.querySelector("form");
-            let formData = new FormData(formulario);
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "loginUsuario.php");
+            xhr.responseType = 'json';
 
             xhr.onload = function () {
-                // verifica o código de status retornado pelo servidor
-                if (xhr.status != 200) {
-                console.error("Falha inesperada: " + xhr.responseText);
-                return;
-                }
-
-                // converte a string JSON para objeto JavaScript
-                try {
-                    var resposta = JSON.parse(xhr.responseText);
-                }
-                catch (e) {
-                    console.error("String JSON inválida: " + xhr.responseText);
-                    return;
-                }
-
-                // utiliza os dados retornados para preencher formulário
+                const resposta = xhr.response;
                 if (resposta.success){
-                    //window.location = resposta.destination;
-                    console.log("sucesso");
+                    window.location.href = resposta.destination;
                 }
-                else{
-                    //window.location = "index.html";
-                    console.log("falha");
+                else {
+                    const errorMsgDiv = document.getElementById("errorMsg")
+                    const errorMsg = document.createElement('div')
+                    errorMsg.innerHTML = '<div class="alert alert-warning alert-dismissible" role="alert">Dados incorretos<button type="button" class="btn-close" data-dismiss="alert"></button> </div>'
+                    errorMsgDiv.appendChild(errorMsg)
                 }
-            }
-
-            xhr.onerror = function () {
-                console.error("Erro de rede - requisição não finalizada");
             };
-            xhr.send(formData);
-        }
 
+            xhr.send(formData);
+            return false
+        }
     </script>
 </body>
 

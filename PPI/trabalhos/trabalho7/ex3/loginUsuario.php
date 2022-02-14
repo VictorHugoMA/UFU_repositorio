@@ -12,43 +12,36 @@ class RequestResponse{
     
 }
 
-function checkLogin($pdo, $email, $senha){
+$pdo = mysqlConnect();
+
+$email = $_POST['email'] ?? '';
+$senha = $_POST['senha'] ?? '';
+
+try {
     $sql = <<<SQL
-        SELECT hash_senha
-        FROM usuario
-        WHERE email = ?
+    SELECT hash_senha
+    FROM usuario WHERE email = ?
     SQL;
 
-    try {
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$email]);
-        $row = $stmt->fetch();
-        if (!$row){
-            return false;
-        }
-        else{
-            return password_verify($senha, $row['hash_senha']);
-        }
-    } 
-    catch (Exception $e) {
-        exit('Falha inesperada: ' . $e->getMessage());
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$email]);
+
+    $row = $stmt->fetch();
+    if (!$row){
+        $request = new RequestResponse(false, null);
     }
+    else if(password_verify($senha, $row['hash_senha'])){
+        $request = new RequestResponse(true, 'homeUsuario.html');
+    }
+    else{
+        $request = new RequestResponse(false, null);
+    }
+} 
+catch (Exception $e) {
+    exit('Ocorreu uma falha: ' . $e->getMessage());
 }
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $pdo = mysqlConnect();
 
-        $email = $_POST["email"] ?? "";
-        $senha = $_POST["senha"] ?? "";
-
-        if (checkLogin($pdo, $email, $senha)) {
-            $retorno = new RequestResponse(true, 'homeUsuario.html');
-            
-        } 
-        else{
-            $retorno = new RequestResponse(false, 'index.html');
-        }
-        echo json_encode($retorno);
-    }
+echo json_encode($request);
             
 ?>
 
