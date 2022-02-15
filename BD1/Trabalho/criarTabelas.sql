@@ -68,8 +68,8 @@ CREATE TABLE Agenda_has_Servico(
     hora time,
     CONSTRAINT pk_ahs PRIMARY KEY (Agenda_idAgenda, Servico_idServico)
 );
-CREATE TABLE Profissionais (
-    idProfissionais Serial NOT NULL PRIMARY KEY,
+CREATE TABLE Profissional (
+    idProfissional Serial NOT NULL PRIMARY KEY,
     nome VARCHAR(255),
     funcao VARCHAR(45),
     cpf VARCHAR(45),
@@ -77,7 +77,7 @@ CREATE TABLE Profissionais (
     dataNascimento DATE,
     cep VARCHAR(20),
     logradouro VARCHAR(45),
-    bairroVARCHAR(45),
+    bairro VARCHAR(45),
     numeroEndereco INT,
     estado VARCHAR(20)
 );
@@ -85,12 +85,12 @@ CREATE TABLE Agenda (
     idAgenda Serial NOT NULL PRIMARY KEY,
     Cliente_idCliente int NOT NULL,
     Pet_idPet int NOT NULL,
-    Profissionais_idProfissionais int NOT NULL,
+    Profissional_idProfissional int NOT NULL,
     dataInicio DATE
 );
 CREATE TABLE Servico (
     idServico Serial NOT NULL PRIMARY KEY,
-    Profissionais_idProfissionais int NOT NULL,
+    Profissional_idProfissional int NOT NULL,
     tipo VARCHAR(45),
     preco numeric (9, 2)
 );
@@ -141,11 +141,11 @@ ALTER TABLE OrdemServico_has_Servico
 ALTER TABLE Agenda
     add CONSTRAINT clienteFK_A foreign key (Cliente_idCliente) references Cliente(idCliente),
     add CONSTRAINT pet_FK foreign key (Pet_idPet) references Pet(idPet),
-    add CONSTRAINT profissionais_FK foreign key (Profissionais_idProfissionais) references Profissionais(idProfissionais);
+    add CONSTRAINT Profissional_FK foreign key (Profissional_idProfissional) references Profissional(idProfissional);
 
 ALTER TABLE Agenda_has_Servico
-    add CONSTRAINT agendaFK foreign key Agenda_idAgenda references Agenda(idAgenda),
-    add CONSTRAINT servicoFK foreign key Servico_idServico references Servico(idServico);
+    add CONSTRAINT agendaFK foreign key (Agenda_idAgenda) references Agenda(idAgenda),
+    add CONSTRAINT servicoFK foreign key (Servico_idServico) references Servico(idServico);
 
 ALTER TABLE Estoque
     add CONSTRAINT ProdutoFK_E foreign key (Produto_idProduto) references Produto(idProduto);
@@ -165,4 +165,4 @@ ALTER TABLE OrdemServico
     add CONSTRAINT clienteFK_OS foreign key (Cliente_idCliente) references Cliente(idCliente);
 
 ALTER TABLE Servico
-    add CONSTRAINT profissionalFK_S foreign key (Profissionais_idProfissionais) references Profissionais(idProfissionais);
+    add CONSTRAINT profissionalFK_S foreign key (Profissional_idProfissional) references Profissional(idProfissional);
