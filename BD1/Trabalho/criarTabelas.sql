@@ -5,7 +5,7 @@ SET search_path TO petshop;
 
 CREATE TABLE Compra(
     idCompra Serial NOT NULL PRIMARY KEY,
-    Fornecedor_idFornecedor Serial NOT NULL,
+    Fornecedor_idFornecedor int NOT NULL,
     dataCompra date,
     precoCompra numeric(9, 2),
     produto varchar(45),
@@ -23,8 +23,8 @@ CREATE TABLE Fornecedor(
     estado varchar(20)
 );
 CREATE TABLE Produto_has_Compra(
-    Produto_idProduto Serial NOT NULL,
-    Compra_idCompra Serial NOT NULL,
+    Produto_idProduto int NOT NULL,
+    Compra_idCompra int NOT NULL,
     preco numeric(9, 2),
     qtd int,
     CONSTRAINT pk_phc PRIMARY KEY (Produto_idProduto, Compra_idCompra)
@@ -37,15 +37,15 @@ CREATE TABLE Produto (
 );
 CREATE TABLE Estoque (
     idFornecedor Serial NOT NULL PRIMARY KEY,
-    Produto_idProduto Serial NOT NULL,
+    Produto_idProduto int NOT NULL,
     validade date,
     dataCompra date,
     lote varchar (45),
     qtdEstoque int
 );
 CREATE TABLE OrdemServico_has_Produto(
-    Produto_idProduto Serial NOT NULL,
-    OrdemServico_idOrdemServico Serial NOT NULL,
+    Produto_idProduto int NOT NULL,
+    OrdemServico_idOrdemServico int NOT NULL,
     preco numeric(9, 2),
     qtd int,
     CONSTRAINT pk_oshp PRIMARY KEY (Produto_idProduto, OrdemServico_idOrdemServico)
@@ -63,8 +63,8 @@ CREATE TABLE Cliente (
     estado varchar(20)
 );
 CREATE TABLE Agenda_has_Servico(
-    Agenda_idAgenda Serial NOT NULL,
-    Servico_idServico Serial NOT NULL,
+    Agenda_idAgenda int NOT NULL,
+    Servico_idServico int NOT NULL,
     hora time,
     CONSTRAINT pk_ahs PRIMARY KEY (Agenda_idAgenda, Servico_idServico)
 );
@@ -83,25 +83,25 @@ CREATE TABLE Profissionais (
 );
 CREATE TABLE Agenda (
     idAgenda Serial NOT NULL PRIMARY KEY,
-    Cliente_idCliente Serial NOT NULL,
-    Pet_idPet Serial NOT NULL,
-    Profissionais_idProfissionais Serial NOT NULL,
+    Cliente_idCliente int NOT NULL,
+    Pet_idPet int NOT NULL,
+    Profissionais_idProfissionais int NOT NULL,
     dataInicio DATE
 );
 CREATE TABLE Servico (
     idServico Serial NOT NULL PRIMARY KEY,
-    Profissionais_idProfissionais Serial NOT NULL,
+    Profissionais_idProfissionais int NOT NULL,
     tipo VARCHAR(45),
     preco numeric (9, 2)
 );
 CREATE TABLE OrdemServico_has_Servico (
-    OrdemServico_idOrdemServico Serial NOT NULL,
-    Servico_idServico Serial NOT NULL,
+    OrdemServico_idOrdemServico int NOT NULL,
+    Servico_idServico int NOT NULL,
     CONSTRAINT pk_OShS PRIMARY KEY (OrdemServico_idOrdemServico, Servico_idServico)
 );
 CREATE TABLE OrdemServico (
     idOrdemServico Serial NOT NULL PRIMARY KEY,
-    Cliente_idCliente Serial NOT NULL,
+    Cliente_idCliente int NOT NULL,
     valorTotal numeric (9, 2),
     dataVenda DATE
 );
@@ -112,7 +112,7 @@ CREATE TABLE Vacina (
 );
 CREATE TABLE pet (
     idPet SERIAL NOT NULL PRIMARY KEY,
-    cliente_idcliente INT,
+    cliente_idcliente INT NOT NULL,
     nome VARCHAR(45),
     sexo VARCHAR(2),
     especie VARCHAR(45),
