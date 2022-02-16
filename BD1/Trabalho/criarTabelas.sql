@@ -36,7 +36,7 @@ CREATE TABLE Produto (
     tipo varchar(45)
 );
 CREATE TABLE Estoque (
-    idFornecedor Serial NOT NULL PRIMARY KEY,
+    idEstoque Serial NOT NULL PRIMARY KEY,
     Produto_idProduto int NOT NULL,
     validade date,
     dataCompra date,
