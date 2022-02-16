@@ -21,7 +21,7 @@ $especialidade = $_GET['especialidade'] ?? '';
 
 try {
     $sql = <<<SQL
-    SELECT nome_medico, telefone_medico
+    SELECT nome_medico, telefone_medico, especialidade_medico
     FROM medico WHERE especialidade_medico = ?
     SQL;
 
