@@ -63,17 +63,17 @@ insert into vacina (idvacina, nome, patologia) values
 
 /* FKs ir de 1-10 */
 insert into pet (idPet, Cliente_idCliente, nome, sexo, especie, dataNascimentoEstimado, raca,peso, historico, cartaoVacina) values 
-    (default, 1, 'Minnie', 'F', 'Cachorro', '2018-02-05', 'Chow-Chow', 22.5, 'Nada consta', 'A,B,C');
+    (default, 1, 'Minnie', 'F', 'Cachorro', '2018-02-05', 'Chow-Chow', 22.5, 'Nada consta', 'A,B,C'),
     (default, 3, 'Acsa', 'F', 'Gato', '2022-01-10', 'Siamês', 7.00, 'Nada Consta', 'A,C'),
     (default, 10, 'Ted', 'M', 'Ave', '2021-11-05', 'Periquito', 1.00, 'Nada Consta', 'A,D,C'),
     (default, 3, 'Geraldo', 'M', 'Cachorro', '2015-01-13', 'Rottweiler', 30.00, 'Gripe Canina', 'T,B,C'),
-    (default, 4, 'Lilica', 'F', 'Cachorro', '2017-12-19', 'Poodle', 12.00, 'Nada Consta', 'G,F,C'),
-    (default, 5, 'Patricia','F','Hamister','2019-09-28','Anão Russo', 0.30, 'Nada Consta', 'D,N,C'),
+    (default, 4, 'Lilica', 'F', 'Cachorro', '2014-12-19', 'Poodle', 12.00, 'Nada Consta', 'G,F,C'),
+    (default, 5, 'Patricia','F','Hamster','2019-09-28','Anão Russo', 0.30, 'Nada Consta', 'D,N,C'),
     (default, 6, 'Marcinho','M', 'Peixe', '2020-07-03', 'Carpa', 3.00, 'Nada Consta', 'Q,B,Y'),
     (default, 7, 'Rex', 'M', 'Cachorro', '2011-03-26', 'Pit Bull', 35.00, 'Dirofilariose e Doença de Lyme', 'N,B,F'),
     (default, 8, 'Atreus', 'M', 'Cachorro', '2017-12-08', 'Beagle', 20.00, 'Nada Consta', 'A,R,N'),
     (default, 2, 'Rengar', 'M', 'Gato', '2021-04-15', 'Ragdoll', 5.00, 'Nada Consta', 'A,B,V'),
-    (default, 2, 'Tequinha', 'F', 'Cachorro', '2016-07-24', 'Shih-tzu', 11.00, 'Nada Consta', 'Q,B,C');
+    (default, 2, 'Tequinha', 'F', 'Cachorro', '2016-07-24', 'Shih-tzu', 11.00, 'Nada Consta', 'Q,B,C'),
     (default, 2, 'Apolo', 'M', 'Cachorro', '2022-01-05', 'Golden Retriever', 5.00, 'Nada Consta', 'A');
 
 insert into estoque (idEstoque, Produto_idProduto, validade, dataCompra, lote, qtdEstoque) values
