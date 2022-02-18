@@ -1,3 +1,5 @@
+SET search_path TO petshop;
+
 insert into cliente (idcliente, nome, cpf, telefone, dataNascimento, cep, logradouro, bairro, numeroEndereco, estado) values 
     (default, 'Victor Alves', '163.400.564-31', '9990-2777', '2001-11-20', '38400-100', 'Avenida João Naves', 'Saraiva', 707, 'MG'),
     (default, 'Pedro Silva', '556.983.905-41', '9767-4470', '1999-04-10', '38410-271', 'Rua Islandia', 'Laranjeiras', 350, 'MG'),
@@ -88,17 +90,17 @@ insert into estoque (idEstoque, Produto_idProduto, validade, dataCompra, lote, q
     (default, 7, null, '2021-12-19', 'AA11Y', 34),
     (default, 10, null, '2021-12-15', 'EX90R', 21);
 
-insert into compra (idCompra, Fornecedor_idFornecedor, dataCompra, precoCompra, produto, qtd) values
-    (default, 1, '2022-01-10', 55.00, 'Arranhador', 1),
-    (default, 2, '2022-02-11', 25.00, 'Pelúcia', 1),
-    (default, 3, '2022-03-12', 250.00, 'Cama para gato', 2),
-    (default, 4, '2022-04-13', 30.00, 'Bolinha', 1),
-    (default, 5, '2022-05-14', 100.00, 'Coleira para cães', 2),
-    (default, 6, '2022-06-15', 40.00, 'Pote de ração', 1),
-    (default, 7, '2022-07-16', 70.00, 'Ração para gatos', 1),
-    (default, 8, '2022-08-17', 80.00, 'Ração para cães', 1),
-    (default, 9, '2022-09-18', 110.00, 'Cama para cães', 1),
-    (default, 10, '2022-10-19', 7.00, 'Petisco', 1);
+insert into compra (idCompra, Fornecedor_idFornecedor, dataCompra, precoCompra, produto, qtd) values 
+    (default, 1, '2022-01-10', 99.9, 'Premier Golden Power - 10kg', 1), 
+    (default, 2, '2022-02-11', 15.99, 'Pet Clean - banho seco - 500ml', 1),
+    (default, 3, '2022-03-12', 13.99, 'Pipicat Classic - areia sanitária - 4kg', 1),
+    (default, 4, '2022-04-13', 32.9, 'Probiótico Pet Avert - 14g', 1),
+    (default, 5, '2022-05-14', 224.9, 'Antipulgas Bravecto p/ caes de 4,5 a 10 kg', 1),
+    (default, 6, '2022-06-15', 2.98, 'Ração úmida Whiskas sabor carne - 85g', 1),
+    (default, 7, '2022-07-16', 78.9, 'Poste arranhador p/ gatos', 1),
+    (default, 8, '2022-08-17', 356.99, 'Casa DuraPets azul', 1),
+    (default, 9, '2022-09-18', 9.99, 'Ração Sempre Vita p/ calopsitas', 1),
+    (default, 10, '2022-10-19', 59.98, 'Kit coleira, guia e peitoral', 1);
 
 --verificar
 insert into servico (idservico, tipo, preco) values
@@ -114,16 +116,16 @@ insert into servico (idservico, tipo, preco) values
     (default, 'Vende', 0.0);
 
 insert into ordemServico (idOrdemServico, Cliente_idCliente, valorTotal, dataVenda) values
-    (default,1, NULL, '2022-01-11'),
-    (default,2, NULL, '2022-01-11'),
-    (default,3, NULL, '2022-02-03'),
-    (default,4, NULL, '2022-02-13'),
-    (default,5, NULL, '2022-02-04'),
-    (default,6, NULL, '2022-02-05'),
-    (default,7, NULL, '2022-02-07'),
-    (default,8, NULL, '2022-02-10'),
-    (default,9, NULL, '2022-02-11'),
-    (default,10, NULL, '2022-02-11');
+    (default,1, 353.2, '2022-01-11'),
+    (default,2, 68.49, '2022-01-11'),
+    (default,3, 78.9, '2022-02-03'),
+    (default,4, 15.78, '2022-02-13'),
+    (default,5, 120.0, '2022-02-04'),
+    (default,6, 353.2, '2022-02-05'),
+    (default,7, 156.4, '2022-02-07'),
+    (default,8, 220.98, '2022-02-10'),
+    (default,9, 15.60, '2022-02-11'),
+    (default,10, 199.99, '2022-02-11');
 
 insert into agenda (idAgenda, cliente_idcliente, pet_idpet, profissional_idprofissional, dataInicio) values
     (default, 1, 1, 1, '2022-01-15'),
@@ -195,7 +197,8 @@ insert into ordemservico_has_produto (produto_idproduto, ordemservico_idordemser
     (9, 10, 29.97, 3),
     (6, 10, 29.8, 10),
     (2, 10, 15.99, 1),
-    (5, 10, 224.9, 1);
+    (5, 10, 224.9, 1),
+    (2, 5, 110.92, 4);
 
 insert into agenda_has_servico (agenda_idAgenda, servico_idServico, hora ) values
     (1, 1, '10:23:10.00 AM'),
@@ -219,18 +222,17 @@ insert into agenda_has_servico (agenda_idAgenda, servico_idServico, hora ) value
     (19, 5, '12:13:40.00 AM'),
     (20, 1, '09:27:40.00 AM');
 
---nao tem sentido (produto com compra)
 insert into produto_has_compra (produto_idproduto, compra_idcompra, preco, qtd) values
-    (4, 3, 32.9, 1),
-    (5, 1, 449.8, 2),
-    (6, 2, 5.80, 2),
-    (7, 4, 151.98, 2),
+    (1, 1, 32.9, 1),
+    (2, 2, 449.8, 2),
+    (3, 3, 5.80, 2),
+    (4, 4, 151.98, 2),
     (5, 5, 224.9, 1),
-    (2, 3, 65.8, 2),
-    (3, 7, 26.98, 2),
-    (7, 8, 78.9, 1),
-    (4, 9, 97, 3),
-    (6, 1, 2.98, 1),
+    (6, 6, 65.8, 2),
+    (7, 7, 26.98, 2),
+    (8, 8, 78.9, 1),
+    (9, 9, 97, 3),
+    (10, 10, 2.98, 1),
     (9, 3, 19.98, 2),
     (8, 5, 713.98, 2),
     (7, 3, 78.9, 1),
@@ -239,4 +241,5 @@ insert into produto_has_compra (produto_idproduto, compra_idcompra, preco, qtd) 
     (2, 4, 31.98, 1),
     (4, 8, 129.8, 4),
     (2, 9, 31.98, 2),
-    (1, 9, 99.9, 1);
+    (1, 9, 99.9, 1),
+    (2, 8, 80.9, 1);
