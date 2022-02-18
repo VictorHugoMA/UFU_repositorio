@@ -90,13 +90,13 @@ CREATE TABLE Agenda (
 );
 CREATE TABLE Servico (
     idServico Serial NOT NULL PRIMARY KEY,
-    Profissional_idProfissional int NOT NULL,
     tipo VARCHAR(45),
     preco numeric (9, 2)
 );
 CREATE TABLE OrdemServico_has_Servico (
     OrdemServico_idOrdemServico int NOT NULL,
     Servico_idServico int NOT NULL,
+    Profissional_idProfissional int,
     CONSTRAINT pk_OShS PRIMARY KEY (OrdemServico_idOrdemServico, Servico_idServico)
 );
 CREATE TABLE OrdemServico (
@@ -136,7 +136,8 @@ ALTER TABLE pet
 
 ALTER TABLE OrdemServico_has_Servico
     add CONSTRAINT ordemservicoFK_OShS foreign key (OrdemServico_idOrdemServico) references OrdemServico(idOrdemServico),
-    add CONSTRAINT servicofk_OShS foreign key (Servico_idServico) references Servico(idServico);
+    add CONSTRAINT servicofk_OShS foreign key (Servico_idServico) references Servico(idServico),
+    add CONSTRAINT profissionalFK_OShS foreign key (Profissional_idProfissional) references Profissional(idProfissional);
 
 ALTER TABLE Agenda
     add CONSTRAINT clienteFK_A foreign key (Cliente_idCliente) references Cliente(idCliente),
@@ -163,6 +164,3 @@ ALTER TABLE Produto_has_Compra
 
 ALTER TABLE OrdemServico
     add CONSTRAINT clienteFK_OS foreign key (Cliente_idCliente) references Cliente(idCliente);
-
-ALTER TABLE Servico
-    add CONSTRAINT profissionalFK_S foreign key (Profissional_idProfissional) references Profissional(idProfissional);
