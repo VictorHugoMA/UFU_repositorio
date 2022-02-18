@@ -63,7 +63,6 @@ insert into vacina (idvacina, nome, patologia) values
     (default, 'Peritonite Infecciosa Felina', 'Síndrome viral por coronavírus');
 
 
-/* FKs ir de 1-10 */
 insert into pet (idPet, Cliente_idCliente, nome, sexo, especie, dataNascimentoEstimado, raca,peso, historico, cartaoVacina) values 
     (default, 1, 'Minnie', 'F', 'Cachorro', '2018-02-05', 'Chow-Chow', 22.5, 'Nada consta', 'A,B,C'),
     (default, 3, 'Acsa', 'F', 'Gato', '2022-01-10', 'Siamês', 7.00, 'Nada Consta', 'A,C'),
@@ -102,7 +101,6 @@ insert into compra (idCompra, Fornecedor_idFornecedor, dataCompra, precoCompra, 
     (default, 9, '2022-09-18', 9.99, 'Ração Sempre Vita p/ calopsitas', 1),
     (default, 10, '2022-10-19', 59.98, 'Kit coleira, guia e peitoral', 1);
 
---verificar
 insert into servico (idservico, tipo, preco) values
     (default, 'Consulta', 150.0),
     (default, 'Operação', 250.0),
