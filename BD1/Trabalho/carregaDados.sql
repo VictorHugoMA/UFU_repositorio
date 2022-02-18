@@ -81,15 +81,15 @@ insert into estoque (idEstoque, Produto_idProduto, validade, dataCompra, lote, q
     (default, 4, '2023-12-05', '2021-07-27', 'AK10O', 12),
     (default, 5, '2023-10-05', '2021-08-30', 'AD12W', 23),
     (default, 9, '2023-08-05', '2022-01-07', 'EA71O', 18),
-    (default, 8, '2023-03-05', '2021-09-15', 'UR32P', 7),
+    (default, 8, null, '2021-09-15', 'UR32P', 7),
     (default, 6, '2022-09-05', '2021-08-17', 'OP15E', 2),
     (default, 2, '2023-04-05', '2022-01-05', 'ET5AO', 9),
-    (default, 3, '2022-11-05', '2021-02-10', 'IT82E', 31),
-    (default, 7, '2022-05-05', '2021-12-19', 'AA11Y', 34),
-    (default, 10, '2022-12-05', '2021-12-15', 'EX90R', 21);
+    (default, 3, null, '2021-02-10', 'IT82E', 31),
+    (default, 7, null, '2021-12-19', 'AA11Y', 34),
+    (default, 10, null, '2021-12-15', 'EX90R', 21);
 
-insert into compra (idCompra, Fornecedor_idFornecedor, dataCompra, precoCompra, produto, qtd) values 
-    (default, 1, '2022-01-10', 55.00, 'Arranhador', 1), 
+insert into compra (idCompra, Fornecedor_idFornecedor, dataCompra, precoCompra, produto, qtd) values
+    (default, 1, '2022-01-10', 55.00, 'Arranhador', 1),
     (default, 2, '2022-02-11', 25.00, 'Pelúcia', 1),
     (default, 3, '2022-03-12', 250.00, 'Cama para gato', 2),
     (default, 4, '2022-04-13', 30.00, 'Bolinha', 1),
@@ -101,29 +101,17 @@ insert into compra (idCompra, Fornecedor_idFornecedor, dataCompra, precoCompra, 
     (default, 10, '2022-10-19', 7.00, 'Petisco', 1);
 
 --verificar
-insert into servico (idservico, Profissional_idProfissional, tipo, preco) values
-    (default, 1, 'Consulta', 150.0),
-    (default, 2, 'Consulta', 150.0),
-    (default, 3, 'Consulta', 150.0),
-    (default, 4, 'Consulta', 150.0),
-    (default, 5, 'Tosa', 50.0),
-    (default, 6, 'Tosa', 50.0),
-    (default, 7, 'Auxilia', 120.0),
-    (default, 8, 'Auxilia', 120.0),
-    (default, 9, 'Vende', 0.0),
-    (default, 10, 'Vende', 0.0);
-
-insert into servico (idservico, Profissional_idProfissional, tipo, preco) values
-    (default, 1, 'Consulta', 150.0),
-    (default, 2, 'Operação', 250.0),
-    (default, 3, 'Day Care', 60.0),
-    (default, 4, 'Banho', 70.0),
-    (default, 5, 'Tosa', 60.0),
-    (default, 6, 'Internação', 80.0),
-    (default, 7, 'Auxilia', 120.0),
-    (default, 8, 'Exame - Sangue', 100.0),
-    (default, 9, 'Ultrasom', 80.0),
-    (default, 10, 'Vende', 0.0);
+insert into servico (idservico, tipo, preco) values
+    (default, 'Consulta', 150.0),
+    (default, 'Operação', 250.0),
+    (default, 'Day Care', 60.0),
+    (default, 'Banho', 70.0),
+    (default, 'Tosa', 60.0),
+    (default, 'Internação', 80.0),
+    (default, 'Auxilia', 120.0),
+    (default, 'Exame - Sangue', 100.0),
+    (default, 'Ultrasom', 80.0),
+    (default, 'Vende', 0.0);
 
 insert into ordemServico (idOrdemServico, Cliente_idCliente, valorTotal, dataVenda) values
     (default,1, NULL, '2022-01-11'),
@@ -137,26 +125,118 @@ insert into ordemServico (idOrdemServico, Cliente_idCliente, valorTotal, dataVen
     (default,9, NULL, '2022-02-11'),
     (default,10, NULL, '2022-02-11');
 
-insert into OrdemServico_has_Servico(OrdemServico_idOrdemServico,Servico_idServico) values 
-(1,3),
-(1,4),
-(1,5),
-(2,4),
-(2,5),
-(3,2),
-(4,1),
-(4,8),
-(4,9),
-(4,6),
-(5,4),
-(6,1),
-(7,10),
-(8,1),
-(8,10),
-(9,1),
-(9,8),
-(9,6),
-(10,4),
-(10,5);
+insert into agenda (idAgenda, cliente_idcliente, pet_idpet, profissional_idprofissional, dataInicio) values
+    (default, 1, 1, 1, '2022-01-15'),
+    (default, 1, 1, 1, '2022-02-12'),
+    (default, 1, 1, 5, '2021-10-07'),
+    (default, 1, 1, 5, '2021-04-20'),
+    (default, 1, 1, 2, '2021-08-19'),
+    (default, 1, 1, 2, '2020-05-25'),
+    (default, 3, 2, 1, '2022-01-04'),
+    (default, 3, 2, 5, '2022-02-03'),
+    (default, 3, 2, 1, '2021-09-20'),
+    (default, 2, 11, 6, '2022-02-27'),
+    (default, 2, 11, 2, '2022-02-09'),
+    (default, 2, 11, 1, '2021-12-23'),
+    (default, 7, 8, 1, '2022-01-10'),
+    (default, 7, 8, 2, '2022-01-20'),
+    (default, 7, 8, 3, '2021-08-07'),
+    (default, 7, 8, 5, '2021-10-29'),
+    (default, 4, 5, 1, '2022-01-20'),
+    (default, 4, 5, 2, '2021-11-29'),
+    (default, 4, 5, 5, '2021-09-11'),
+    (default, 4, 5, 2, '2021-07-06');
 
 
+--Muitos para Muitos
+insert into OrdemServico_has_Servico(OrdemServico_idOrdemServico,Servico_idServico,Profissional_idProfissional) values 
+    (1,3, 8),(1,4, 5),(1,5, 5),(2,4, 6),(2,5, 6),(3,2, 4),(4,1, 4),(4,8, 8),(4,9, 7),(4,6, 7),
+    (5,4, 5),(6,1, 2),(7,10, 10),(8,1, 1),(8,10, 9),(9,1, 3),(9,8, 7),(9,6, 7),(10,4, 6),(10,5, 6);
+
+insert into pet_vacina(vacina_idVacina, pet_idPet, dataAplicacao) values 
+    (1,1, '2022-01-04'),
+    (2,1, '2022-01-04'),
+    (3,1, '2022-01-04'),
+    (4,1, '2022-01-04'),
+    (2,4, '2022-01-15'),
+    (4,4, '2022-01-15'),
+    (1,4, '2022-01-15'),
+    (1,8, '2022-02-07'),
+    (4,8, '2022-01-07'),
+    (1,9, '2022-02-10'),
+    (2,9, '2022-02-10'),
+    (5,9, '2022-02-11'),
+    (6,9, '2022-02-11'),
+    (9,10, '2022-02-12'),
+    (8,10, '2022-02-12'),
+    (10,3, '2022-02-14'),
+    (7,3, '2022-02-14'),
+    (1,12, '2022-02-16'),
+    (2,12, '2022-02-16'),
+    (3,12, '2022-02-16');
+
+
+insert into ordemservico_has_produto (produto_idproduto, ordemservico_idordemservico, preco, qtd) values
+    (1, 1, 99.9, 1),
+    (3, 1, 13.99, 1),
+    (10, 2, 59.98, 1),
+    (9, 4, 9.99, 1),
+    (3, 4, 13.99, 1),
+    (7, 4, 78.9, 1),
+    (2, 4, 15.99, 1),
+    (8, 4, 356.99, 1),
+    (6, 5, 11.92, 4),
+    (1, 5, 99.1, 1),
+    (8, 5, 356.99, 1),
+    (2, 6, 15.99, 1),
+    (3, 6, 13.99, 1),
+    (10, 7, 59.98, 1),
+    (3, 10, 13.99, 1),
+    (9, 10, 29.97, 3),
+    (6, 10, 29.8, 10),
+    (2, 10, 15.99, 1),
+    (5, 10, 224.9, 1);
+
+insert into agenda_has_servico (agenda_idAgenda, servico_idServico, hora ) values
+    (1, 1, '10:23:10.00 AM'),
+    (2, 2, '11:43:20.00 AM'),
+    (3, 5, '08:24:30.00 AM'),
+    (4, 5, '02:09:04.00 PM'),
+    (5, 1, '04:13:00.00 PM'),
+    (6, 2, '10:26:40.00 AM'),
+    (7, 8, '11:29:40.00 AM'),
+    (8, 5, '12:23:40.00 AM'),
+    (9, 1, '05:28:49.00 PM'),
+    (10, 5, '12:45:40.00 AM'),
+    (11, 2, '01:23:40.00 PM'),
+    (12, 1, '02:23:40.00 PM'),
+    (13, 2, '03:23:40.00 PM'),
+    (14, 1, '04:23:40.00 PM'),
+    (15, 1, '05:23:40.00 PM'),
+    (16, 5, '05:13:40.00 PM'),
+    (17, 9, '03:53:40.00 PM'),
+    (18, 1, '11:03:40.00 AM'),
+    (19, 5, '12:13:40.00 AM'),
+    (20, 1, '09:27:40.00 AM');
+
+--nao tem sentido (produto com compra)
+insert into produto_has_compra (produto_idproduto, compra_idcompra, preco, qtd) values
+    (4, 3, 32.9, 1),
+    (5, 1, 449.8, 2),
+    (6, 2, 5.80, 2),
+    (7, 4, 151.98, 2),
+    (5, 5, 224.9, 1),
+    (2, 3, 65.8, 2),
+    (3, 7, 26.98, 2),
+    (7, 8, 78.9, 1),
+    (4, 9, 97, 3),
+    (6, 1, 2.98, 1),
+    (9, 3, 19.98, 2),
+    (8, 5, 713.98, 2),
+    (7, 3, 78.9, 1),
+    (8, 2, 713.98, 2),
+    (7, 2, 356.99, 1),
+    (2, 4, 31.98, 1),
+    (4, 8, 129.8, 4),
+    (2, 9, 31.98, 2),
+    (1, 9, 99.9, 1);
