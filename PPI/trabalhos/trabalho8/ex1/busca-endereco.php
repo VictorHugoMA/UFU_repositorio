@@ -17,11 +17,13 @@ class Endereco
 $endereco1 = new Endereco('Av João Naves', 'Santa Mônica', 'Uberlândia');
 $endereco2 = new Endereco('Av Floriano Peixoto', 'Centro', 'Uberlândia');
 $endereco3 = new Endereco('Av Afonso Pena', 'Martins', 'Uberlândia');
+$endereco4 = new Endereco('Av Rondon Pacheco', 'Saraiva', 'Uberlândia');
 
 $enderecos = array(
   '38400-100' => $endereco1,
   '38400-200' => $endereco2,
-  '38400-300' => $endereco3
+  '38400-300' => $endereco3,
+  '38400-201' => $endereco4
 );
 
 $cep = $_GET['cep'] ?? '';
