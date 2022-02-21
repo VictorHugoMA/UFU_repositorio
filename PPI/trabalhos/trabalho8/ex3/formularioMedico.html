@@ -57,31 +57,30 @@
     </main>
   </div>
     <script>
-        function verificaForm(e){
+        async function verificaForm(e){
             const especialidade = e.value;
             let select = document.getElementById("medico");
 
-            fetch("buscaMedico.php?especialidade=" + especialidade)
-                .then(response => {
+            const response = await fetch("buscaMedico.php?especialidade=" + especialidade);
+                try{
                     if (!response.ok) {
                         throw new Error(response.status);
                     }
 
-                    return response.json();
-                })
-                .then(resposta => {
-                    select.removeAttribute('disabled')
-                    select.innerHTML = '';
-                    for (i in resposta) {
-                        let option = document.createElement("option");
-                        option.text = resposta[i].nome + ' - ' + resposta[i].telefone;
-                        option.value = resposta[i].nome + ' - ' + resposta[i].telefone;
-                        select.add(option);
-                    }
-                })
-                .catch(error => {
-                    console.error('Falha inesperada: ' + error);
-                });
+                    var resposta = await response.json();
+                }
+                catch (e) {
+                    console.error(e);
+                    return;
+                }
+                select.removeAttribute('disabled')
+                select.innerHTML = '';
+                for (i in resposta) {
+                    let option = document.createElement("option");
+                    option.text = resposta[i].nome + ' - ' + resposta[i].telefone;
+                    option.value = resposta[i].nome + ' - ' + resposta[i].telefone;
+                    select.add(option);
+                }
 
         }
     </script>
