@@ -62,25 +62,27 @@
             let select = document.getElementById("medico");
 
             const response = await fetch("buscaMedico.php?especialidade=" + especialidade);
-                try{
-                    if (!response.ok) {
-                        throw new Error(response.status);
-                    }
 
-                    var resposta = await response.json();
+            try{
+                if (!response.ok) {
+                    throw new Error(response.status);
                 }
-                catch (e) {
-                    console.error(e);
-                    return;
-                }
-                select.removeAttribute('disabled')
-                select.innerHTML = '';
-                for (i in resposta) {
-                    let option = document.createElement("option");
-                    option.text = resposta[i].nome + ' - ' + resposta[i].telefone;
-                    option.value = resposta[i].nome + ' - ' + resposta[i].telefone;
-                    select.add(option);
-                }
+
+                var resposta = await response.json();
+            }
+            catch (e) {
+                console.error(e);
+                return;
+            }
+            
+            select.removeAttribute('disabled')
+            select.innerHTML = '';
+            for (i in resposta) {
+                let option = document.createElement("option");
+                option.text = resposta[i].nome + ' - ' + resposta[i].telefone;
+                option.value = resposta[i].nome + ' - ' + resposta[i].telefone;
+                select.add(option);
+            }
 
         }
     </script>
