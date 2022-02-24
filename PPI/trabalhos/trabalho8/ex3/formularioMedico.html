@@ -61,9 +61,10 @@
             const especialidade = e.value;
             let select = document.getElementById("medico");
 
-            const response = await fetch("buscaMedico.php?especialidade=" + especialidade);
-
+            
             try{
+                const response = await fetch("buscaMedico.php?especialidade=" + especialidade);
+                
                 if (!response.ok) {
                     throw new Error(response.status);
                 }
