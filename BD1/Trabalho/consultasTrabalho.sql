@@ -1,7 +1,10 @@
 /* Criar 2 comandos novos de inserção nas principais tabelas do modelo; */
+
+--insercao na tabela cliente
 insert into cliente (idcliente, nome, cpf, telefone, dataNascimento, cep, logradouro, bairro, numeroEndereco, estado) values 
     (default, 'Tiago Azevedo', '165.854.793-43', '9814-2777', '1980-07-20', '38408-266', 'Rua João Limírio dos Anjos', 'Segismundo Pereira', 1000, 'MG');
 
+--insercao na tabela profissional
 insert into profissional (idprofissional, nome, funcao, cpf, telefone, dataNascimento, cep, logradouro, bairro, numeroEndereco, estado) values 
     (default, 'Melissa Ribeiro Sousa', 'Veterinário', '770.036.164-91', '9933-4197', '1985-01-03', '38400-100', 'Avenida João Naves', 'Saraiva', 300, 'MG');
 
