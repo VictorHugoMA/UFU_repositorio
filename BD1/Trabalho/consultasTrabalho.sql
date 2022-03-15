@@ -1,5 +1,4 @@
 /* Criar 2 comandos novos de inserção nas principais tabelas do modelo; */
-
 --insercao na tabela cliente
 insert into cliente (idcliente, nome, cpf, telefone, dataNascimento, cep, logradouro, bairro, numeroEndereco, estado) values 
     (default, 'Tiago Azevedo', '165.854.793-43', '9814-2777', '1980-07-20', '38408-266', 'Rua João Limírio dos Anjos', 'Segismundo Pereira', 1000, 'MG');
@@ -9,15 +8,14 @@ insert into profissional (idprofissional, nome, funcao, cpf, telefone, dataNasci
     (default, 'Melissa Ribeiro Sousa', 'Veterinário', '770.036.164-91', '9933-4197', '1985-01-03', '38400-100', 'Avenida João Naves', 'Saraiva', 300, 'MG');
 
 /* Criar 2 comandos de remoção nas principais tabelas, sendo que pelo menos 1 deve exigir remoções em mais de uma tabela; */
-
 --excluir a tupla de estoque com id = 10
 delete from estoque where idestoque = 10;
 
+--exclui a vacina da tabela muitos para muitos e depois exclui a propria vacina
 delete from pet_vacina where vacina_idvacina = 10;
     delete from vacina where idvacina = 10;
 
 /* Criar 3 comandos de atualização de dados nas principais tabelas do modelo, sendo que pelo menos 1 delas deve obter o(s) novo(s) valor(es) a serem armazenados a partir de consulta(s) a outra(s) tabela(s).*/
-
 --update do telefone na tabela cliente 
 update cliente
     set telefone = '9987-7727'
@@ -33,8 +31,12 @@ update pet
     set cartaovacina = 'A, B, C, D'
     where idpet = 1;
 
-/* Criar 5 consultas simples nas principais tabelas do modelo usando as cláusulas WHERE, DISTINCT, BETWEEN, LIKE e ORDER BY; */
+--update do preco do produto com base na compra
+UPDATE produto  SET preco = 
+    (SELECT preco  FROM produto_has_compra  WHERE produto_idproduto  = 1 and compra_idcompra = 1)
+    where idproduto = 1;
 
+/* Criar 5 consultas simples nas principais tabelas do modelo usando as cláusulas WHERE, DISTINCT, BETWEEN, LIKE e ORDER BY; */
 --devolve todas as tuplas da tabela pet que tem a especie = 'Cachorro'
 select * from pet
 	where especie = 'Cachorro';
@@ -56,8 +58,7 @@ select nome, datanascimento from profissional
     order by datanascimento desc;
 
 /* Criar 3 consultas aninhadas (sub consultas) usando IN e NOT IN; */
-
---Todos os produtos que a quantidade da compra foi maior que 3
+--todos os produtos que a quantidade da compra foi maior que 3
 select * 
   from produto p2  
   where p2.idproduto   
@@ -71,7 +72,7 @@ select * from pet p where p.idpet not in
     FROM pet_vacina pv 
     WHERE pv.dataaplicacao>'2022/01/10');
 
---Seleciona o nome e o id dos produtos da tabela produtos, onde o preco da compra = 99.9 ou 78.9
+--seleciona o nome e o id dos produtos da tabela produtos, onde o preco da compra = 99.9 ou 78.9
 SELECT nome, idproduto 
 FROM produto
 WHERE preco  IN (
@@ -81,7 +82,6 @@ WHERE preco  IN (
 );
 
 /* Criar 5 consultas que envolvem funções de agregação (COUNT, SUM, MIN, MAX, AVG) com agrupamento (GROUP BY) e HAVING; */
-
 --conta quantos profissionais existem por funcao
 select funcao, count(*) from profissional
     group by funcao;
@@ -97,12 +97,12 @@ SELECT tipo,count(tipo) as variacoes
     FROM produto p   
     group by tipo  HAVING p.tipo != 'Ração' ;
 
---Devolve os pets mais pesados acima de 20kilos de cada sexo
+--devolve os pets mais pesados acima de 20kilos de cada sexo
 SELECT p.sexo, MAX(p.peso) 
     FROM pet p  
     GROUP BY p.sexo;
 
---Os produtos mais caros de cada tipo
+--os produtos mais caros de cada tipo
 SELECT p.tipo,  MAX(p.preco)
     FROM produto p 
     GROUP BY p.tipo;
@@ -129,14 +129,7 @@ select a.idagenda, a.pet_idpet, a.datainicio, ahs.hora, ahs.servico_idservico
 	from agenda a inner join agenda_has_servico ahs
 	on a.idagenda = ahs.agenda_idagenda;
 
-
---testar
---Seleciona todos os fornecedores e compras
-select f.nome,f.cnpj,c.idcompra,c.datacompra
-    from Fornecedor f full OUTER JOIN compra c 
-    on c.fornecedor_idfornecedor = f.idfornecedor
-
---Retorna todos os pet's que não estão agendados.
+--retorna todos os pet's que não estão agendados.
 select p.*
     from pet p left join agenda a 
     on a.cliente_idcliente = p.idpet WHERE a.cliente_idcliente IS NULL;
@@ -145,3 +138,8 @@ select p.*
 select p.nome, p.preco, e.qtdestoque, e.produto_idproduto, e.validade 
     from produto p inner join estoque e 
     on p.idproduto = e.idestoque;
+
+--seleciona todos os fornecedores e compras
+select f.nome,f.cnpj,c.idcompra,c.datacompra
+    from Fornecedor f full OUTER JOIN compra c 
+    on c.fornecedor_idfornecedor = f.idfornecedor;
