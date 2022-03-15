@@ -97,13 +97,13 @@ SELECT tipo,count(tipo) as variacoes
     FROM produto p   
     group by tipo  HAVING p.tipo != 'Ração' ;
 
---devolve os pets mais pesados acima de 20kilos de cada sexo
+--devolve os pets mais pesados de cada sexo
 SELECT p.sexo, MAX(p.peso) 
     FROM pet p  
     GROUP BY p.sexo;
 
---os produtos mais caros de cada tipo
-SELECT p.tipo,  MAX(p.preco)
+--os produtos mais baratos de cada tipo
+SELECT p.tipo, MIN(p.preco)
     FROM produto p 
     GROUP BY p.tipo;
 
