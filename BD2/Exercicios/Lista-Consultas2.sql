@@ -1,22 +1,22 @@
 ﻿--01-Nomes das Agências com depósitos (nome pode aparecer repetido)
 
-SELECT nome_agencia FROM ;
+SELECT nome_agencia FROM deposito ;
 
 --02-Nomes das Agências com depósitos (nome sem repetição)
 
-SELECT DISTINCT  FROM deposito;
+SELECT DISTINCT nome_agencia FROM deposito;
 
 --03-Nomes de Clientes com depósitos e empréstimos ao mesmo tempo;
 
-SELECT DISTINCT nome_cliente FROM 
+SELECT DISTINCT nome_cliente FROM  deposito
 intersect 
-SELECT DISTINCT  FROM emprestimo
+SELECT DISTINCT nome_cliente FROM emprestimo;
 
 --04-Nomes de Clientes com depósitos e empréstimos ao mesmo tempo na agência PUC;
 
-SELECT DISTINCT nome_cliente FROM  WHERE nome_agencia=  
+SELECT DISTINCT nome_cliente from deposito WHERE nome_agencia='PUC'
 intersect 
-SELECT DISTINCT nome_cliente FROM emprestimo WHERE ='PUC'
+SELECT DISTINCT nome_cliente FROM emprestimo where nome_agencia  ='PUC';
 
 --Alternativa2 para incluir a condição uma única vez
 SELECT DISTINCT nome_cliente FROM 
