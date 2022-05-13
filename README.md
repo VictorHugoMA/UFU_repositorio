@@ -4,6 +4,7 @@ Repositório das Atividades de SI - UFU
 Matérias:
 - AOC (Arquiterura e Organização de Computadores)
 - BD1 (Banco de Dados 1)
+- BD2 (Banco de Dados 2)
 - ED1 (Estrutura de Dados 1)
 - ED2 (Estrutura de Dados 2)
 - Estatística
