@@ -20,28 +20,28 @@ SELECT DISTINCT nome_cliente FROM emprestimo where nome_agencia  ='PUC';
 
 --Alternativa2 para incluir a condição uma única vez
 SELECT DISTINCT nome_cliente FROM 
-	(	SELECT DISTINCT nome_cliente, nome_agencia FROM 
+	(	SELECT DISTINCT nome_cliente, nome_agencia FROM deposito
 		intersect 
-		select DISTINCT  nome_agencia FROM emprestimo
+		select DISTINCT nome_cliente, nome_agencia FROM emprestimo
 	) AS relatorio
 WHERE relatorio.nome_agencia = 'PUC'
 
 --Alternativa3 para usar outro operador (IN)
-SELECT DISTINCT nome_cliente FROM deposito WHERE nome_agencia= 
-AND nome_cliente  (SELECT DISTINCT nome_cliente FROM emprestimo WHERE nome_agencia='PUC');
+SELECT DISTINCT nome_cliente FROM deposito WHERE nome_agencia= 'PUC'
+AND nome_cliente in (SELECT DISTINCT nome_cliente FROM emprestimo WHERE nome_agencia='PUC');
 
 --05-Nomes de Clientes com depósitos, mas sem empréstimos na agência PUC;
 
-SELECT nome_cliente FROM deposito WHERE ='PUC'  
+SELECT nome_cliente FROM deposito WHERE nome_agencia ='PUC'  
 except 
-SELECT nome_cliente  WHERE nome_agencia='PUC'
+SELECT nome_cliente FROM emprestimo WHERE nome_agencia='PUC';
 
-SELECT DISTINCT nome_cliente deposito WHERE nome_agencia='PUC' 
-AND nome_cliente NOT IN (SELECT DISTINCT  FROM emprestimo WHERE nome_agencia='');
+SELECT DISTINCT nome_cliente FROM deposito WHERE nome_agencia='PUC' 
+AND nome_cliente NOT IN (SELECT DISTINCT nome_cliente FROM emprestimo WHERE nome_agencia='PUC');
 
 --06-Clientes que possuem depósitos ou empréstimos na agencia da PUC
 
-SELECT DISTINCT nome_cliente 
+SELECT DISTINCT nome_cliente FROM deposito WHERE nome_agencia='PUC'
 UNION
 SELECT DISTINCT nome_cliente FROM emprestimo WHERE nome_agencia='PUC'
 
