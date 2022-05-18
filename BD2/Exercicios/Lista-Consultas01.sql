@@ -128,6 +128,7 @@ FROM deposito GROUP BY nome_cliente, nome_agencia
 SELECT sum(saldo_deposito) FROM deposito 
 WHERE  GROUP BY nome_agencia
 
+--Resolucao
 --Conjunto1 HAVING sum > ALL Conjunto2
 SELECT nome_cliente, nome_agencia, sum(saldo_deposito) 
 FROM deposito GROUP BY nome_cliente, nome_agencia 
