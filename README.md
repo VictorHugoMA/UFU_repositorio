@@ -14,5 +14,6 @@ Matérias:
 - POO2 (Programação Orientada a Objetos 2)
 - PPI (Programação para Internet)
 - Prolog (Programação Lógica)
+- Redes de Computadores
 - SO (Sistemas Operacionais)
 - Sistemas Digitais
