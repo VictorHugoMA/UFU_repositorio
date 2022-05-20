@@ -10,10 +10,11 @@ Matérias:
 - Estatística
 - Haskell (Programação Funcional)
 - IPC (Introdução a Programação de Computadores)
+- ORI (Organização e Recuperação de Informação)
 - POO1 (Programação Orientada a Objetos 1)
 - POO2 (Programação Orientada a Objetos 2)
 - PPI (Programação para Internet)
 - Prolog (Programação Lógica)
-- Redes de Computadores
+- Redes (Redes de Computadores)
 - SO (Sistemas Operacionais)
 - Sistemas Digitais
