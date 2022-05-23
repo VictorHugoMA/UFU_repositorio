@@ -26,7 +26,7 @@ def comparaTermos(vocabulario, documento):
 
   return bagOfWords
 
-def comparaInputArquivos():
+def comparaInputArquivos(vocabulario):
   nomeDocumento=''
   print('DIGITE ! PARA FINALIZAR')
   while(1):
@@ -41,7 +41,7 @@ def comparaInputArquivos():
     bagOfWords = comparaTermos(vocabulario, documento)
     print(f'Bag of Words: {bagOfWords}')
 
-def comparaListaArquivos(lista):
+def comparaListaArquivos(vocabulario, lista):
   for i in lista:
     bagOfWords = []
     documento = separaArquivo(i)
@@ -50,8 +50,7 @@ def comparaListaArquivos(lista):
     print(f'Bag of Words: {bagOfWords}')
   
 
-
 vocabulario = separaArquivo('vocabulario.txt')
 print(f'Vocabulário: {vocabulario}\n')
 lista = ['documento01.txt', 'Hino.txt']
-comparaListaArquivos(lista)
+comparaListaArquivos(vocabulario, lista)
