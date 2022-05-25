@@ -1,9 +1,13 @@
 import string
 import unidecode
 
+def abreArquivo(nomeArquivo):
+  fp = open(nomeArquivo, 'r')
+  texto = fp.read()
+  return texto
+
 def separaArquivo(nomeArquivo):
-  texto = open(nomeArquivo, 'r')
-  texto = texto.read()
+  texto = abreArquivo(nomeArquivo)
   
   texto = unidecode.unidecode(texto)
   pontuacao = string.punctuation
