@@ -22,22 +22,22 @@ $BODY$
 DECLARE
     saldo_liquido float;
     soma_deposito float;
-   
+   	soma_emprestimo float;
     cursor_relatorio CURSOR FOR SELECT SUM(D.SALDO_DEPOSITO) AS TOTAL_DEP, 
 		SUM(E.VALOR_EMPRESTIMO) AS TOTAL_EMP
-		FROM CONTA AS C  LEFT OUTER JOIN 
-		(EMPRESTIMO AS E NATURAL  DEPOSITO AS D)
+		FROM CONTA AS C NATURAL LEFT OUTER JOIN 
+		(EMPRESTIMO AS E NATURAL JOIN DEPOSITO AS D)
 	WHERE C.NOME_CLIENTE=p_nome_cliente AND C.NOME_AGENCIA=p_nome_agencia AND C.NUMERO_CONTA=p_numero_conta
 	GROUP BY C.NOME_CLIENTE, C.NOME_AGENCIA, C.NUMERO_CONTA;
 BEGIN
     
     OPEN cursor_relatorio;
-            
+        saldo_liquido = 0;
         FETCH cursor_relatorio INTO soma_deposito, soma_emprestimo;
         --RAISE NOTICE 'O valor de DEP é % e EMP é %', soma_deposito, soma_emprestimo;
         IF FOUND THEN 
             IF soma_deposito IS NULL then soma_deposito=0; END IF;
-	    IF soma_emprestimo IS NULL then soma_emprestimo=0; END IF;
+	    	IF soma_emprestimo IS NULL then soma_emprestimo=0; END IF;
             saldo_liquido = soma_deposito - soma_emprestimo ;
         END IF;
     CLOSE cursor_relatorio;
