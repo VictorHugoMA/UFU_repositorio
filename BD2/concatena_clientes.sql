@@ -1,11 +1,14 @@
-CREATE OR REPLACE FUNCTION contatena_cliente(p_nome varchar)
-  RETURNS varchar AS
+select concatena_cliente('Clayton Pereira Bonfim');
+
+
+CREATE OR REPLACE FUNCTION concatena_cliente(p_nome varchar(100))
+  RETURNS varchar(100) AS
   $BODY$
 DECLARE
-    l_nome_agencia varchar;
-    l_numero_conta varchar;
-    l_concatenado varchar :='';
-	cursor_relatorio CURSOR FOR SELECT e.numero_conta, e.nome_agencia 
+    l_nome_agencia varchar(100);
+    l_numero_conta integer;
+    l_concatenado varchar(5000) :='';
+	cursor_relatorio CURSOR FOR SELECT e.nome_agencia, e.numero_conta
                                     from emprestimo e,
                                         deposito d
                                     where e.numero_conta = d.numero_conta
@@ -15,7 +18,7 @@ BEGIN
 	LOOP
 		FETCH cursor_relatorio INTO l_nome_agencia, l_numero_conta;
 		IF FOUND THEN
-			l_concatenado := l_concatenado || l_nome_agencia || l_numero_conta;
+			l_concatenado := l_concatenado || l_nome_agencia || ' - ' || l_numero_conta;
 		END IF;
 		IF NOT FOUND THEN EXIT; END IF;
 	END LOOP;
