@@ -7,18 +7,21 @@ import nltk
 from nltk.stem import PorterStemmer
 
 class ModeloVetorial:
- #variaveis globais
+ #variaveis da classe
   stopwords = []
   listaArquivos = []
   vocabulario = []
   idf = []
   
   def __init__(self, listaArquivos):
-    self.stopwords = self.getStopwords()
+    self.setStopwords()
     self.stemmer = PorterStemmer()
+    self.setListaArquivos(listaArquivos)
+    self.setVocabulario()
+    self.setIDF()
+  
+  def setListaArquivos(self, listaArquivos):
     self.listaArquivos = listaArquivos
-    self.vocabulario = self.setVocabulario()
-    self.idf = self.calculaIDF()
 
   def abreArquivo(self, nomeArquivo):
     fp = open(nomeArquivo, 'r')
@@ -43,7 +46,7 @@ class ModeloVetorial:
     return termos
 
   #stopwords tratadas
-  def getStopwords(self):
+  def setStopwords(self):
     nltk.download('stopwords')
     stopwords = nltk.corpus.stopwords.words('portuguese')
     stopwordsUni = []
@@ -51,7 +54,7 @@ class ModeloVetorial:
       stopwordsUni.append(unidecode.unidecode(i))
     stopwordsUni = list(dict.fromkeys(stopwordsUni))
 
-    return stopwordsUni
+    self.stopwords = stopwordsUni
 
 
 
@@ -68,11 +71,13 @@ class ModeloVetorial:
       while i in termos:
         termos.remove(i)
 
+    """
     termosRad = []
     for i in range(len(termos)):
       termosRad.append(self.stemmer.stem(termos[i]))
+    """
 
-    return termosRad
+    return termos
 
   def normalizaConsulta(self, consulta):
     termosConsulta = self.separaString(consulta)
@@ -121,7 +126,7 @@ class ModeloVetorial:
 
     return tf
 
-  def calculaIDF(self):
+  def setIDF(self):
     idf = []
     for i in self.vocabulario:
         contador = 0
@@ -132,7 +137,7 @@ class ModeloVetorial:
         idf.append(contador)
     idf = [round(math.log(len(self.listaArquivos)/i, 2),3) for i in idf]
 
-    return idf
+    self.idf = idf
 
   def calculaTFIDFLista(self):
     idf = self.idf
@@ -176,7 +181,7 @@ class ModeloVetorial:
       vocabulario = list(dict.fromkeys(vocabulario))
       vocabulario.sort()
 
-      return vocabulario
+      self.vocabulario = vocabulario
 
   def escreveVocabulario(self):
       fp = open('vocabulario.txt', 'w')
