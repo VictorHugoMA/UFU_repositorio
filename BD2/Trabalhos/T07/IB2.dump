@@ -1,0 +1,833 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: atualizar_ativos_f1(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION atualizar_ativos_f1() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	l_ativo_agencia float;
+	l_nome_agencia character varying;	
+	cursor_relatorio CURSOR FOR SELECT NOME_AGENCIA, SUM(SALDO_CONTA) 
+		FROM CONTA GROUP BY NOME_AGENCIA;
+BEGIN
+   OPEN cursor_relatorio;
+	LOOP
+		FETCH cursor_relatorio INTO l_nome_agencia, l_ativo_agencia;
+		IF FOUND THEN
+			IF l_ativo_agencia IS NULL THEN l_ativo_agencia=0; END IF;
+			UPDATE AGENCIA SET ATIVO_AGENCIA = l_ativo_agencia where NOME_AGENCIA = l_nome_agencia;
+		END IF;
+		IF NOT FOUND THEN EXIT; END IF;
+	END LOOP;
+   CLOSE cursor_relatorio;
+   RETURN NULL;
+END
+$$;
+
+
+ALTER FUNCTION public.atualizar_ativos_f1() OWNER TO postgres;
+
+--
+-- Name: atualizar_ativos_f2(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION atualizar_ativos_f2() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	l_ativo_agencia float;
+	l_nome_agencia character varying;	
+	cursor_relatorio CURSOR FOR SELECT NOME_AGENCIA, SUM(SALDO_CONTA) 
+		FROM CONTA GROUP BY NOME_AGENCIA;
+BEGIN
+	RAISE NOTICE 'FUNÇÃO QUE RECEBE ARGUMENTO %', TG_ARGV[0];
+   OPEN cursor_relatorio;
+	LOOP
+		FETCH cursor_relatorio INTO l_nome_agencia, l_ativo_agencia;
+		IF FOUND THEN
+			IF l_ativo_agencia IS NULL THEN l_ativo_agencia=0; END IF;
+			UPDATE AGENCIA SET ATIVO_AGENCIA = l_ativo_agencia where NOME_AGENCIA = l_nome_agencia;
+		END IF;
+		IF NOT FOUND THEN EXIT; END IF;
+	END LOOP;
+   CLOSE cursor_relatorio;
+   RETURN NULL;
+END
+$$;
+
+
+ALTER FUNCTION public.atualizar_ativos_f2() OWNER TO postgres;
+
+--
+-- Name: getagencia(character varying); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION getagencia(p_nome_agencia character varying) RETURNS double precision
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    ativo_agencia float;
+    cursor_relatorio CURSOR FOR SELECT SUM(C.SALDO_CONTA) FROM CONTA AS C
+		WHERE C.NOME_AGENCIA=p_nome_agencia GROUP BY C.NOME_AGENCIA;
+BEGIN
+    
+   OPEN cursor_relatorio;
+	FETCH cursor_relatorio INTO ativo_agencia;
+	IF ativo_agencia IS NULL THEN ativo_agencia=0; END IF;
+   CLOSE cursor_relatorio;
+   RETURN ativo_agencia;
+END
+$$;
+
+
+ALTER FUNCTION public.getagencia(p_nome_agencia character varying) OWNER TO postgres;
+
+--
+-- Name: getliquido(integer, character varying, character varying); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION getliquido(p_numero_conta integer, p_nome_agencia character varying, p_nome_cliente character varying) RETURNS double precision
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    saldo_liquido float;
+    soma_deposito float;
+    soma_emprestimo float;
+    cursor_relatorio CURSOR FOR SELECT SUM(D.SALDO_DEPOSITO) AS TOTAL_DEP, 
+		SUM(E.VALOR_EMPRESTIMO) AS TOTAL_EMP
+		FROM CONTA AS C NATURAL LEFT OUTER JOIN 
+		(EMPRESTIMO AS E NATURAL FULL JOIN DEPOSITO AS D)
+	WHERE C.NOME_CLIENTE=p_nome_cliente AND C.NOME_AGENCIA=p_nome_agencia AND C.NUMERO_CONTA=p_numero_conta
+	GROUP BY C.NOME_CLIENTE, C.NOME_AGENCIA, C.NUMERO_CONTA;
+BEGIN
+    
+    OPEN cursor_relatorio;
+    saldo_liquido=0;    
+    LOOP
+	FETCH cursor_relatorio INTO soma_deposito, soma_emprestimo;
+	--RAISE NOTICE 'O valor de DEP é % e EMP é %', soma_deposito, soma_emprestimo;
+	IF soma_deposito IS NULL then soma_deposito=0; END IF;
+	IF soma_emprestimo IS NULL then soma_emprestimo=0; END IF;
+	IF FOUND THEN 
+		saldo_liquido = soma_deposito - soma_emprestimo ;
+	END IF;
+	IF not FOUND THEN EXIT;
+	END IF;
+    END LOOP;
+    CLOSE cursor_relatorio;
+    RETURN saldo_liquido;
+END
+$$;
+
+
+ALTER FUNCTION public.getliquido(p_numero_conta integer, p_nome_agencia character varying, p_nome_cliente character varying) OWNER TO postgres;
+
+--
+-- Name: update_valor_emprestimo1(integer, character varying, character varying); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION update_valor_emprestimo1(p_numero_conta integer, p_nome_agencia character varying, p_nome_cliente character varying) RETURNS double precision
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    l_valor_emprestimo float;
+    l_valor_juros float;
+    cursor_relatorio CURSOR FOR SELECT VALOR_EMPRESTIMO, JUROS_EMPRESTIMO
+	FROM EMPRESTIMO 
+	WHERE NOME_CLIENTE=p_nome_cliente AND NOME_AGENCIA=p_nome_agencia AND NUMERO_CONTA=p_numero_conta;
+BEGIN
+
+    OPEN cursor_relatorio;
+	FETCH cursor_relatorio INTO l_valor_emprestimo, l_valor_juros;
+	IF FOUND THEN 
+		l_valor_emprestimo = l_valor_emprestimo * (1+(l_valor_juros)/100);
+		UPDATE EMPRESTIMO SET VALOR_EMPRESTIMO = l_valor_emprestimo WHERE 
+		NOME_CLIENTE=p_nome_cliente AND NOME_AGENCIA=p_nome_agencia AND NUMERO_CONTA=p_numero_conta;
+	END IF;
+    CLOSE cursor_relatorio;
+    RETURN l_valor_emprestimo;
+END
+$$;
+
+
+ALTER FUNCTION public.update_valor_emprestimo1(p_numero_conta integer, p_nome_agencia character varying, p_nome_cliente character varying) OWNER TO postgres;
+
+--
+-- Name: update_valor_emprestimo2(character varying); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION update_valor_emprestimo2(p_nome_cliente character varying) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	l_valor_emprestimo float;
+	l_valor_juros float;
+	l_numero_emprestimo integer;
+    cursor_relatorio CURSOR FOR SELECT VALOR_EMPRESTIMO, JUROS_EMPRESTIMO, NUMERO_EMPRESTIMO
+				FROM EMPRESTIMO 
+				WHERE NOME_CLIENTE=p_nome_cliente;
+BEGIN
+
+    OPEN cursor_relatorio;
+    LOOP
+	FETCH cursor_relatorio INTO l_valor_emprestimo, l_valor_juros, l_numero_emprestimo;
+	IF FOUND THEN 
+		l_valor_emprestimo = l_valor_emprestimo * (1+(l_valor_juros)/100);
+		UPDATE EMPRESTIMO SET VALOR_EMPRESTIMO = l_valor_emprestimo WHERE 
+		NUMERO_EMPRESTIMO=l_numero_emprestimo;
+	END IF;
+	IF not FOUND THEN EXIT;
+	END IF;
+    END LOOP;
+    CLOSE cursor_relatorio;
+    RETURN;
+END
+$$;
+
+
+ALTER FUNCTION public.update_valor_emprestimo2(p_nome_cliente character varying) OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: agencia; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE agencia (
+    nome_agencia character varying(50) NOT NULL,
+    cidade_agencia character varying(50),
+    ativo_agencia double precision
+);
+
+
+ALTER TABLE public.agencia OWNER TO postgres;
+
+--
+-- Name: cliente; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cliente (
+    nome_cliente character varying(80) NOT NULL,
+    rua_cliente character varying(50) NOT NULL,
+    cidade_cliente character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.cliente OWNER TO postgres;
+
+--
+-- Name: conta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE conta (
+    numero_conta integer NOT NULL,
+    nome_agencia character varying(50) NOT NULL,
+    nome_cliente character varying(80) NOT NULL,
+    saldo_conta integer
+);
+
+
+ALTER TABLE public.conta OWNER TO postgres;
+
+--
+-- Name: deposito; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deposito (
+    numero_deposito integer NOT NULL,
+    numero_conta integer NOT NULL,
+    nome_agencia character varying(50) NOT NULL,
+    nome_cliente character varying(80) NOT NULL,
+    data_deposito date,
+    saldo_deposito double precision
+);
+
+
+ALTER TABLE public.deposito OWNER TO postgres;
+
+--
+-- Name: emprestimo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE emprestimo (
+    numero_emprestimo integer NOT NULL,
+    nome_cliente character varying(80) NOT NULL,
+    numero_conta integer NOT NULL,
+    nome_agencia character varying(50) NOT NULL,
+    valor_emprestimo double precision,
+    juros_emprestimo integer,
+    data_emprestimo character varying(50)
+);
+
+
+ALTER TABLE public.emprestimo OWNER TO postgres;
+
+--
+-- Name: seq_deposito; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE seq_deposito
+    START WITH 8795330
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_deposito OWNER TO postgres;
+
+--
+-- Data for Name: agencia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY agencia (nome_agencia, cidade_agencia, ativo_agencia) FROM stdin;
+Central	Uberlândia	98132.75
+Gameleira	Itambacuri	598620.569999999949
+Pampulha	Uberlândia	203506.670000000013
+Glória	Uberlândia	261882.01999999999
+UFU	Araguari	843706.780000000028
+Cidade Jardim	Ubá	538732.479999999981
+\.
+
+
+--
+-- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cliente (nome_cliente, rua_cliente, cidade_cliente) FROM stdin;
+José Moreira da Silva	Praça do Presidente	Araxá
+Pedro Alvares Sousa	Avenida Cristiano Machado	Ubá
+Maria Lúcia Alves	Rua Pernamabuco	Belo Horizonte
+Marta Avelar Santos	Avenida Galileu Galilei	Araguari
+João Boiadeiro	Rua Von Braun	Monte Carmelo
+Everardo Monfort Leitão	Avenida Cristiano Machado	Araguari
+Marco Aurélio Santos	Rua Isaac Newton	Ubá
+Maria das Dores	Rua Von Braun	Araguari
+Cláudia Santos Mota	Rua Pernamabuco	Ubá
+Carolina Soares Souza	Rua São Paulo	Itambacuri
+Marcos Andrade	Praça do Presidente	São Tome das Letras
+Maria do Socorro	Rua da Bahia	Ubá
+Gomes Dias Santos	Rua Von Braun	Araxá
+Carla Soares Sousa	Rua São Paulo	Uberlândia
+Manuel Oliveira	Rua Patric Stewart	Monte Carmelo
+Joaquim Carlos Reis	Avenida Wireless	São Tome das Letras
+Marcos Cláudio	Rua dos Goitacazes	Belo Horizonte
+Jefferson Oliveira	Rua Pernamabuco	Uberlândia
+Andrade de Freitas	Avenida Galileu Galilei	Itambacuri
+Geraldo Oliveira	Rua Von Braun	Uberlândia
+André Cabral da Silva	Praça do Presidente	Ubá
+Marcos Ferreira Dinardi	Praça da Liberdade	Coronel Fabriciano
+Alexandre Márcio de Souza	Rua dos Goitacazes	Monte Carmelo
+Eurides Alves da Silva	Rua da Bahia	Monte Carmelo
+Frederico de Oliveira Guimarães	Avenida do Silício	São Tome das Letras
+Germano Luiz de Paula	Rua Indepêndencia	Araguari
+Marcelo Leite Maciel	Rua Coronel Onofre	Belo Horizonte
+Norton Saint Clair Silva	Rua Patric Stewart	Monte Carmelo
+Wagner Eustáquio Diniz	Avenida Wireless	Itambacuri
+Alysson Melim Rocha	Rua Isaac Newton	Araguari
+Bruno Miranda Pacheco de Castro	Rua Patric Stewart	Governador Valadares
+Clayton Pereira Bonfim	Avenida Afonso Pena	Ubá
+Gilmar Negreiros Carvalho	Rua Pernamabuco	São Tome das Letras
+Josenaldo Teixeira Soares	Praça da Liberdade	Uberlândia
+Lorena Albuquerque Gonçalves Galdin	Rua 18 de Novembro	Monte Carmelo
+Luciana Alves Teixeira	Avenida Wireless	Monte Carmelo
+Maria Raquel Teixeira de Castro	Rua 18 de Novembro	Araxá
+Rafael Mesquita Gondim	Rua Coronel Onofre	Uberlândia
+Reinaldo Pereira da Silva	Rua Pernamabuco	Itambacuri
+Thiago Andrade Fiuza	Avenida Wireless	São Tome das Letras
+Thiago Leôncio Guimarães	Rua Isaac Newton	São Tome das Letras
+Wantuil Diniz e Souza	Rua São Paulo	Belo Horizonte
+Adilson de Oliveira	Rua Von Braun	São Tome das Letras
+Anderson Adilson de Oliveira	Avenida Cristiano Machado	Coronel Fabriciano
+Bruno Tadeu Pita	Rua Isaac Newton	Araxá
+Elvis Fernando Da Silva	Rua Coronel Onofre	Araguari
+Fábio Couto Amorim	Rua da Bahia	Uberlândia
+Felippe Peres Bichara Júnior	Avenida Wireless	Governador Valadares
+Gustavo Baer Albuquerque 	Rua Isaac Newton	Uberlândia
+\.
+
+
+--
+-- Data for Name: conta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY conta (numero_conta, nome_agencia, nome_cliente, saldo_conta) FROM stdin;
+55282	Central	André Cabral da Silva	0
+50073	Cidade Jardim	André Cabral da Silva	0
+39864	Gameleira	Bruno Tadeu Pita	0
+17477	Glória	Gustavo Baer Albuquerque 	0
+95617	Central	Thiago Leôncio Guimarães	0
+30273	Glória	Jefferson Oliveira	0
+66119	Pampulha	Everardo Monfort Leitão	0
+50906	Central	Rafael Mesquita Gondim	0
+69118	Central	João Boiadeiro	0
+24035	Pampulha	Thiago Andrade Fiuza	0
+70719	Glória	Gilmar Negreiros Carvalho	0
+4190	Central	Everardo Monfort Leitão	0
+52607	Gameleira	Marcos Ferreira Dinardi	0
+7201	UFU	Thiago Leôncio Guimarães	0
+8072	Gameleira	Germano Luiz de Paula	0
+75439	UFU	Thiago Leôncio Guimarães	0
+3682	UFU	Maria Lúcia Alves	0
+46248	UFU	Carla Soares Sousa	0
+10182	UFU	Josenaldo Teixeira Soares	0
+39511	Glória	Joaquim Carlos Reis	0
+76313	UFU	Bruno Miranda Pacheco de Castro	0
+88596	Cidade Jardim	Everardo Monfort Leitão	0
+72069	Central	Andrade de Freitas	0
+77563	Glória	Bruno Tadeu Pita	0
+12646	Pampulha	Joaquim Carlos Reis	0
+430	Central	Thiago Leôncio Guimarães	0
+62195	Pampulha	Reinaldo Pereira da Silva	0
+34787	UFU	Joaquim Carlos Reis	0
+74545	Pampulha	Maria Raquel Teixeira de Castro	0
+93125	Gameleira	André Cabral da Silva	0
+32068	Gameleira	Germano Luiz de Paula	0
+70044	Cidade Jardim	Eurides Alves da Silva	0
+77069	Gameleira	Bruno Miranda Pacheco de Castro	0
+68727	Gameleira	Jefferson Oliveira	0
+13542	Gameleira	Eurides Alves da Silva	0
+759	Pampulha	Pedro Alvares Sousa	0
+4552	Pampulha	Marta Avelar Santos	0
+65798	UFU	Jefferson Oliveira	0
+21707	Gameleira	Bruno Tadeu Pita	0
+85029	UFU	Marcos Andrade	0
+99737	Cidade Jardim	Pedro Alvares Sousa	0
+26892	Glória	Carolina Soares Souza	0
+44482	Pampulha	Clayton Pereira Bonfim	0
+54194	UFU	Bruno Miranda Pacheco de Castro	0
+34526	Central	Marcos Andrade	0
+2370	Central	Geraldo Oliveira	0
+79535	Cidade Jardim	Thiago Andrade Fiuza	0
+8047	Glória	Eurides Alves da Silva	0
+55207	Cidade Jardim	Marta Avelar Santos	0
+51643	Glória	Felippe Peres Bichara Júnior	0
+68348	Cidade Jardim	Rafael Mesquita Gondim	0
+30338	Gameleira	Cláudia Santos Mota	0
+26538	Cidade Jardim	Cláudia Santos Mota	0
+97533	Pampulha	Reinaldo Pereira da Silva	0
+23255	UFU	Marcos Andrade	0
+61980	Central	Marcelo Leite Maciel	0
+57745	Cidade Jardim	Maria Raquel Teixeira de Castro	0
+28312	Pampulha	Marcos Cláudio	0
+42058	Gameleira	Geraldo Oliveira	0
+68195	Cidade Jardim	Thiago Andrade Fiuza	0
+10328	Gameleira	Josenaldo Teixeira Soares	0
+55878	Pampulha	Thiago Leôncio Guimarães	0
+69871	Cidade Jardim	Norton Saint Clair Silva	0
+7383	Pampulha	Rafael Mesquita Gondim	0
+97105	Cidade Jardim	Gustavo Baer Albuquerque 	0
+48067	Central	Gilmar Negreiros Carvalho	0
+63748	Gameleira	Marcos Andrade	0
+45543	Gameleira	Elvis Fernando Da Silva	0
+36593	UFU	Pedro Alvares Sousa	0
+89466	Cidade Jardim	Frederico de Oliveira Guimarães	0
+30251	Glória	Thiago Leôncio Guimarães	0
+20195	Cidade Jardim	Norton Saint Clair Silva	0
+39397	Pampulha	Josenaldo Teixeira Soares	0
+33418	Cidade Jardim	Marcos Andrade	0
+16910	Glória	Adilson de Oliveira	0
+24666	Central	Everardo Monfort Leitão	0
+15794	Gameleira	Carolina Soares Souza	0
+22201	Central	Joaquim Carlos Reis	0
+87865	Gameleira	Maria das Dores	0
+1767	Gameleira	Manuel Oliveira	0
+61521	Glória	Adilson de Oliveira	0
+51156	UFU	Marta Avelar Santos	0
+24381	Glória	Marcos Andrade	0
+8275	Glória	Marco Aurélio Santos	0
+42436	Central	Andrade de Freitas	0
+33977	Pampulha	Gilmar Negreiros Carvalho	0
+77129	UFU	Eurides Alves da Silva	0
+15287	UFU	Marta Avelar Santos	0
+82296	Glória	Marta Avelar Santos	0
+54505	Pampulha	Bruno Miranda Pacheco de Castro	0
+82186	Central	Manuel Oliveira	0
+94898	Central	João Boiadeiro	0
+46539	Central	Alexandre Márcio de Souza	0
+52140	Pampulha	Lorena Albuquerque Gonçalves Galdin	0
+24067	Gameleira	Alexandre Márcio de Souza	0
+70612	Pampulha	Rafael Mesquita Gondim	0
+42593	Gameleira	André Cabral da Silva	0
+409	Gameleira	Marcos Andrade	0
+58818	Gameleira	Fábio Couto Amorim	0
+\.
+
+
+--
+-- Data for Name: deposito; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY deposito (numero_deposito, numero_conta, nome_agencia, nome_cliente, data_deposito, saldo_deposito) FROM stdin;
+8103662	39864	Gameleira	Bruno Tadeu Pita	2013-03-12	1788.61999999999989
+9476486	57745	Cidade Jardim	Maria Raquel Teixeira de Castro	2011-09-25	1981.91000000000008
+794035	44482	Pampulha	Clayton Pereira Bonfim	2011-09-28	3352.42999999999984
+4478488	34787	UFU	Joaquim Carlos Reis	2011-01-14	263.610000000000014
+6494722	97105	Cidade Jardim	Gustavo Baer Albuquerque 	2011-12-19	2238.94000000000005
+1406196	409	Gameleira	Marcos Andrade	2010-03-10	3611.92000000000007
+1397395	39864	Gameleira	Bruno Tadeu Pita	2012-02-18	2257.92000000000007
+1866149	89466	Cidade Jardim	Frederico de Oliveira Guimarães	2011-10-13	209.52000000000001
+5209574	45543	Gameleira	Elvis Fernando Da Silva	2010-10-13	3869.17000000000007
+4278531	45543	Gameleira	Elvis Fernando Da Silva	2012-05-22	2904.13999999999987
+7389388	15794	Gameleira	Carolina Soares Souza	2011-04-29	1909.70000000000005
+3304777	34787	UFU	Joaquim Carlos Reis	2010-01-20	3874.51999999999998
+2782681	42058	Gameleira	Geraldo Oliveira	2012-08-24	1938.98000000000002
+8597395	24381	Glória	Marcos Andrade	2011-05-14	1951.36999999999989
+3256931	34526	Central	Marcos Andrade	2010-11-12	2690.13999999999987
+6101950	10328	Gameleira	Josenaldo Teixeira Soares	2012-06-29	3090.26999999999998
+1154104	8047	Glória	Eurides Alves da Silva	2011-10-18	3898.59000000000015
+8086613	24381	Glória	Marcos Andrade	2011-10-20	2029.25999999999999
+4293888	69871	Cidade Jardim	Norton Saint Clair Silva	2011-08-07	303.350000000000023
+7708044	85029	UFU	Marcos Andrade	2011-02-26	2292.55000000000018
+3731980	12646	Pampulha	Joaquim Carlos Reis	2012-02-06	3006.42999999999984
+9215407	33418	Cidade Jardim	Marcos Andrade	2013-06-09	3390.38000000000011
+6661356	87865	Gameleira	Maria das Dores	2011-05-05	3082.51000000000022
+1601511	39511	Glória	Joaquim Carlos Reis	2011-04-10	1168.63000000000011
+9297249	69871	Cidade Jardim	Norton Saint Clair Silva	2011-04-13	152.370000000000005
+7048435	70719	Glória	Gilmar Negreiros Carvalho	2012-06-10	531.799999999999955
+3975910	21707	Gameleira	Bruno Tadeu Pita	2012-04-01	907.57000000000005
+4669969	32068	Gameleira	Germano Luiz de Paula	2013-01-09	1962.98000000000002
+5800435	44482	Pampulha	Clayton Pereira Bonfim	2013-03-23	3295.34000000000015
+8298118	44482	Pampulha	Clayton Pereira Bonfim	2012-11-21	689.200000000000045
+1106244	54505	Pampulha	Bruno Miranda Pacheco de Castro	2012-04-16	3404.26000000000022
+1793838	30251	Glória	Thiago Leôncio Guimarães	2010-11-09	1642.03999999999996
+7588894	50073	Cidade Jardim	André Cabral da Silva	2011-10-05	1554.08999999999992
+4341967	24067	Gameleira	Alexandre Márcio de Souza	2013-11-06	1308.13000000000011
+6732723	69118	Central	João Boiadeiro	2011-04-26	955.419999999999959
+1306264	21707	Gameleira	Bruno Tadeu Pita	2010-03-11	2702.67999999999984
+4523727	97533	Pampulha	Reinaldo Pereira da Silva	2013-10-08	101.5
+6866263	68727	Gameleira	Jefferson Oliveira	2011-09-21	577.509999999999991
+9563924	20195	Cidade Jardim	Norton Saint Clair Silva	2010-02-15	2887.40000000000009
+8037181	17477	Glória	Gustavo Baer Albuquerque 	2012-04-12	2568.07000000000016
+8275419	21707	Gameleira	Bruno Tadeu Pita	2012-04-13	3452.38999999999987
+4518762	50906	Central	Rafael Mesquita Gondim	2012-03-06	296.720000000000027
+3739449	85029	UFU	Marcos Andrade	2011-08-20	3834.88000000000011
+5120490	72069	Central	Andrade de Freitas	2011-05-14	2114.80000000000018
+2295243	30251	Glória	Thiago Leôncio Guimarães	2010-02-11	2053.71000000000004
+4413261	93125	Gameleira	André Cabral da Silva	2011-07-19	1752.23000000000002
+9330489	1767	Gameleira	Manuel Oliveira	2012-06-19	1557.02999999999997
+8814126	51156	UFU	Marta Avelar Santos	2011-05-27	1438.16000000000008
+9554908	409	Gameleira	Marcos Andrade	2011-08-12	3951.53999999999996
+7702397	51643	Glória	Felippe Peres Bichara Júnior	2010-07-02	2956.05000000000018
+1803380	55878	Pampulha	Thiago Leôncio Guimarães	2012-02-28	2032.13000000000011
+9742580	68195	Cidade Jardim	Thiago Andrade Fiuza	2012-02-05	3135.51999999999998
+1731385	79535	Cidade Jardim	Thiago Andrade Fiuza	2012-12-25	661.169999999999959
+1648082	55207	Cidade Jardim	Marta Avelar Santos	2013-04-07	2872.92999999999984
+777738	15287	UFU	Marta Avelar Santos	2012-05-08	2208.76000000000022
+7592312	61521	Glória	Adilson de Oliveira	2011-03-23	1477.45000000000005
+1083746	68727	Gameleira	Jefferson Oliveira	2012-12-19	2141.23000000000002
+433382	50073	Cidade Jardim	André Cabral da Silva	2011-08-04	1235.02999999999997
+2830166	42593	Gameleira	André Cabral da Silva	2010-10-07	3036.67000000000007
+9244612	44482	Pampulha	Clayton Pereira Bonfim	2012-11-21	310.860000000000014
+7959489	82296	Glória	Marta Avelar Santos	2011-03-14	1821.67000000000007
+6082950	13542	Gameleira	Eurides Alves da Silva	2013-11-21	1271.31999999999994
+9376311	17477	Glória	Gustavo Baer Albuquerque 	2012-03-23	1746.77999999999997
+9020254	77069	Gameleira	Bruno Miranda Pacheco de Castro	2012-06-04	945.230000000000018
+1299116	4552	Pampulha	Marta Avelar Santos	2010-04-21	2816.32000000000016
+8273976	4552	Pampulha	Marta Avelar Santos	2012-07-10	2886.75
+9120104	85029	UFU	Marcos Andrade	2011-05-04	1484.58999999999992
+4576880	15794	Gameleira	Carolina Soares Souza	2012-08-19	2401.17999999999984
+6593983	52140	Pampulha	Lorena Albuquerque Gonçalves Galdin	2013-02-02	2735.07000000000016
+6213989	12646	Pampulha	Joaquim Carlos Reis	2011-09-19	3094.2199999999998
+6755815	22201	Central	Joaquim Carlos Reis	2012-09-17	3376.73999999999978
+9740968	44482	Pampulha	Clayton Pereira Bonfim	2013-06-06	191.370000000000005
+4209809	63748	Gameleira	Marcos Andrade	2013-05-02	537.82000000000005
+464643	39511	Glória	Joaquim Carlos Reis	2011-11-28	2148.80000000000018
+9948887	62195	Pampulha	Reinaldo Pereira da Silva	2012-06-14	475.480000000000018
+4812648	13542	Gameleira	Eurides Alves da Silva	2012-11-22	1717.58999999999992
+1864272	55878	Pampulha	Thiago Leôncio Guimarães	2012-04-03	3159.88999999999987
+7183662	85029	UFU	Marcos Andrade	2012-03-26	1069.05999999999995
+3801774	52140	Pampulha	Lorena Albuquerque Gonçalves Galdin	2010-04-09	2450.34999999999991
+253546	50073	Cidade Jardim	André Cabral da Silva	2012-01-11	2015.79999999999995
+6700028	28312	Pampulha	Marcos Cláudio	2011-10-06	1609.15000000000009
+9208610	94898	Central	João Boiadeiro	2013-12-22	969.860000000000014
+643303	68195	Cidade Jardim	Thiago Andrade Fiuza	2011-08-16	440.350000000000023
+5394845	24666	Central	Everardo Monfort Leitão	2013-01-25	2772.44000000000005
+4830845	4552	Pampulha	Marta Avelar Santos	2011-05-03	3821.61999999999989
+2226682	95617	Central	Thiago Leôncio Guimarães	2011-04-14	634.830000000000041
+3735487	94898	Central	João Boiadeiro	2011-09-21	2306.42999999999984
+9713482	4552	Pampulha	Marta Avelar Santos	2011-02-28	3825.84000000000015
+1627318	97533	Pampulha	Reinaldo Pereira da Silva	2010-11-22	3018.82000000000016
+9567973	44482	Pampulha	Clayton Pereira Bonfim	2012-04-08	1336.91000000000008
+8587643	62195	Pampulha	Reinaldo Pereira da Silva	2011-10-08	60.490000000000002
+3788429	26538	Cidade Jardim	Cláudia Santos Mota	2011-04-27	1329.13000000000011
+8524986	55878	Pampulha	Thiago Leôncio Guimarães	2012-02-06	945.639999999999986
+4999894	1767	Gameleira	Manuel Oliveira	2011-04-27	639.039999999999964
+7363673	54194	UFU	Bruno Miranda Pacheco de Castro	2012-09-11	2316.61000000000013
+5356113	13542	Gameleira	Eurides Alves da Silva	2013-07-06	1194.15000000000009
+532434	50073	Cidade Jardim	André Cabral da Silva	2012-04-20	1503.40000000000009
+7100770	28312	Pampulha	Marcos Cláudio	2010-06-23	2292.26000000000022
+6832953	24381	Glória	Marcos Andrade	2011-11-14	482.870000000000005
+1556769	99737	Cidade Jardim	Pedro Alvares Sousa	2012-10-27	1205.1099999999999
+8581915	30338	Gameleira	Cláudia Santos Mota	2011-07-08	3517.13000000000011
+6617840	77129	UFU	Eurides Alves da Silva	2011-08-04	3062.46000000000004
+5166522	66119	Pampulha	Everardo Monfort Leitão	2013-03-28	1848.1400000000001
+5433874	430	Central	Thiago Leôncio Guimarães	2011-07-06	1899.55999999999995
+5784301	13542	Gameleira	Eurides Alves da Silva	2013-12-04	3513.90000000000009
+9554007	48067	Central	Gilmar Negreiros Carvalho	2013-11-16	792.620000000000005
+3188721	82296	Glória	Marta Avelar Santos	2011-09-03	2826.84000000000015
+79873	23255	UFU	Marcos Andrade	2010-04-22	2089.38999999999987
+4016297	55207	Cidade Jardim	Marta Avelar Santos	2011-08-14	3034.86000000000013
+5243297	94898	Central	João Boiadeiro	2011-11-19	2553.80999999999995
+1004867	55207	Cidade Jardim	Marta Avelar Santos	2011-03-10	323.589999999999975
+5557894	24067	Gameleira	Alexandre Márcio de Souza	2012-09-06	2898.42999999999984
+6030817	57745	Cidade Jardim	Maria Raquel Teixeira de Castro	2011-04-09	769.700000000000045
+3905802	8275	Glória	Marco Aurélio Santos	2012-11-04	101.590000000000003
+7321075	26538	Cidade Jardim	Cláudia Santos Mota	2011-06-28	3405.80000000000018
+3737989	57745	Cidade Jardim	Maria Raquel Teixeira de Castro	2012-05-25	202.550000000000011
+8093528	8047	Glória	Eurides Alves da Silva	2013-08-25	1961.61999999999989
+1288567	33977	Pampulha	Gilmar Negreiros Carvalho	2010-05-16	572.769999999999982
+2240911	50906	Central	Rafael Mesquita Gondim	2010-11-10	923.350000000000023
+9554441	79535	Cidade Jardim	Thiago Andrade Fiuza	2013-07-08	1745.30999999999995
+6287536	30273	Glória	Jefferson Oliveira	2011-05-15	799.259999999999991
+2252116	30338	Gameleira	Cláudia Santos Mota	2011-12-27	1256.75
+1656379	51156	UFU	Marta Avelar Santos	2012-04-26	3651.15000000000009
+9634263	16910	Glória	Adilson de Oliveira	2010-05-23	1214.75
+7940935	77563	Glória	Bruno Tadeu Pita	2012-10-24	614.830000000000041
+2969010	51156	UFU	Marta Avelar Santos	2011-07-20	1924.50999999999999
+7119637	12646	Pampulha	Joaquim Carlos Reis	2013-08-26	102.049999999999997
+4618401	3682	UFU	Maria Lúcia Alves	2011-04-11	859.889999999999986
+4147882	3682	UFU	Maria Lúcia Alves	2011-05-08	1371.76999999999998
+6571289	61521	Glória	Adilson de Oliveira	2011-06-20	3354.86000000000013
+7515017	58818	Gameleira	Fábio Couto Amorim	2013-12-21	1178.93000000000006
+5984213	77069	Gameleira	Bruno Miranda Pacheco de Castro	2011-08-19	2708.2800000000002
+8307776	7383	Pampulha	Rafael Mesquita Gondim	2012-05-19	2376.67999999999984
+752956	63748	Gameleira	Marcos Andrade	2013-08-16	1871.03999999999996
+4932704	95617	Central	Thiago Leôncio Guimarães	2012-09-05	3798.17999999999984
+1645169	4552	Pampulha	Marta Avelar Santos	2010-07-11	2722.40999999999985
+235434	32068	Gameleira	Germano Luiz de Paula	2013-08-14	622.529999999999973
+9943460	409	Gameleira	Marcos Andrade	2010-05-02	3266.5
+1113572	28312	Pampulha	Marcos Cláudio	2012-05-06	3462.57000000000016
+5427126	8275	Glória	Marco Aurélio Santos	2012-06-05	3793.92999999999984
+5426525	42436	Central	Andrade de Freitas	2012-02-01	1671.02999999999997
+8855175	48067	Central	Gilmar Negreiros Carvalho	2010-10-24	599.360000000000014
+993837	36593	UFU	Pedro Alvares Sousa	2011-11-14	3439.5
+5404763	97533	Pampulha	Reinaldo Pereira da Silva	2010-03-26	1518.41000000000008
+5352352	17477	Glória	Gustavo Baer Albuquerque 	2012-11-23	250.039999999999992
+8791349	42436	Central	Andrade de Freitas	2011-09-29	2992.5300000000002
+6137747	76313	UFU	Bruno Miranda Pacheco de Castro	2012-05-12	2944.82000000000016
+6846882	70612	Pampulha	Rafael Mesquita Gondim	2012-11-29	3210.26000000000022
+\.
+
+
+--
+-- Data for Name: emprestimo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY emprestimo (numero_emprestimo, nome_cliente, numero_conta, nome_agencia, valor_emprestimo, juros_emprestimo, data_emprestimo) FROM stdin;
+316	Thiago Leôncio Guimarães	75439	UFU	1548.90000000000009	2	2011-8-21
+318	André Cabral da Silva	50073	Cidade Jardim	824.580000000000041	11	2012-5-10
+215	Germano Luiz de Paula	8072	Gameleira	707.990000000000009	11	2010-2-19
+552	Marcos Andrade	63748	Gameleira	1898.46000000000004	13	2011-3-25
+266	Thiago Leôncio Guimarães	7201	UFU	951.159999999999968	5	2011-7-6
+222	Thiago Leôncio Guimarães	30251	Glória	764.289999999999964	14	2011-3-9
+128	Rafael Mesquita Gondim	7383	Pampulha	218.080000000000013	10	2011-8-23
+749	Bruno Miranda Pacheco de Castro	77069	Gameleira	761.440000000000055	3	2013-11-22
+871	Frederico de Oliveira Guimarães	89466	Cidade Jardim	1992.46000000000004	19	2011-3-25
+45	Marcos Andrade	63748	Gameleira	117.150000000000006	11	2010-7-21
+610	Thiago Andrade Fiuza	24035	Pampulha	168.210000000000008	8	2012-6-23
+639	Maria Raquel Teixeira de Castro	57745	Cidade Jardim	194.289999999999992	12	2012-10-8
+701	Marcos Andrade	23255	UFU	724.019999999999982	19	2011-2-12
+138	Bruno Tadeu Pita	77563	Glória	1750.84999999999991	15	2011-4-17
+315	Bruno Miranda Pacheco de Castro	76313	UFU	684.120000000000005	9	2012-8-7
+908	Andrade de Freitas	42436	Central	1741.45000000000005	9	2010-6-5
+87	Gilmar Negreiros Carvalho	33977	Pampulha	410.100000000000023	5	2011-8-4
+992	Marta Avelar Santos	4552	Pampulha	330.509999999999991	7	2012-6-11
+18	Geraldo Oliveira	2370	Central	177.039999999999992	20	2011-3-27
+287	Bruno Miranda Pacheco de Castro	54505	Pampulha	1469.76999999999998	10	2012-1-28
+207	Joaquim Carlos Reis	34787	UFU	1636.54999999999995	19	2010-1-26
+60	João Boiadeiro	94898	Central	1809.58999999999992	3	2011-9-9
+454	André Cabral da Silva	93125	Gameleira	771.980000000000018	20	2012-11-16
+341	Manuel Oliveira	1767	Gameleira	698.419999999999959	15	2011-10-1
+43	Bruno Tadeu Pita	21707	Gameleira	1955.46000000000004	3	2010-5-23
+168	Rafael Mesquita Gondim	7383	Pampulha	69.1400000000000006	1	2012-9-13
+518	Everardo Monfort Leitão	4190	Central	912.529999999999973	7	2011-3-15
+742	Rafael Mesquita Gondim	50906	Central	321.069999999999993	4	2010-2-21
+534	Bruno Miranda Pacheco de Castro	54194	UFU	1482.15000000000009	10	2010-9-21
+828	Everardo Monfort Leitão	4190	Central	934.909999999999968	17	2011-7-6
+808	Marcos Andrade	63748	Gameleira	906.950000000000045	15	2010-3-16
+712	Andrade de Freitas	42436	Central	179.650000000000006	18	2011-12-20
+17	João Boiadeiro	69118	Central	1848.57999999999993	6	2013-7-22
+632	Everardo Monfort Leitão	66119	Pampulha	821.720000000000027	4	2011-6-2
+822	Marcos Andrade	34526	Central	538.889999999999986	5	2011-6-2
+951	Marcos Ferreira Dinardi	52607	Gameleira	530.32000000000005	6	2013-9-7
+693	Marcos Andrade	24381	Glória	1173.63000000000011	4	2011-4-9
+445	Marta Avelar Santos	4552	Pampulha	1634.69000000000005	2	2011-9-15
+279	Marcos Cláudio	28312	Pampulha	965.990000000000009	11	2011-8-17
+673	Geraldo Oliveira	2370	Central	1932.70000000000005	13	2012-10-24
+852	Felippe Peres Bichara Júnior	51643	Glória	1675.45000000000005	16	2012-11-4
+307	Andrade de Freitas	42436	Central	1226.52999999999997	20	2012-9-6
+652	Alexandre Márcio de Souza	24067	Gameleira	515.059999999999945	7	2013-3-7
+925	Everardo Monfort Leitão	24666	Central	1701.50999999999999	12	2012-4-6
+366	Josenaldo Teixeira Soares	10328	Gameleira	1380.92000000000007	4	2011-9-23
+989	Marta Avelar Santos	82296	Glória	727.75	15	2010-3-5
+559	Marta Avelar Santos	4552	Pampulha	861.07000000000005	3	2012-7-3
+314	Rafael Mesquita Gondim	68348	Cidade Jardim	1999.02999999999997	17	2012-5-20
+725	Marcos Andrade	34526	Central	948.909999999999968	2	2013-7-1
+\.
+
+
+--
+-- Name: seq_deposito; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('seq_deposito', 8795330, false);
+
+
+--
+-- Name: pk_agencia; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY agencia
+    ADD CONSTRAINT pk_agencia PRIMARY KEY (nome_agencia);
+
+
+--
+-- Name: pk_cliente; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cliente
+    ADD CONSTRAINT pk_cliente PRIMARY KEY (nome_cliente);
+
+
+--
+-- Name: pk_conta; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY conta
+    ADD CONSTRAINT pk_conta PRIMARY KEY (numero_conta, nome_agencia, nome_cliente);
+
+
+--
+-- Name: pk_deposito; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deposito
+    ADD CONSTRAINT pk_deposito PRIMARY KEY (numero_deposito);
+
+
+--
+-- Name: pk_emprestimo; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY emprestimo
+    ADD CONSTRAINT pk_emprestimo PRIMARY KEY (numero_emprestimo);
+
+
+--
+-- Name: fki_agencia; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX fki_agencia ON conta USING btree (nome_agencia);
+
+
+--
+-- Name: fki_cliente; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX fki_cliente ON conta USING btree (nome_cliente);
+
+
+--
+-- Name: fki_deposito; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX fki_deposito ON deposito USING btree (numero_conta, nome_agencia, nome_cliente);
+
+
+--
+-- Name: fki_emprestimo; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX fki_emprestimo ON emprestimo USING btree (numero_conta, nome_agencia, nome_cliente);
+
+
+--
+-- Name: trigger_atualiza_ativos_f1; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trigger_atualiza_ativos_f1 AFTER UPDATE ON conta FOR EACH STATEMENT EXECUTE PROCEDURE atualizar_ativos_f1();
+
+
+--
+-- Name: trigger_atualiza_ativos_f2; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trigger_atualiza_ativos_f2 AFTER UPDATE ON conta FOR EACH STATEMENT EXECUTE PROCEDURE atualizar_ativos_f2('CONSTANTE');
+
+
+--
+-- Name: fk_agencia; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY conta
+    ADD CONSTRAINT fk_agencia FOREIGN KEY (nome_agencia) REFERENCES agencia(nome_agencia) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fk_cliente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY conta
+    ADD CONSTRAINT fk_cliente FOREIGN KEY (nome_cliente) REFERENCES cliente(nome_cliente) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fk_deposito; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY deposito
+    ADD CONSTRAINT fk_deposito FOREIGN KEY (numero_conta, nome_agencia, nome_cliente) REFERENCES conta(numero_conta, nome_agencia, nome_cliente) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fk_emprestimo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY emprestimo
+    ADD CONSTRAINT fk_emprestimo FOREIGN KEY (numero_conta, nome_agencia, nome_cliente) REFERENCES conta(numero_conta, nome_agencia, nome_cliente) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
