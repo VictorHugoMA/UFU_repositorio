@@ -21,9 +21,10 @@ def ler_arquivo(arquivo):
         reader = csv.reader(f, delimiter=';')
         linha = 0
         tweet =[]
+        urls = ["translate.google.com","translate.google.com.ar","translate.google.com.br"]
+        user = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
         contador = 1
-        translator= Translator()
-        translator.raise_Exception = True
+        translator= Translator(service_urls = urls, user_agent=user, raise_exception=False, timeout=None)
         for coluna in reader:
             if linha == 0:
                 linha += 1
